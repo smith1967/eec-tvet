@@ -1,201 +1,328 @@
-  <!-- Left side column. contains the logo and sidebar -->
-  <aside class="main-sidebar">
+<!-- Menu Sidebar -->
+<?php
+//var_dump($_SESSION);
+//die();
+$menu = Array(
+    'home' => array(
+        'title' => 'หน้าหลัก',
+        'url' => site_url(),
+        'class' => 'fa fa-home',
+        'cond' => true,
+//        'subitems' => array(
+//            'index' => array(
+////                'title' => 'หน้าหลัก',
+////                'url' => 'app/home/index',
+////                'cond' => FALSE,
+//            ),
+////            'test' => array(
+////                'title' => 'ทดสอบ',
+////                'url' => 'app/home/test',
+////                'cond' => true,
+////            ),
+//        ),
+    ),
+    'report' => array(
+        'title' => 'สรุปรายงาน',
+        'url' => "../dve/?p=ajax/login/token/login/id/".$_SESSION['user']['token'],
+        'class' => 'fa fa-book',
+        'cond' => true,
+//        'subitems' => array(
+//            'index' => array(
+////                'title' => 'หน้าหลัก',
+////                'url' => 'app/home/index',
+////                'cond' => FALSE,
+//            ),
+////            'test' => array(
+////                'title' => 'ทดสอบ',
+////                'url' => 'app/home/test',
+////                'cond' => true,
+////            ),
+//        ),
+    ),    
+    'school' => array(
+        'title' => 'สถานศึกษา',
+        'url' => '#',
+        'class' => 'fa fa-graduation-cap',
+        'cond' => is_school_staff(),
+        'subitems' => array(
+//            'index' => array(
+//                'title' => 'หน้าหลัก',
+//                'cond' => true,
+//                'url' => 'app/school/index',
+//            ),
+            'list' => array(
+                'title' => 'ข้อมูล',
+                'url' => 'app/school/list-data',
+                'cond' => is_school_staff(),
+            ),
+            'edit' => array(
+                'title' => 'แก้ไขข้อมูล',
+                'url' => 'app/school/edit-data',
+                'cond' => is_school_staff() ,
+            ),
+        ),
+    ),
+    'student' => array(
+        'title' => 'ผู้เรียน',
+        'url' => '#',
+        'class' => 'fa fa-graduation-cap',
+        'cond' => is_school_staff() || is_admin(),
+        'subitems' => array(
+            'file-manager' => array(
+                'title' => 'จัดการไฟล์',
+                'url' => 'app/student/file-manager',
+                'cond' => is_school_staff() || is_admin(),
+            ),
+            'check-data' => array(
+                'title' => 'ตรวจสอบข้อมูล',
+                'url' => 'app/student/check-data',
+                'cond' => is_school_staff() || is_admin(),
+            ),
+            'list' => array(
+                'title' => 'รายชื่อ',
+                'url' => 'app/student/list',
+                'cond' => is_school_staff() ,
+            ),
+            'list-admin' => array(
+                'title' => 'รายชื่อ',
+                'url' => 'app/student/admin_list',
+                'cond' => is_admin(),
+            ),            
+            'list-nosent' => array(
+                'title' => 'สถานศึกษาที่ไม่ส่งข้อมูล',
+                'url' => 'app/student/list-nosent',
+                'cond' => is_dvt_staff() || is_admin() || is_dvt_admin(),
+            ),
+        ),
+    ),
+    'business' => array(
+        'title' => 'สถานประกอบการ',
+        'url' => '#',
+        'class' => 'fa fa-building-o',
+        'cond' => is_auth(),
+        'subitems' => array(
+            'list' => array(
+                'title' => 'รายชื่อ',
+                'cond' => is_auth(),
+                'url' => 'app/business/list',
+            ),
+            'insert' => array(
+                'title' => 'เพิ่มข้อมูล',
+                'url' => 'app/business/insert',
+                'cond' => is_auth(),
+            ),
+            'edit' => array(
+                'title' => 'แก้ไขข้อมูล',
+                'url' => 'app/business/edit',
+                'cond' => is_auth(),
+            ),
+        ),
+    ),
+    'trainer' => array(
+        'title' => 'ครูฝึก',
+        'url' => '#',
+        'class' => 'fa fa-building-o',
+        'cond' => is_auth(),
+        'subitems' => array(
+            'list' => array(
+                'title' => 'รายชื่อ',
+                'cond' => is_auth(),
+                'url' => 'app/trainer/list',
+            ),
+            'insert' => array(
+                'title' => 'เพิ่มข้อมูล',
+                'url' => 'app/trainer/insert',
+                'cond' => is_auth(),
+            ),
+            'edit' => array(
+                'title' => 'แก้ไขข้อมูล',
+                'url' => 'app/trainer/edit',
+                'cond' => is_auth(),
+            ),
+        ),
+    ),
+    'training' => array(
+        'title' => 'การฝึกอาชีพ',
+        'url' => '#',
+        'class' => 'fa fa-building-o',
+        'cond' => is_auth(),
+        'subitems' => array(
+            'list' => array(
+                'title' => 'รายการ',
+                'cond' => is_auth(),
+                'url' => 'app/training/list',
+            ),
+            'insert' => array(
+                'title' => 'เพิ่มข้อมูล',
+                'url' => 'app/training/insert',
+                'cond' => is_school_staff(),
+            ),
+            'insert-group' => array(
+                'title' => 'เพิ่มข้อมูลแบบกลุ่ม',
+                'url' => 'app/training/insert_group',
+                'cond' => is_school_staff(),
+            ),
+            
+            'edit' => array(
+                'title' => 'แก้ไขข้อมูล',
+                'url' => 'app/training/edit',
+                'cond' => is_auth(),
+            ),
+        ),
+    ),
+    'mou' => array(
+        'title' => 'MOU',
+        'url' => '#',
+        'class' => 'fa fa-building-o',
+        'cond' => is_auth(),
+        'subitems' => array(
+            'list' => array(
+                'title' => 'รายชื่อ',
+                'cond' => is_auth(),
+                'url' => 'app/mou/list',
+            ),
+            'insert' => array(
+                'title' => 'เพิ่มข้อมูล',
+                'url' => 'app/mou/insert',
+                'cond' => is_auth(),
+            ),
+            'edit' => array(
+                'title' => 'แก้ไขข้อมูล',
+                'url' => 'app/mou/edit',
+                'cond' => is_auth(),
+            ),
+        ),
+    ),
+//    'school_type' => array(
+//        'title' => 'ประเภทสถานศึกษา',
+//        'url' => '#',
+//        'class' => 'fa fa-graduation-cap',
+//        'cond' => is_admin(),
+//        'subitems' => array(
+//            'index' => array(
+//                'title' => 'จัดการข้อมูล',
+//                'cond' => true,
+//                'url' => 'app/school_type/index',
+//            ),
+//        ),
+//    ),
+    'pages' => array(
+        'title' => 'ข่าวสาร',
+        'url' => '#',
+        'class' => 'fa fa-book',
+        'cond' => is_admin(),
+        'subitems' => array(
+            'list' => array(
+                'title' => 'จัดการข่าวสาร',
+                'cond' => true,
+                'url' => 'app/pages/list',
+            ),
+            'insert' => array(
+                'title' => 'เพิ่มข่าวสาร',
+                'cond' => true,
+                'url' => 'app/pages/insert',
+            ),
+        ),
+    ),
+    'admin' => array(
+        'title' => 'ผู้ดูแลระบบ',
+        'url' => '#',
+        'class' => 'fa fa-users',
+        'cond' => is_admin(),
+        'subitems' => array(
+            'list-user' => array(
+                'title' => 'รายชื่อ',
+                'cond' => is_admin(),
+                'url' => 'app/admin/list-user',
+            ),
+//            'insert' => array(
+//                'title' => 'เพิ่มข้อมูล',
+//                'url' => 'app/admin/insert-user',
+//                'cond' => is_auth(),
+//            ),
+            'edit-user' => array(
+                'title' => 'แก้ไขข้อมูลผู้ใช้',
+                'url' => 'app/admin/edit-user',
+                'cond' => is_admin(),
+            ),
+            'edit-school-type' => array(
+                'title' => 'แก้ไขข้อมูลประเภทสถานศึกษา',
+                'cond' => true,
+                'url' => 'app/school_type/edit',
+            ),
+        ),
+    ),
+    'user' => array(
+        'title' => 'ผู้ใช้งาน',
+        'url' => '#',
+        'class' => 'fa fa-user',
+        'cond' => true,
+        'subitems' => array(
+            'signup' => array(
+                'title' => 'สมัครสมาชิก',
+                'url' => 'app/user/signup',
+                'cond' => !is_auth(),
+            ),
+            'edit' => array(
+                'title' => 'แก้ไขข้อมูล',
+                'url' => 'app/user/edit',
+                'cond' => is_auth(),
+            ),
+            'login' => array(
+                'title' => 'เข้าระบบ',
+                'url' => 'app/user/login',
+                'cond' => !is_auth(),
+            ),
+            'logout' => array(
+                'title' => 'ออกระบบ',
+                'url' => 'app/user/logout',
+                'cond' => is_auth(),
+            ),
+        ),
+    ),
+);
+?>
+<!-- Left side column. contains the logo and sidebar -->
+<aside class="main-sidebar" data-widget="tree">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
-      <!-- Sidebar user panel -->
-      <div class="user-panel">
-        <div class="pull-left image">
-          <img src="asset/AdminLTE/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+        <!-- Sidebar user panel -->
+        <div class="user-panel">
+            <div class="pull-left image">
+                <?php if(is_auth()) : ?>
+              <img src="upload/user-images/noImage.png" class="user-image" alt="User Image">
+                <?php else: ?>
+              <img src="upload/user-images/noImage1.png" class="user-image" alt="User Image">              
+              <?php endif; ?>
+            </div>
+            <div class="pull-left info">
+                <p><?php echo $_SESSION['user']['fname']; ?></p>
+                <?php if (is_auth()) : ?>
+                    <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                <?php else: ?>
+                    <a href="#"><i class="fa fa-circle text-orange"></i> Offline</a>          
+                <?php endif; ?>
+            </div>
         </div>
-        <div class="pull-left info">
-          <p>Alexander Pierce</p>
-          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-        </div>
-      </div>
-      <!-- search form -->
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-          <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat">
-                  <i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
-      <!-- /.search form -->
-      <!-- sidebar menu: : style can be found in sidebar.less -->
-      <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">MAIN NAVIGATION</li>
-        <li class="active treeview menu-open">
-          <a href="#">
-            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-            <li class="active"><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
-          </ul>
-        </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-files-o"></i>
-            <span>Layout Options</span>
-            <span class="pull-right-container">
-              <span class="label label-primary pull-right">4</span>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Top Navigation</a></li>
-            <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
-            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
-            <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
-          </ul>
-        </li>
-        <li>
-          <a href="pages/widgets.html">
-            <i class="fa fa-th"></i> <span>Widgets</span>
-            <span class="pull-right-container">
-              <small class="label pull-right bg-green">new</small>
-            </span>
-          </a>
-        </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-pie-chart"></i>
-            <span>Charts</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> ChartJS</a></li>
-            <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Morris</a></li>
-            <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li>
-            <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
-          </ul>
-        </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-laptop"></i>
-            <span>UI Elements</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="pages/UI/general.html"><i class="fa fa-circle-o"></i> General</a></li>
-            <li><a href="pages/UI/icons.html"><i class="fa fa-circle-o"></i> Icons</a></li>
-            <li><a href="pages/UI/buttons.html"><i class="fa fa-circle-o"></i> Buttons</a></li>
-            <li><a href="pages/UI/sliders.html"><i class="fa fa-circle-o"></i> Sliders</a></li>
-            <li><a href="pages/UI/timeline.html"><i class="fa fa-circle-o"></i> Timeline</a></li>
-            <li><a href="pages/UI/modals.html"><i class="fa fa-circle-o"></i> Modals</a></li>
-          </ul>
-        </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-edit"></i> <span>Forms</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="pages/forms/general.html"><i class="fa fa-circle-o"></i> General Elements</a></li>
-            <li><a href="pages/forms/advanced.html"><i class="fa fa-circle-o"></i> Advanced Elements</a></li>
-            <li><a href="pages/forms/editors.html"><i class="fa fa-circle-o"></i> Editors</a></li>
-          </ul>
-        </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-table"></i> <span>Tables</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="pages/tables/simple.html"><i class="fa fa-circle-o"></i> Simple tables</a></li>
-            <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> Data tables</a></li>
-          </ul>
-        </li>
-        <li>
-          <a href="pages/calendar.html">
-            <i class="fa fa-calendar"></i> <span>Calendar</span>
-            <span class="pull-right-container">
-              <small class="label pull-right bg-red">3</small>
-              <small class="label pull-right bg-blue">17</small>
-            </span>
-          </a>
-        </li>
-        <li>
-          <a href="pages/mailbox/mailbox.html">
-            <i class="fa fa-envelope"></i> <span>Mailbox</span>
-            <span class="pull-right-container">
-              <small class="label pull-right bg-yellow">12</small>
-              <small class="label pull-right bg-green">16</small>
-              <small class="label pull-right bg-red">5</small>
-            </span>
-          </a>
-        </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-folder"></i> <span>Examples</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="pages/examples/invoice.html"><i class="fa fa-circle-o"></i> Invoice</a></li>
-            <li><a href="pages/examples/profile.html"><i class="fa fa-circle-o"></i> Profile</a></li>
-            <li><a href="pages/examples/login.html"><i class="fa fa-circle-o"></i> Login</a></li>
-            <li><a href="pages/examples/register.html"><i class="fa fa-circle-o"></i> Register</a></li>
-            <li><a href="pages/examples/lockscreen.html"><i class="fa fa-circle-o"></i> Lockscreen</a></li>
-            <li><a href="pages/examples/404.html"><i class="fa fa-circle-o"></i> 404 Error</a></li>
-            <li><a href="pages/examples/500.html"><i class="fa fa-circle-o"></i> 500 Error</a></li>
-            <li><a href="pages/examples/blank.html"><i class="fa fa-circle-o"></i> Blank Page</a></li>
-            <li><a href="pages/examples/pace.html"><i class="fa fa-circle-o"></i> Pace Page</a></li>
-          </ul>
-        </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-share"></i> <span>Multilevel</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
-            <li class="treeview">
-              <a href="#"><i class="fa fa-circle-o"></i> Level One
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
+        <!-- search form -->
+        <form action="#" method="get" class="sidebar-form">
+            <div class="input-group">
+                <input type="text" name="q" class="form-control" placeholder="Search...">
+                <span class="input-group-btn">
+                    <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                    </button>
                 </span>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-circle-o"></i> Level Two</a></li>
-                <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o"></i> Level Two
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
-          </ul>
-        </li>
-        <li><a href="https://adminlte.io/docs"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
-        <li class="header">LABELS</li>
-        <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
-        <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
-        <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
-      </ul>
+            </div>
+        </form>
+        <!-- /.search form -->
+        <!-- sidebar menu: : style can be found in sidebar.less -->
+        <?php
+        if(!isset($class))
+          $class = '';
+        echo gen_sidebar_menu($menu, $active, $subactive, $class);
+        ?>
     </section>
     <!-- /.sidebar -->
-  </aside>
+</aside>
+
+<!-- Content Wrapper. Contains page content -->
