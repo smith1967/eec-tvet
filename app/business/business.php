@@ -46,36 +46,49 @@ require_once('template/header.php')
                             <input type="text" class="form-control" id="business_name" placeholder="">
                         </div>
                         
+                        <div class="row">
+                            <div class="col-md-3">
                         <div class="form-group">
                             <label for="address">ที่อยู่ เลขที่</label>
                             <input type="text" class="form-control" id="address" placeholder="">
                         </div>
+                            </div>
+                        </div>    
+ 
+                        <div class="row">
+                            <div class="col-md-3">                        
+                                <div class="form-group">
+                                    <label for="province_id"">จังหวัด</label>
+                                        <select class="form-control select2" id="province_id" name="province_id">
+                                            <option id="province_id_list"> -- กรุณาเลือกจังหวัด -- </option>
+                                        </select>
+                                </div>
+                            </div>
+                        </div>         
                         
-                        <div class="form-group">
-                            <label for="province_id" class="col-md-1 control-label">จังหวัด</label>
+                        <div class="row">
                             <div class="col-md-3">
-                                <select class="form-control select2" id="province_id" name="province_id">
-                                    <option id="province_id_list"> -- กรุณาเลือกจังหวัด -- </option>
-                                </select>
+                                <div class="form-group">
+                                    <label for="aumphur_id">อำเภอ</label>
+
+                                    <select class="form-control select2" id="aumphur_id" name="aumphur_id">
+                                        <option id="amphur_id_list"> -- กรุณาเลือกอำเภอ -- </option>
+                                    </select>
+
+                                </div>                               
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="aumphur_id" class="col-md-1 control-label">อำเภอ</label>
-                            <div class="col-md-3">
-                                <select class="form-control select2" id="aumphur_id" name="aumphur_id">
-                                    <option id="amphur_id_list"> -- กรุณาเลือกอำเภอ -- </option>
-                                </select>
+
+                        <div class="row">
+                            <div class="col-md-3">                        
+                                <div class="form-group">
+                                    <label for="district_id" class="col-md-1 control-label">ตำบล</label>
+                                    <select class="form-control select2" id="district_id" name="district_id">
+                                        <option id="district_id_list"> -- กรุณาเลือกตำบล -- </option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="district_id" class="col-md-1 control-label">ตำบล</label>
-                            <div class="col-md-3">
-                                <select class="form-control select2" id="district_id" name="district_id">
-                                    <option id="district_id_list"> -- กรุณาเลือกตำบล -- </option>
-                                </select>
-                            </div>
-                        </div>
-                        
+                        </div>                        
                         <div class="form-group">
                             <label for="industrial_estate_id">นิคมอุตสาหกรรม </label>
                             <select class="form-control" name="industrial_estate_id">
@@ -154,14 +167,11 @@ require_once('template/header.php')
                 </form>
             </div>
             </div>    
-        
-        
-        
-               
-
               
           </div> <!-- /row -->
-
+    </section>   <!-- /.content -->
+  </div>  <!-- /.content-wrapper -->
+   <?php require_once 'template/footer.php'; ?>
 <script>
     $(function () {
         //เรียกใช้งาน Select2
@@ -275,9 +285,7 @@ require_once('template/header.php')
          
        
 
-    </section>   <!-- /.content -->
-  </div>  <!-- /.content-wrapper -->
-   <?php require_once 'template/footer.php'; ?>
+
   
   
   
