@@ -5,7 +5,7 @@
 $menu = Array(
     'home' => array(
         'title' => 'หน้าหลัก',
-        'url' => site_url(),
+        'url' => SITE_URL,
         'class' => 'fa fa-home',
         'cond' => true,
 //        'subitems' => array(
@@ -104,16 +104,16 @@ $menu = Array(
             'list' => array(
                 'title' => 'รายชื่อ',
                 'cond' => is_auth(),
-                'url' => 'app/business/list',
+                'url' => 'business/list',
             ),
             'insert' => array(
                 'title' => 'เพิ่มข้อมูล',
-                'url' => 'app/business/insert',
+                'url' => 'business/insert',
                 'cond' => is_auth(),
             ),
             'edit' => array(
                 'title' => 'แก้ไขข้อมูล',
-                'url' => 'app/business/edit',
+                'url' => 'business/edit',
                 'cond' => is_auth(),
             ),
         ),

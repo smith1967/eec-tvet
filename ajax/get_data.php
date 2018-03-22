@@ -39,7 +39,7 @@ if(isset($_GET['province_id'])){
         $province_id = $_GET['province_id'];
 
         //คำสั่ง SQL เลือก AMPHUR_ID และ  AMPHUR_NAME ที่มี PROVINCE_ID เท่ากับ $province_id
-        $sql = "SELECT AMPHUR_CODE,AMPHUR_NAME FROM amphur WHERE PROVINCE_CODE = ".pq($province_id)." ";
+        $sql = "SELECT DISTRICT_CODE,DISTRICT_NAME FROM DISTRICT WHERE PROVINCE_CODE = ".pq($province_id)." ";
 
         //ประมวณผลคำสั่ง SQL
         $result = $db->query($sql);
@@ -52,8 +52,8 @@ if(isset($_GET['province_id'])){
 
                         //เก็บข้อมูลที่ได้ไว้ในตัวแปร Array 
                         $json_result[] = [
-                                'id'=>$row['AMPHUR_CODE'],
-                                'name'=>$row['AMPHUR_NAME'],
+                                'id'=>$row['DISTRICT_CODE'],
+                                'name'=>$row['DISTRICT_NAME'],
                         ];
                 }
 
@@ -71,7 +71,7 @@ if(isset($_GET['amphur_id'])){
         $amphur_id = $_GET['amphur_id'];
 
         //คำสั่ง SQL เลือก DISTRICT_CODE และ  DISTRICT_NAME ที่มี AMPHUR_ID เท่ากับ $amphur_id
-        $sql = "SELECT DISTRICT_CODE,DISTRICT_NAME FROM district WHERE AMPHUR_CODE = ".pq($amphur_id)." ";
+        $sql = "SELECT SUBDISTRICT_CODE,SUBDISTRICT_NAME FROM subdistrict WHERE DISTRICT_CODE = ".pq($amphur_id)." ";
 
         //ประมวณผลคำสั่ง SQL
         $result = $db->query($sql);
@@ -84,8 +84,8 @@ if(isset($_GET['amphur_id'])){
 
                         //เก็บข้อมูลที่ได้ไว้ในตัวแปร Array 
                         $json_result[] = [
-                                'id' => $row['DISTRICT_CODE'],
-                                'name'=>$row['DISTRICT_NAME'],
+                                'id' => $row['SUBDISTRICT_CODE'],
+                                'name'=>$row['SUBDISTRICT_NAME'],
 
                         ];
                 }

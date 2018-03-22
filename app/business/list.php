@@ -1,8 +1,8 @@
 <?php
 if (!defined('BASE_PATH'))
 exit('No direct script access allowed');
-$active = 'home';
-$subactive = 'index';
+$active = 'business';
+$subactive = 'list';
 $title = 'หน้าหลัก';
 // จัดการข้อมูลกับด้าน logic
 
