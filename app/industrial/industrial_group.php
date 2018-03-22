@@ -42,6 +42,7 @@ require_once('template/header.php')
                     <small>เพิ่มข้อมูล</small> 
                 </div>
                 <!-- /.box-header -->
+                
                 <!-- form start -->
                 <form role="form">
                     <div class="box-body">
@@ -57,12 +58,50 @@ require_once('template/header.php')
                                 <option value="new">new s_curve</option>
                             </select>
                         </div>
-
+                    </div>
                     <div class="box-footer">
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
                 </form>
+                
+                <div class="box-body">
+              <table id="business_list" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>รหัส</th>
+                                    <th>ชื่อสถานประกอบการ</th>
+                                    <th>industrial_s_curve</th>
+                                    <th>ดำเนินการ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                //$data=getDataIndusGroup();
+                                $query = "SELECT * FROM `industrial_group`";
+                                $result = mysqli_query($db, $query);
+                                while($row= mysqli_fetch_array($result)):
+                                    ?>
+                                <tr>
+                                    <td><?php echo $row['industrial_gid']?></td>
+                                    <td><?php echo $row['industrial_gname']?></td>
+                                    <td><?php echo $row['industrial_s_curve']?></td>
+                                </tr>
+                                <?php    
+                                endwhile;
+                                ?>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>รหัส</th>
+                                    <th>ชื่อสถานประกอบการ</th>
+                                    <th>industrial_s_curve</th>
+                                    <th>ดำเนินการ</th>
+                                </tr>
+                            </tfoot>
+                        </table>
             </div>
+                
+                
             </div><!-- box box-primary -->    
         
         
@@ -87,4 +126,12 @@ require_once('template/header.php')
   <!-- /.content-wrapper -->
   
   <?php require_once 'template/footer.php'; ?>
+
+<?php
+function getDataIndusGroup(){
+     global $db;
+    $query = "SELECT * FROM `industrial_group`";
+    $result = mysqli_query($db, $query);
+    return mysqli_fetch_array($result);
+}
   
