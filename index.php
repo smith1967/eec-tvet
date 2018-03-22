@@ -5,6 +5,7 @@ $req = substr($_SERVER['REQUEST_URI'], strlen($_SERVER['SCRIPT_NAME'])+1);
 $param = explode('&', $req);
 // var_dump($req);
 //var_dump($req);
+//die();
 //var_dump(is_dvt_staff());
 
 $ctrl_act = array_shift($param);
