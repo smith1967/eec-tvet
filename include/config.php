@@ -57,7 +57,7 @@ define('OU_NAME', 'สำนักงานการอาชีวศึกษ�
 $host = 'localhost';
 $user = 'root';
 $password = 'admin$cstc';
-$database = 'dve2017';
+$database = 'eec_data';
 $charset = 'utf8';
 //GRANT ALL PRIVILEGES ON dve2017.* TO dvt@localhost IDENTIFIED BY 'dvt2017!';
 /*--- Database connect ---*/
