@@ -5,6 +5,21 @@ $active = 'home';
 $subactive = 'index';
 $title = 'หน้าหลัก';
 // จัดการข้อมูลกับด้าน logic
+if (isset($_POST['submit'])) {
+    $data = $_POST;    
+    var_dump($data);
+    die();
+    $valid = do_validate($data);  // check ความถูกต้องของข้อมูล
+    foreach ($_POST as $k => $v) {
+        $$k = $v;
+    }  //    var_dump($property);
+    if ($valid) {
+        do_insert();
+    }
+}
+if (isset($_GET['action']) && $_GET['action'] == 'delete') {
+    do_delete($_GET['business_id']);
+}
 
 ?>
 <?php
@@ -17,13 +32,13 @@ require_once('template/header.php')
     <!-- Content Header (Page header) ---------------------------------------------------------------->
     <section class="content-header">
       <h1>
-        General Form Elements
-        <small>Preview</small>
+        ข้อมูลสถานประกอบการ
+        <small>เพิ่ม</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Forms</a></li>
-        <li class="active">General Elements</li>
+        <li><a href="#"><i class="fa fa-dashboard"></i>สถานประกอบการ</a></li>
+        <!--<li><a href="#">Forms</a></li>-->
+        <li class="active">เพิ่มข้อมูล</li>
       </ol>
     </section>
 
@@ -39,19 +54,25 @@ require_once('template/header.php')
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
-                <form role="form">
+                <form role="form" method="post">
                     <div class="box-body">
-                        <div class="form-group">
-                            <label for="business_name">ชื่อสถานประกอบการ</label>
-                            <input type="text" class="form-control" id="business_name" placeholder="">
-                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="business_name">ชื่อสถานประกอบการ</label>
+                                    <input type="text" class="form-control" id="business_name" placeholder="">
+                                </div>
+                            </div>
+                        </div>   
+
                         
                         <div class="row">
                             <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="address">ที่อยู่ เลขที่</label>
-                            <input type="text" class="form-control" id="address" placeholder="">
-                        </div>
+                                <div class="form-group">
+                                    <label for="address">ที่อยู่ เลขที่</label>
+                                    <input type="text" class="form-control" id="address" placeholder="">
+                                </div>
                             </div>
                         </div>    
  
@@ -90,83 +111,118 @@ require_once('template/header.php')
                             </div>
                         </div>   
                         
-                        <div class="form-group">
-                            <label for="industrial_estate_id">นิคมอุตสาหกรรม </label>
-                            <select class="form-control" name="industrial_estate_id">
-                                <?php
+                        <div class="row">
+                            <div class="col-md-6">                        
+                                <div class="form-group">
+                                    <label for="industrial_estate_id">นิคมอุตสาหกรรม </label>
+                                    <select class="form-control" name="industrial_estate_id">
+                                        <?php
 //                                $def = isset($educational_id) ? $educational_id : '2';
 //                                $sql = "SELECT educational_id,educational_name FROM educational ORDER BY educational_id ASC";
 //                                echo gen_option($sql, $def)
-                                ?>
-                            </select>
-                        </div>
-                                             
-                        
-                        <div class="form-group">
-                            <label>กลุ่มอุตสาหกรรม</label>
-                            <select class="form-control" name="industrial_gid">
-                                <?php
-                                $def = isset($industrial_gid) ? $industrial_gid : '2';
-                                $sql = "SELECT industrial_gid,industrial_gname FROM industrial_group ORDER BY industrial_gid ASC";
-                                echo gen_option($sql, $def)
-                                ?>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>จำนวนพนักงาน</label>
-                            <select class="form-control" name="employee_amount_id">
-                                <option>....</option>
-                                <option>....</option>
-                                <option>....</option>
-                                <option>อื่นๆ</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>หมายเลขโทรศัพท์</label>
-                            <select class="form-control" name="telephone">
-                                <option>....</option>
-                                <option>....</option>
-                                <option>....</option>
-                                <option>อื่นๆ</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="coordinator">ชื่อผู้ประสานงาน</label>
-                            <input type="text" class="form-control" id="coordinator" name="coordinator">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="coordinator_position">ตำแหน่งผู้ประสานงาน </label>
-                            <input type="text" class="form-control" id="coordinator_position" name="coordinator_position">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="coordinator_telephone">หมายเลขโทรศัพท์ผู้ประสานงาน </label>
-                            <input type="text" class="form-control" id="coordinator_telephone" name="coordinator_telephone">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="coordinator_email">E-mail ผู้ประสานงาน</label>
-                            <input type="text" class="form-control" id="coordinator_email" name="coordinator_email">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="coordinator_line_id">LINE ID ผู้ประสานงาน</label>
-                            <input type="text" class="form-control" id="coordinator_line_id" name="coordinator_line_id">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="gps">ตำแหน่งพิกัด GPS </label>
-                            <input type="text" class="form-control" id="gps" name="gps">
-                        </div>
-                        
-                    </div>
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>                          
 
+                        
+                        <div class="row">
+                            <div class="col-md-6">                        
+                                <div class="form-group">
+                                    <label>กลุ่มอุตสาหกรรม</label>
+                                    <select class="form-control" name="industrial_gid">
+                                        <?php
+                                        $def = isset($industrial_gid) ? $industrial_gid : '2';
+                                        $sql = "SELECT industrial_gid,industrial_gname FROM industrial_group ORDER BY industrial_gid ASC";
+                                        echo gen_option($sql, $def)
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>                          
+
+                        <div class="row">
+                            <div class="col-md-3">                        
+                                <div class="form-group">
+                                    <label>จำนวนพนักงาน</label>
+                                    <select class="form-control" name="employee_amount_id">
+                                        <?php
+                                        $def = isset($id) ? $id : '1';
+                                        $sql = "SELECT id,amount FROM employee_amount ORDER BY id ASC";
+                                        echo gen_option($sql, $def)
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>   
+                        
+                        <div class="row">
+                            <div class="col-md-4">                        
+                                <div class="form-group">
+                                    <label>หมายเลขโทรศัพท์</label>
+                                    <input type="text" class="form-control" id="telephone" name="telephone">
+                                </div>
+                            </div>
+                        </div>                         
+                        
+                        <div class="row">
+                            <div class="col-md-4">                        
+                                <div class="form-group">
+                                    <label for="coordinator">ชื่อผู้ประสานงาน</label>
+                                    <input type="text" class="form-control" id="coordinator" name="coordinator">
+                                </div>                            
+                            </div>
+                        </div>     
+
+                        <div class="row">
+                            <div class="col-md-4">                        
+                                <div class="form-group">
+                                    <label for="coordinator_position">ตำแหน่งผู้ประสานงาน </label>
+                                    <input type="text" class="form-control" id="coordinator_position" name="coordinator_position">
+                                </div>                         
+                            </div>
+                        </div>              
+                        
+                        <div class="row">
+                            <div class="col-md-4">                        
+                                <div class="form-group">
+                                    <label for="coordinator_telephone">หมายเลขโทรศัพท์ผู้ประสานงาน </label>
+                                    <input type="text" class="form-control" id="coordinator_telephone" name="coordinator_telephone">
+                                </div>                        
+                            </div>
+                        </div>  
+
+                        <div class="row">
+                            <div class="col-md-4">                        
+                                <div class="form-group">
+                                    <label for="coordinator_email">E-mail ผู้ประสานงาน</label>
+                                    <input type="text" class="form-control" id="coordinator_email" name="coordinator_email">
+                                </div>                       
+                            </div>
+                        </div> 
+                                              
+                        <div class="row">
+                            <div class="col-md-4">                        
+                                <div class="form-group">
+                                    <label for="coordinator_line_id">LINE ID ผู้ประสานงาน</label>
+                                    <input type="text" class="form-control" id="coordinator_line_id" name="coordinator_line_id">
+                                </div>                      
+                            </div>
+                        </div> 
+                                                
+                        <div class="row">
+                            <div class="col-md-4">                        
+                                <div class="form-group">
+                                    <label for="gps">ตำแหน่งพิกัด GPS </label>
+                                    <input type="text" class="form-control" id="gps" name="gps">
+                                </div>                    
+                            </div>
+                        </div>                                                     
+                    </div>
+                    <!--/.box-body-->
                     <div class="box-footer">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary" name="submit">บันทึกข้อมูล</button>
                     </div>
                 </form>
             </div>
