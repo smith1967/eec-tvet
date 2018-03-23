@@ -1,25 +1,35 @@
 <?php
 if (!defined('BASE_PATH'))
-exit('No direct script access allowed');
+    exit('No direct script access allowed');
 $active = 'home';
 $subactive = 'index';
 $title = 'นำเข้าข้อมูลนักเรียน กำลังศึกษา';
 // จัดการข้อมูลกับด้าน logic
 
-?>
-<?php
 require_once('template/header.php');
 
-//if (isset($_POST['submit'])):
-//    $err = do_upload();
-//endif;
+if (isset($_POST['submit'])):
+    do_upload();
+endif;
 //
 if (isset($_POST['submit1'])):
-    $_SESSION['user']['round']=$_POST["round"];
-    $_SESSION['user']['year']=$_POST["year"];
+    $_SESSION['round']=$_POST["round"];
+    $_SESSION['year']=$_POST["year"];
 endif;
 //echo $_SESSION['user']['year'];
-
+if (isset($_GET['action'])) {
+    if ($_GET['action'] == 'del') {
+        // echo "<script>alert('dddd') </script>" ;
+        $filename = UPLOAD_DIR . $_GET['filename'];
+        // echo $filename ;exit();
+        if (is_file($filename)){
+            unlink($filename);
+            set_info('ลบไฟล์ ' . $_GET['filename'].' เรียบร้อยแล้ว');
+        }
+        else
+            set_err('ไม่สามารถลบไฟล์ ' . $filename);
+    }
+}
 
 ?>
 
@@ -27,9 +37,11 @@ endif;
     <section class="content-header">
       <h1>
         ข้อมูลนักเรียน กำลังศึกษา
-        <small>นำเข้าข้อมูล</small>
+        <small>upload ไฟล์ข้อมูล</small>
       </h1>
-     
+      <div class="col-md-12">
+               <?php show_message() ?>                
+      </div>
     </section>
     
 
@@ -44,7 +56,7 @@ endif;
                             <select class="form-control" id="round" name="round">
                                 <?php
                                 $arr = array(1 => 1, 2 => 2, 3 => 3);
-                                $def = $_SESSION['user']['round'];
+                                $def = $_SESSION['round'];
                                 echo gen_option($arr, $def);
                                 ?>
                             </select>
@@ -55,11 +67,13 @@ endif;
                             <select class="form-control" id="year" name="year">
                                 <?php
                                 $arr2 = array(2561 => 2561, 2562 => 2562,2563 => 2563);
-                                $def = $_SESSION['user']['year'];
+                                $def = $_SESSION['year'];
                                 echo gen_option($arr2, $def);
                                 ?>
                             </select>
-                        </div></div>
+                        </div>
+                    </div>
+                     
                     <div class="form-group">
                         <div>
                             <button type="submit" class="btn btn-primary col-md-offset-4" name="submit1"> ตกลง </button>
@@ -68,32 +82,24 @@ endif;
                 </form>
             </div><!-- class="col-md-12"-->
             
-            
-            
-            
-            
-        
+       
 
-
-
-
-
-
-
-
-           
-     
     <?php
-    if (isset($_POST["submit1"]) || $_SESSION['user']['upload']!=''):
+//    echo "user-upload=".$_SESSION['user']['upload'];
+    if (isset($_POST["submit1"]) || isset($_SESSION['upload_file'])):
+        
     ?>
 
             <div class="col-md-12"><br><hr><br>
-                <h4>ข้อมูลนักเรียนงวดที่ <?php echo $_SESSION['user']['round']?> ปีงบประมาณ <?php echo $_SESSION['user']['year']?></h4>
+                <h4>ข้อมูลนักเรียนงวดที่ <?php echo $_SESSION['round']?> ปีงบประมาณ <?php echo $_SESSION['year']?></h4>
+                <?php
+               // if (!isset($_SESSION['upload'])):
+                    ?>
                 
                 <form class="form-horizontal" id="upload_form" method="post" action="" enctype="multipart/form-data">
                     <fieldset>
                         <div class="form-group">
-                            <label class="control-label col-md-3" for="uploadfile">เลือกไฟล์ชื่อ &nbsp;<i class="text-red text-bold">std_รหัสสถานศึกษา_<?php echo $_SESSION['user']['year']?>_<?php echo $_SESSION['user']['round']?>.csv</i></label>
+                            <label class="control-label col-md-3" for="uploadfile">เลือกไฟล์ชื่อ &nbsp;<i class="text-red text-bold">std_รหัสสถานศึกษา_<?php echo $_SESSION['year']?>_<?php echo $_SESSION['round']?>.csv</i></label>
                             <div class="col-md-3">
                                 <input type="file" class="btn btn-primary btn-file" id="uploadfile" name="uploadfile" />
                             </div>
@@ -106,6 +112,8 @@ endif;
                         </div>
                     </fieldset>
                 </form>
+                <?php                    
+               // endif;  ?>
             </div>
 
 
@@ -115,28 +123,31 @@ endif;
            // $fstd="std_".substr($school_id,2,8);
             //echo "a=".$fstd."<br>";
         if ($handle = opendir(UPLOAD_DIR)) :
+            
             while (false !== ($entry = readdir($handle))) :
-                //echo "b=".substr($entry,11,12)."<br>";
-                //echo "(2560)y=".substr($entry,24,4)."<br>";
-                //echo "(2)r=".substr($entry,29,1)."<br>";
-                if ($entry != "." && $entry != ".." && strtolower(substr($entry, 11, 12)) == $fstd && substr($entry, 24, 4) == $_SESSION['user']["year"] && substr($entry, 29, 1) == $_SESSION['user']["round"]):
-//                    if ($entry != "." && $entry != "..") :    
+//                echo "Std_20016201=".substr($entry,11,12)."<br>";
+//                echo "std=".strtolower(substr($entry,11,3))."<br>";
+                //if ($entry != "." && $entry != ".." && strtolower(substr($entry, 11, 12)) == $fstd && substr($entry, 24, 4) == $_SESSION['user']["year"] && substr($entry, 29, 1) == $_SESSION['user']["round"]):
+                    if ($entry != "." && $entry != ".." && strtolower(substr($entry,11,3))== "std"
+                            && substr($entry, 24, 4) == $_SESSION["year"] && substr($entry, 29, 1) == $_SESSION["round"]) {   
                     ?>
                         <div class="table-responsive col-md-6">
                             <table class="table" >
-                                <thead><th>ชื่อไฟล์</th><th>ตรวจสอบไฟล์</th><th>ลบไฟล์</th></thead>
-                                            <tr>
-                                                <td> <?php echo $entry . "\n"; ?></td>
+                                <thead>
+                                    <th>ชื่อไฟล์</th><th>ตรวจสอบไฟล์</th><th>ลบไฟล์</th>
+                                </thead>
+                                <tr>
+                                    <td> <?php echo $entry . "\n"; ?></td>
                 <?php
                 $checklink = site_url('student/check-data') . '&action=check&filename=' . $entry;
                 $unlink = site_url('student/file-manager') . '&action=del&filename=' . $entry;
                 ?>
-                                                <td class="text-center"><a href="<?php echo $checklink ?>"><span class="glyphicon glyphicon-eye-open"></span></a></td>
-                                                <td class="text-center"><a href="<?php echo $unlink ?>"><span class="glyphicon glyphicon-remove"></span></a></td>
-                                            </tr>
-                                            <tr><td colspan="3" align='center'>คลิกตรวจสอบไฟล์ เพื่อดำเนินการขั้นตอนต่อไป</td></tr>
+                                    <td class="text-center"><a href="<?php echo $checklink ?>"><span class="glyphicon glyphicon-eye-open"></span></a></td>
+                                    <td class="text-center"><a href="<?php echo $unlink ?>"><span class="glyphicon glyphicon-remove"></span></a></td>
+                                </tr>
+                                <tr><td colspan="3" align='center'>คลิกตรวจสอบไฟล์ เพื่อดำเนินการขั้นตอนต่อไป</td></tr>
                 <?php
-                endif;
+                    }
             endwhile;
             closedir($handle);
         endif;
@@ -159,23 +170,26 @@ function do_upload() {
     $filename = $_FILES['uploadfile']['tmp_name'];
     $stdfile = UPLOAD_DIR . date('Y-m-d') . '_' . basename($_FILES['uploadfile']['name']);
     $ext = pathinfo($stdfile, PATHINFO_EXTENSION); // die();
+    $file_name_Upload= $_FILES['uploadfile']['name'];
+   // echo strtolower($ext);    exit();
     if (strtolower($ext) != 'csv') {
         set_err("ชนิดของไฟล์ไม่ถูกต้อง กรุณาตรวจสอบอีกครั้งครับ");
+    }else if(substr($file_name_Upload,13,4)!=$_SESSION["year"] || substr($file_name_Upload,18,1)!=$_SESSION["round"] ){
+        set_err ("ชื่อไฟล์ = ".($file_name_Upload));
+        set_err("ชื่อของไฟล์ไม่ถูกต้อง งวด ปี ไม่ถูกต้อง กรุณาตรวจสอบอีกครั้งครับ");
     }
-
-    if ($_FILES["uploadfile"]["error"] > 0) {
+    else if ($_FILES["uploadfile"]["error"] > 0) {
         //echo "Error: " . $_FILES["uploadfile"]["error"] . "<br>";
         set_err("<p>Error: " . $_FILES["uploadfile"]["error"] . "<p/>");
-    }
-
-    if (file_exists($stdfile)) {
+    }else if (file_exists($stdfile)) {
         unlink($stdfile);
-    }
-    if (!move_uploaded_file($filename, $stdfile)) {
+    }else if (!move_uploaded_file($filename, $stdfile)) {
         set_err("อัพโหลดไฟล์ข้อมูลผิดพลาด :" . $stdfile);
+    }else{
+        $_SESSION['upload_file']="$filename";
+        $_SESSION['upload']='OK';
     }
-    $_SESSION['user']['upload']="$filename";
-
     redirect('student/file-manager');
 }
+
 
