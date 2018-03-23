@@ -121,8 +121,8 @@ require_once('template/header.php')
                                     <label for="industrial_estate_id">นิคมอุตสาหกรรม </label>
                                     <select class="form-control select2" name="industrial_estate_id">
                                         <?php
-                                        $def = isset($industrial_gid) ? $industrial_gid : '2';
-                                        $sql = "SELECT industrial_gid,industrial_gname FROM industrial_group ORDER BY industrial_gid ASC";
+                                        $def = isset($industrial_estate_id) ? $industrial_estate_id : '2';
+                                        $sql = "SELECT industrial_estate_id,industrial_estate_name FROM industrial_estate ORDER BY industrial_estate_id ASC";
                                         echo gen_option($sql, $def)
                                         ?>
                                     </select>
