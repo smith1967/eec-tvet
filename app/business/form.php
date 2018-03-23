@@ -261,7 +261,7 @@ require_once('template/header.php')
 
         //แสดงข้อมูล อำเภอ  โดยใช้คำสั่ง change จะทำงานกรณีมีการเปลี่ยนแปลงที่ #province
         $("#province_code").change(function () {
-
+//            alert('district');
             //กำหนดให้ ตัวแปร province มีค่าเท่ากับ ค่าของ #province ที่กำลังถูกเลือกในขณะนั้น
             var province_code = $(this).val();
 
@@ -442,7 +442,7 @@ function do_insert() {
             . "`employee_amount_id`,"
             . " `telephone`,"
             . " `coordinator`,"
-            . " `coordinator_position`,"
+            . " `coordinator_position`," 
             . " `coordinator_telephone`,"
             . " `coordinator_email`,"
             . " `coordinator_line_id`,"

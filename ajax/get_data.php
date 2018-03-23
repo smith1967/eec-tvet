@@ -39,7 +39,7 @@ if(isset($_GET['province_code'])){
         $province_code = $_GET['province_code'];
 
         //คำสั่ง SQL เลือก AMPHUR_ID และ  AMPHUR_NAME ที่มี PROVINCE_ID เท่ากับ $province_id
-        $sql = "SELECT DISTRICT_CODE,DISTRICT_NAME FROM DISTRICT WHERE PROVINCE_CODE = ".pq($province_code)." ";
+        $sql = "SELECT DISTRICT_CODE,DISTRICT_NAME FROM DISTRICT WHERE PROVINCE_CODE = ".pq($province_code);
 
         //ประมวณผลคำสั่ง SQL
         $result = $db->query($sql);
