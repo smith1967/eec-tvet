@@ -253,7 +253,8 @@ require_once('template/header.php')
                     //แทรก Elements ใน id province  ด้วยคำสั่ง append
                     $("#province_code").append("<option value='" + value.id + "'> " + value.name + "</option>");
                 });
-                $("#province_code").val("<?php echo $province_code ?>");
+
+                $("#province_code").val("<?php echo set_var($province_code) ?>");                
                 $("#province_code").change();    
             }
         });
@@ -280,7 +281,7 @@ require_once('template/header.php')
                         //แทรก Elements ข้อมูลที่ได้  ใน id amphur  ด้วยคำสั่ง append
                         $("#district_code").append("<option value='" + value.id + "'> " + value.name + "</option>");
                     });
-                    $("#district_code").val("<?php echo $district_code ?>");               
+                    $("#district_code").val("<?php set_var($district_code) ?>");               
                     $("#district_code").change();
                 }
             });
@@ -306,7 +307,7 @@ require_once('template/header.php')
                         $("#subdistrict_code").append("<option value='" + value.id + "'> " + value.name + "</option>");
 
                     });
-                    $("#subdistrict_code").val("<?php echo $subdistrict_code ?>"); 
+                    $("#subdistrict_code").val("<?php set_var($subdistrict_code) ?>"); 
                     $("#subdistrict_code").change();
                 }
             });
