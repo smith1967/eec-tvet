@@ -216,7 +216,9 @@ function gen_sidebar_menu($items, $active = 'home', $subactive = 'index') {
             continue;
         $level = 1;
         $indent = str_repeat(" ", $level * 2);
-        if ($items == $active) {
+        if(count($subitems['subitems'])==0){
+            $ret .= sprintf("%s<li class=''>\n", $indent);            
+        }else if ($items == $active) {
             $ret .= sprintf("%s<li class='active treeview'>\n", $indent);
         } else {
             $ret .= sprintf("%s<li class='treeview'>\n", $indent);
@@ -228,7 +230,7 @@ function gen_sidebar_menu($items, $active = 'home', $subactive = 'index') {
         $indent = str_repeat(" ", $level * 2);
         $ret .= sprintf("%s<i class='%s'></i>\n", $indent, $subitems['class']);
         $ret .= sprintf("%s<span>%s</span>\n", $indent, $subitems['title']);
-        if (isset($subitems['subitems'])) {
+        if (count($subitems['subitems'])>0) {
             $ret .= sprintf("%s<span class='pull-right-container'>\n", $indent);
             $ret .= sprintf("%s<i class='fa fa-angle-left pull-right'></i>\n", $indent);
             $ret .= sprintf("%s</span>\n", $indent);
