@@ -8,24 +8,13 @@ $menu = Array(
         'url' => SITE_URL,
         'class' => 'fa fa-home',
         'cond' => true,
-//        'subitems' => array(
-//            'index' => array(
-////                'title' => 'หน้าหลัก',
-////                'url' => 'app/home/index',
-////                'cond' => FALSE,
-//            ),
-////            'test' => array(
-////                'title' => 'ทดสอบ',
-////                'url' => 'app/home/test',
-////                'cond' => true,
-////            ),
-//        ),
+        'subitems'=>array()
     ),
-    'report' => array(
-        'title' => 'สรุปรายงาน',
-        'url' => "../dve/?p=ajax/login/token/login/id/".$_SESSION['user']['token'],
-        'class' => 'fa fa-book',
-        'cond' => true,
+//    'report' => array(
+//        'title' => 'สรุปรายงาน',
+//        'url' => "../dve/?p=ajax/login/token/login/id/".$_SESSION['user']['token'],
+//        'class' => 'fa fa-book',
+//        'cond' => true,
 //        'subitems' => array(
 //            'index' => array(
 ////                'title' => 'หน้าหลัก',
@@ -38,7 +27,7 @@ $menu = Array(
 ////                'cond' => true,
 ////            ),
 //        ),
-    ),    
+//    ),    
     'school' => array(
         'title' => 'สถานศึกษา',
         'url' => '#',
@@ -317,9 +306,8 @@ $menu = Array(
         <!-- /.search form -->
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <?php
-        if(!isset($class))
-          $class = '';
-        echo gen_sidebar_menu($menu, $active, $subactive, $class);
+
+        echo gen_sidebar_menu($menu, $active, $subactive);
         ?>
     </section>
     <!-- /.sidebar -->
