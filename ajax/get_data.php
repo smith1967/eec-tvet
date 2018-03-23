@@ -33,13 +33,13 @@ if(isset($_GET['show_province'])){
 
 
 //ตรวจสอบว่า มีค่า ตัวแปร $_GET['province_id'] เข้ามาหรือไม่  //แสดงรายชืออำเภอ
-if(isset($_GET['province_id'])){
+if(isset($_GET['province_code'])){
 
         //กำหนดให้ตัวแปร $province_id มีค่าเท่ากับ $_GET['province_id]
-        $province_id = $_GET['province_id'];
+        $province_code = $_GET['province_code'];
 
         //คำสั่ง SQL เลือก AMPHUR_ID และ  AMPHUR_NAME ที่มี PROVINCE_ID เท่ากับ $province_id
-        $sql = "SELECT DISTRICT_CODE,DISTRICT_NAME FROM DISTRICT WHERE PROVINCE_CODE = ".pq($province_id)." ";
+        $sql = "SELECT DISTRICT_CODE,DISTRICT_NAME FROM DISTRICT WHERE PROVINCE_CODE = ".pq($province_code)." ";
 
         //ประมวณผลคำสั่ง SQL
         $result = $db->query($sql);
@@ -64,14 +64,15 @@ if(isset($_GET['province_id'])){
 }
 
 
-//ตรวจสอบว่า มีค่า ตัวแปร $_GET['province_id'] เข้ามาหรือไม่  //แสดงรายชืออำเภอ
-if(isset($_GET['amphur_id'])){
+//ตรวจสอบว่า มีค่า ตัวแปร $_GET['district_code'] เข้ามาหรือไม่  
+//แสดงรายชือตำบล
+if(isset($_GET['district_code'])){
 
         //กำหนดให้ตัวแปร $amphur_id มีค่าเท่ากับ $_GET['amphur_id]
-        $amphur_id = $_GET['amphur_id'];
+        $district_code = $_GET['district_code'];
 
         //คำสั่ง SQL เลือก DISTRICT_CODE และ  DISTRICT_NAME ที่มี AMPHUR_ID เท่ากับ $amphur_id
-        $sql = "SELECT SUBDISTRICT_CODE,SUBDISTRICT_NAME FROM subdistrict WHERE DISTRICT_CODE = ".pq($amphur_id)." ";
+        $sql = "SELECT SUBDISTRICT_CODE,SUBDISTRICT_NAME FROM subdistrict WHERE DISTRICT_CODE = ".pq($district_code)." ";
 
         //ประมวณผลคำสั่ง SQL
         $result = $db->query($sql);
@@ -94,13 +95,14 @@ if(isset($_GET['amphur_id'])){
                 echo json_encode($json_result);
         }         
 }
-if(isset($_GET['district_id'])){
+// รายการ zip code
+if(isset($_GET['subdistrict_code'])){
 
         //กำหนดให้ตัวแปร $amphur_id มีค่าเท่ากับ $_GET['amphur_id]
-        $district_id = $_GET['district_id'];
+        $district_id = $_GET['subdistrict_code'];
 
         //คำสั่ง SQL เลือก DISTRICT_CODE และ  DISTRICT_NAME ที่มี AMPHUR_ID เท่ากับ $amphur_id
-        $sql = "SELECT zipcode FROM zipcodes WHERE district_code = ".pq($district_id)." ";
+        $sql = "SELECT zipcode FROM zipcodes WHERE district_code = ".pq($subdistrict_code)." ";
 //        echo $sql.'<br>';
         //ประมวณผลคำสั่ง SQL
         $result = $db->query($sql);
