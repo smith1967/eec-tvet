@@ -13,10 +13,10 @@ if (isset($_POST['submit'])) {
     foreach ($_POST as $k => $v) {
         $$k = $v;
     }  //    var_dump($property);
-    $valid = TRUE;
-    if ($valid) {
-        do_insert();
-    }
+//    $valid = TRUE;
+//    if ($valid) {
+//        do_insert();
+//    }
 }
 if (isset($_GET['action']) && $_GET['action'] == 'delete') {
     do_delete($_GET['business_id']);
@@ -65,7 +65,7 @@ require_once('template/header.php')
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="business_name">ชื่อสถานประกอบการ</label>
-                                    <input type="text" class="form-control" id="business_name" placeholder="" name="business_name">
+                                    <input type="text" class="form-control" id="business_name" placeholder="" name="business_name" value="<?php set_var($business_name)?>">
                                 </div>
                             </div>
                         </div>   
@@ -75,7 +75,7 @@ require_once('template/header.php')
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="address">ที่อยู่ เลขที่</label>
-                                    <input type="text" class="form-control" id="address" placeholder="" name="address">
+                                    <input type="text" class="form-control" id="address" placeholder="" name="address" value="<?php set_var($address)?>">
                                 </div>
                             </div>
                         </div>    
@@ -165,7 +165,7 @@ require_once('template/header.php')
                             <div class="col-md-4">                        
                                 <div class="form-group">
                                     <label>หมายเลขโทรศัพท์</label>
-                                    <input type="text" class="form-control" id="telephone" name="telephone">
+                                    <input type="text" class="form-control" id="telephone" name="telephone" value="<?php set_var($telephone)?>">
                                 </div>
                             </div>
                         </div>                         
@@ -174,7 +174,7 @@ require_once('template/header.php')
                             <div class="col-md-4">                        
                                 <div class="form-group">
                                     <label for="coordinator">ชื่อผู้ประสานงาน</label>
-                                    <input type="text" class="form-control" id="coordinator" name="coordinator">
+                                    <input type="text" class="form-control" id="coordinator" name="coordinator" value="<?php set_var($coordinator)?>">
                                 </div>                            
                             </div>
                         </div>     
@@ -183,7 +183,7 @@ require_once('template/header.php')
                             <div class="col-md-4">                        
                                 <div class="form-group">
                                     <label for="coordinator_position">ตำแหน่งผู้ประสานงาน </label>
-                                    <input type="text" class="form-control" id="coordinator_position" name="coordinator_position">
+                                    <input type="text" class="form-control" id="coordinator_position" name="coordinator_position" value="<?php set_var($coordinator_position)?>">
                                 </div>                         
                             </div>
                         </div>              
@@ -192,7 +192,7 @@ require_once('template/header.php')
                             <div class="col-md-4">                        
                                 <div class="form-group">
                                     <label for="coordinator_telephone">หมายเลขโทรศัพท์ผู้ประสานงาน </label>
-                                    <input type="text" class="form-control" id="coordinator_telephone" name="coordinator_telephone">
+                                    <input type="text" class="form-control" id="coordinator_telephone" name="coordinator_telephone" value="<?php set_var($coordinator_telephone)?>">
                                 </div>                        
                             </div>
                         </div>  
@@ -201,7 +201,7 @@ require_once('template/header.php')
                             <div class="col-md-4">                        
                                 <div class="form-group">
                                     <label for="coordinator_email">E-mail ผู้ประสานงาน</label>
-                                    <input type="text" class="form-control" id="coordinator_email" name="coordinator_email">
+                                    <input type="text" class="form-control" id="coordinator_email" name="coordinator_email" value="<?php set_var($coordinator_email)?>">
                                 </div>                       
                             </div>
                         </div> 
@@ -210,7 +210,7 @@ require_once('template/header.php')
                             <div class="col-md-4">                        
                                 <div class="form-group">
                                     <label for="coordinator_line_id">LINE ID ผู้ประสานงาน</label>
-                                    <input type="text" class="form-control" id="coordinator_line_id" name="coordinator_line_id">
+                                    <input type="text" class="form-control" id="coordinator_line_id" name="coordinator_line_id" value="<?php set_var($coordinator_line_id)?>">
                                 </div>                      
                             </div>
                         </div> 
@@ -219,7 +219,7 @@ require_once('template/header.php')
                             <div class="col-md-4">                        
                                 <div class="form-group">
                                     <label for="gps">ตำแหน่งพิกัด GPS </label>
-                                    <input type="text" class="form-control" id="gps" name="gps">
+                                    <input type="text" class="form-control" id="gps" name="gps" value="<?php set_var($gps)?>">
                                 </div>                    
                             </div>
                         </div>                                                     
@@ -238,6 +238,7 @@ require_once('template/header.php')
    <?php require_once 'template/footer.php'; ?>
 <script>
     $(function () {
+        
         //เรียกใช้งาน Select2
         $(".select2").select2();
         //ดึงข้อมูล province จากไฟล์ get_data.php
@@ -252,6 +253,8 @@ require_once('template/header.php')
                     //แทรก Elements ใน id province  ด้วยคำสั่ง append
                     $("#province_code").append("<option value='" + value.id + "'> " + value.name + "</option>");
                 });
+                $("#province_code").val("<?php echo $province_code ?>");
+                $("#province_code").change();    
             }
         });
 
@@ -277,6 +280,7 @@ require_once('template/header.php')
                         //แทรก Elements ข้อมูลที่ได้  ใน id amphur  ด้วยคำสั่ง append
                         $("#district_code").append("<option value='" + value.id + "'> " + value.name + "</option>");
                     });
+                    $("#district_code").val("<?php echo $district_code ?>");               
                     $("#district_code").change();
                 }
             });
@@ -302,6 +306,7 @@ require_once('template/header.php')
                         $("#subdistrict_code").append("<option value='" + value.id + "'> " + value.name + "</option>");
 
                     });
+                    $("#subdistrict_code").val("<?php echo $subdistrict_code ?>"); 
                     $("#subdistrict_code").change();
                 }
             });
@@ -337,12 +342,13 @@ require_once('template/header.php')
             var district = $("#district_code option:selected").text();
 
             //นำข้อมูลรายการ ตำบล ที่เลือก มาใส่ไว้ในตัวแปร district
-            var subdistrict = $("#district_code option:selected").text();
+            var subdistrict = $("#subdistrict_code option:selected").text();
 
             //ใช้คำสั่ง alert แสดงข้อมูลที่ได้
 //                alert("คุณได้เลือก :  จังหวัด : " + province + " อำเภอ : "+ amphur + "  ตำบล : " + district );
         });
     });
+    
 
 </script>
 <?php
