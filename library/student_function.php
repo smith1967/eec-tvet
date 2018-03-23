@@ -46,7 +46,7 @@ function del0($s){
 }
 // M=>ชาย
 function convSex($s){
-    if ($s=='M'){
+    if ($s=='m'){
         $r='ชาย';
     }else{
         $r='หญิง';
