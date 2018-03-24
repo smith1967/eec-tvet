@@ -10,17 +10,17 @@ if (isset($_POST['submit'])) {
 //    var_dump($data);
 //    die();
 //    $valid = do_validate($data);  // check ความถูกต้องของข้อมูล
-    foreach ($_POST as $k => $v) {
-        $$k = $v;
-    }  //    var_dump($property);
+//    foreach ($_POST as $k => $v) {
+//        $$k = $v;
+//    }  //    var_dump($property);
 //    $valid = TRUE;
 //    if ($valid) {
         do_insert();
 //    }
 }
-if (isset($_GET['action']) && $_GET['action'] == 'delete') {
-    do_delete($_GET['business_id']);
-}
+//if (isset($_GET['action']) && $_GET['action'] == 'delete') {
+//    do_delete($_GET['business_id']);
+//}
 
 ?>
 <?php
@@ -47,7 +47,7 @@ require_once('template/header.php')
     <section class="content">
       <div class="row">
           <div class="col-md-12">
-              <?php show_message() ?>                
+              <p id="message"></p>                
           </div>
         <!-- left column -->
         <div class="col-md-12">
@@ -227,6 +227,8 @@ require_once('template/header.php')
                     <!--/.box-body-->
                     <div class="box-footer">
                         <button type="submit" class="btn btn-primary" name="submit">บันทึกข้อมูล</button>
+                        <button type="reset" class="btn btn-danger" name="submit">ยกเลิกข้อมูล</button>
+             
                     </div>
                 </form>
             </div>
@@ -245,10 +247,6 @@ require_once('template/header.php')
 //    } );
     $(function () {
         //  business form
-//        jQuery.validator.setDefaults({
-//          debug: true,
-//          success: "valid"
-//        });
 
         $( "#businessForm" ).validate( {
                 rules: {
@@ -331,10 +329,25 @@ require_once('template/header.php')
                         $( element ).parents( ".col-sm-5" ).addClass( "has-success" ).removeClass( "has-error" );
                 },
                 submitHandler: function(form) {
-                    form.submit();
+                    insertBusiness();
                 },
         } );
-
+        function insertBusiness(){
+            $.ajax({
+                type: "POST",
+                url: "ajax/post_business.php",
+                data: $( "#businessForm" ).serialize(),
+//                        {student_name:student_name,student_roll_no:student_roll_no,student_class:student_class},
+                dataType: "JSON",
+                success: function(data) {
+                $("#message").html(data);
+                    $("p").addClass("alert alert-success");
+                },
+                error: function(err) {
+                    $("p").addClass("alert alert-danger");;
+                }
+            });
+        }
         //เรียกใช้งาน Select2
         $(".select2").select2();
         //ดึงข้อมูล province จากไฟล์ get_data.php
