@@ -15,7 +15,7 @@ if (isset($_POST['submit'])) {
     }  //    var_dump($property);
 //    $valid = TRUE;
 //    if ($valid) {
-//        do_insert();
+        do_insert();
 //    }
 }
 if (isset($_GET['action']) && $_GET['action'] == 'delete') {
@@ -58,7 +58,7 @@ require_once('template/header.php')
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
-                <form role="form" method="post">
+                <form role="form" method="post" id="businessForm">
                     <div class="box-body">
 
                         <div class="row">
@@ -121,8 +121,8 @@ require_once('template/header.php')
                                     <label for="industrial_estate_id">นิคมอุตสาหกรรม </label>
                                     <select class="form-control select2" name="industrial_estate_id">
                                         <?php
-                                        $def = isset($industrial_gid) ? $industrial_gid : '2';
-                                        $sql = "SELECT industrial_gid,industrial_gname FROM industrial_group ORDER BY industrial_gid ASC";
+                                        $def = isset($industrial_estate_id) ? $industrial_estate_id : '2';
+                                        $sql = "SELECT industrial_estate_id,industrial_estate_name FROM industrial_estate ORDER BY industrial_estate_id ASC";
                                         echo gen_option($sql, $def)
                                         ?>
                                     </select>
@@ -237,8 +237,104 @@ require_once('template/header.php')
   </div>  <!-- /.content-wrapper -->
    <?php require_once 'template/footer.php'; ?>
 <script>
+//    $.validator.setDefaults( {
+//            submitHandler: function () {
+////                    alert( "submitted!" );
+//                form.submit();
+//            }
+//    } );
     $(function () {
-        
+        //  business form
+//        jQuery.validator.setDefaults({
+//          debug: true,
+//          success: "valid"
+//        });
+
+        $( "#businessForm" ).validate( {
+                rules: {
+//                        business_name: "required",
+                        business_name: {
+                                required: true,
+                                minlength: 4
+                        },
+                        address: "required",
+                        province_code: "required",
+                        district_code: "required",
+                        subdistrict_code: "required",
+                        industrial_estate_id: "required",
+                        industrial_gid: "required",
+                        employee_amount_id: "required",
+                        coordinator_telephone: {
+                                required: true,
+                                minlength: 9
+                        },
+                        telephone: {
+                                required: true,
+                                minlength: 9
+                        },
+                        coordinator: {
+                                required: true,
+                                minlength: 9
+                        },
+                        coordinator_position: {
+                                required: true,
+                                minlength: 5,
+//                                equalTo: "#password"
+                        },
+//                        coordinator_email: {
+//                                required: true,
+//                                minlength: 5,
+////                                equalTo: "#password"
+//                        },
+                        coordinator_email: {
+                                required: true,
+                                email: true
+                        },
+//                        agree: "required"
+                },
+                messages: {
+                        business_name: "กรุณาใส่ชื่อบริษัท",
+                        address: "กรุณาใส่ที่อยู่",
+                        province_code: "กรุณาเลือกจังหวัด",
+                        district_code: "กรุณาเลือกอำเภอ",
+                        subdistrict_code: "กรุณาเลือกตำบล",
+                        industrial_estate_id: "กรุณาเลือกนิคมอุตฯ",
+                        industrial_gid: "กรุณาเลือกกลุ่มอุตสาหกรรม",
+                        employee_amount_id: "กรุณาเลือกจำนวนลูกจ้าง",
+                        telephone: "กรุณาใส่หมายเลขโทรศัพท์",
+                        coordinator: "กรุณาใส่ชื่อผู้ประสานงาน",
+                        coordinator_telephone: "กรุณาใส่หมายเลขโทรศัพท์",
+                        coordinator_position: "กรุณาใส่ตำแหน่งผู้ประสานงาน",
+//                        coordinator_email: {
+//                                required: true,
+//                                minlength: 5,
+////                                equalTo: "#password"
+//                        },
+                        coordinator_email: "กรุณาใส่อีเมล์",
+                },
+
+                errorElement: "em",
+                errorPlacement: function ( error, element ) {
+                        // Add the `help-block` class to the error element
+                        error.addClass( "help-block" );
+
+                        if ( element.prop( "type" ) === "checkbox" ) {
+                                error.insertAfter( element.parent( "label" ) );
+                        } else {
+                                error.insertAfter( element );
+                        }
+                },
+                highlight: function ( element, errorClass, validClass ) {
+                        $( element ).parents( ".col-sm-5" ).addClass( "has-error" ).removeClass( "has-success" );
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                        $( element ).parents( ".col-sm-5" ).addClass( "has-success" ).removeClass( "has-error" );
+                },
+                submitHandler: function(form) {
+                    form.submit();
+                },
+        } );
+
         //เรียกใช้งาน Select2
         $(".select2").select2();
         //ดึงข้อมูล province จากไฟล์ get_data.php
@@ -352,6 +448,9 @@ require_once('template/header.php')
     
 
 </script>
+
+
+
 <?php
 function do_validate($data) {
     $valid = true;
