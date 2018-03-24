@@ -62,3 +62,12 @@ function getzoneName($zone_id){
     $row = mysqli_fetch_array($rs,MYSQLI_ASSOC);
     return $row['zoneName'];
 }
+
+function getStatusEdu($id){
+    global $db;
+    $query = "SELECT * FROM status_education where status_education_id='".$id."'";
+    //echo $query;
+    $rs = mysqli_query($db, $query);
+    $row = mysqli_fetch_array($rs,MYSQLI_ASSOC);
+    return $row['description'];
+}
