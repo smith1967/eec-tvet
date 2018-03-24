@@ -33,8 +33,8 @@ require_once('template/header.php')
     <!-- Content Header (Page header) ---------------------------------------------------------------->
     <section class="content-header">
       <h1>
-        ข้อมูลสถานประกอบการ
-        <small>เพิ่ม</small>
+        สถานประกอบการ
+        <small>เพิ่มข้อมูล</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i>สถานประกอบการ</a></li>
@@ -227,7 +227,7 @@ require_once('template/header.php')
                     <!--/.box-body-->
                     <div class="box-footer">
                         <button type="submit" class="btn btn-primary" name="submit">บันทึกข้อมูล</button>
-                        <button type="reset" class="btn btn-danger" name="submit">ยกเลิกข้อมูล</button>
+                        <button type="reset" class="btn btn-danger" id="reset" name="reset">ยกเลิกข้อมูล</button>
              
                     </div>
                 </form>
@@ -247,6 +247,10 @@ require_once('template/header.php')
 //    } );
     $(function () {
         //  business form
+        $("#reset").click(function(){
+//            alert("xxxx");
+            $("#message").hide();
+        });
 
         $( "#businessForm" ).validate( {
                 rules: {
@@ -341,10 +345,10 @@ require_once('template/header.php')
                 dataType: "JSON",
                 success: function(data) {
                 $("#message").html(data);
-                    $("p").addClass("alert alert-success");
+                    $("#message").addClass("alert alert-success").show();
                 },
                 error: function(err) {
-                    $("p").addClass("alert alert-danger");;
+                    $("#message").addClass("alert alert-danger").show();
                 }
             });
         }
@@ -462,140 +466,6 @@ require_once('template/header.php')
 
 </script>
 
-
-
-<?php
-function do_validate($data) {
-    $valid = true;
-    $data = &$_POST;
-//    if (empty($data['business_id'])) {
-//        set_err('กรุณากรอกรหัสสถานประกอบการ');
-//        $valid = false;
-//    }
-    if (empty($data['business_name'])) {
-        set_err('กรุณากรอกชื่อสถานประกอบการ');
-        $valid = false;
-    }
-    if (empty($data['address_no'])) {
-        set_err('กรุณากรอกเลขที่');
-        $valid = false;
-    }
-    if (empty($data['district_id'])) {
-        set_err('กรุณากรอกตำบล');
-        $valid = false;
-    }
-    if (empty($data['district_id'])) {
-        set_err('กรุณากรอกอำเภอ');
-        $valid = false;
-    }
-    if (empty($data['province_code']) || !is_numeric($data['province_code'])) {
-        set_err('กรุณากรอกจังหวัด');
-        $valid = false;
-    }
-    if (empty($data['postcode'])) {
-        set_err('กรุณากรอกรหัสไปรษณีย์');
-        $valid = false;
-    }
-    if (empty($data['contact'])) {
-        set_err('กรุณากรอกชื่อผู้ประสานงาน');
-        $valid = false;
-    }
-    if (!preg_match('/[0-9]{1,}/', $data['contact_phone'])) {
-        set_err('กรุณากรอกเบอร์โทรศัพท์');
-        $valid = false;
-    }
-
-    return $valid;
-}
-
-function do_insert() {
-    global $db;
-    $data = &$_POST;
-    //print_r($data['property']);
-//    $arr_pro = $data['property'];
-//    $pro = implode(",", $arr_pro);
-    //echo $pro;
-    //exit();
-//    if(is_array($data['property'])){
-//        $properties = implode(",", $data['property']);
-//    }  else {
-//        $properties = $data['property'];        
-//    }
-//    if(is_array($data['benefit'])){
-//        $benefits = implode(",", $data['benefit']);
-//    }  else {
-//        $benefits = $data['benefit'];        
-//    }    
-  
-//     'business_name' => string 'sdasdas' (length=7) 
-//  'address' => string '12' (length=2)
-//  'province_code' => string '12' (length=2)
-//  'district_code' => string '1201' (length=4)
-//  'subdistrict_code' => string '120101' (length=6)
-//  'industrial_estate_id' => string '8' (length=1)
-//  'industrial_gid' => string '2' (length=1)
-//  'employee_amount_id' => string '1' (length=1)
-//  'telephone' => string '1233' (length=4)
-//  'coordinator' => string 'dfsdf' (length=5)
-//  'coordinator_position' => string 'dfsdf' (length=5)
-//  'coordinator_telephone' => string '5555' (length=4)
-//  'coordinator_email' => string 'dfd@ddd' (length=7)
-//  'coordinator_line_id' => string '@ffff' (length=5)
-//  'gps' => string '234' (length=3)
-//  'submit' => string '' (length=0)
-    $query = "INSERT INTO `business` ("
-            . "`business_id`,"
-            . " `business_name`,"
-            . " `address`,"
-            . " `subdistrict_code`,"
-            . " `district_code`,"
-            . " `province_code`,"
-            . " `industrial_estate_id`,"
-            . " `industrial_gid`,"
-            . "`employee_amount_id`,"
-            . " `telephone`,"
-            . " `coordinator`,"
-            . " `coordinator_position`," 
-            . " `coordinator_telephone`,"
-            . " `coordinator_email`,"
-            . " `coordinator_line_id`,"
-            . " `gps`"
-//            . " `economic_zone`"
-            . ")"
-            . " VALUES"
-            . " ("
-            . "NULL,"
-            . pq($data['business_name']) . ","
-            . pq($data['address']) . ","
-            . pq($data['subdistrict_code']) . ","
-            . pq($data['district_code']) . ","
-            . pq($data['province_code']) . ","
-            . pq($data['industrial_estate_id']) . ","
-            . pq($data['industrial_gid']) . ","
-            . pq($data['employee_amount_id']) . ","
-            . pq($data['telephone']) . ","
-            . pq($data['coordinator']) . ","
-            . pq($data['coordinator_position']) . ","
-            . pq($data['coordinator_telephone']) . ","
-            . pq($data['coordinator_email']) . ","
-            . pq($data['coordinator_line_id']) . ","
-            . pq($data['gps'])
-//            . pq($data['economic_zone']) . ","
-            . ")";
-
-//    var_dump($query);
-//    echo '<br>'.$query;
-//    die();
-//    $query = "INSERT INTO group_config (groupname, group_desc, upload, download) VALUES (".pq($data['groupname']).", ".pq($data['group_desc']).", ".pq($data['upload']).", ".pq($data['download']).");";
-    mysqli_query($db, $query);
-    if (mysqli_affected_rows($db) > 0) {
-        set_info('เพิ่มข้อมูลสำเร็จ');
-    } else {
-        set_err('ไม่สามารถเพิ่มข้อมูล ' . mysqli_error($db));
-    }
-    redirect('business/form');
-}
-         
        
 
 
