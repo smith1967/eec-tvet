@@ -12,35 +12,32 @@ $business_id="1234";
 <?php
 require_once('template/header.php');
 $act=$_POST["act"];
-
-if($act=="add"){
+$req_id=$_REQUEST["req_id"];
+if($act=="esave"){
   //$business_id=$_POST["business_id"];
   $course_name=$_POST["course_name"];  
-  $course_description=$_POST["course_description"];
- // echo $course_description."ชช<br>";
-  //echo $shortcourse_code."<br>";
+  //$course_description=$_POST["course_description"];
   $cd=$_POST["cd"];  
-  // echo $cd."==<br>";
-  $date_rang=$_POST["date_rang"];
+  $course_start=$_POST["course_start"];
   $course_hour=$_POST["course_hour"];
-  $school_id_1=$_POST["school_id_1"];
-  $school_id_2=$_POST["school_id_2"];
-  $school_id_3=$_POST["school_id_3"];
+  $school_1_id=$_POST["school_1_id"];
+  $school_2_id=$_POST["school_2_id"];
+  $school_3_id=$_POST["school_3_id"];
   $spacial_condition=$_POST["spacial_condition"];
-  
-$sql1="INSERT INTO `new_shortcourses` (`business_id`, `course_name`, `course_description`, `course_start`, `course_hour`, `school_1_id`, `school_2_id`, `school_3_id`, `spacial_condition`) VALUES ('$business_id', '$course_name', '$cd', '$date_rang', '$course_hour', '$school_id_1', '$school_id_2', '$school_id_3', '$spacial_condition');";
 
+  $sql1="UPDATE `new_shortcourses` SET  `course_name` = '$course_name', `course_description` = '$cd', `course_start` = '$course_start', `course_hour` = '$course_hour', `school_1_id` = '$school_1_id', `school_2_id` = '$school_2_id', `school_3_id` = '$school_3_id', `spacial_condition` = '$spacial_condition' WHERE `req_id` = '$req_id' ;";
   $results1 = $db->query($sql1);
+
+redirect('extention/main_new_shot_course');
   
 }
-
 ?>
 <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        ขอเปิดสอนหลักสูตรระยะสั้นใหม่/เพิ่ม    
+        ขอเปิดสอนหลักสูตรระยะสั้นใหม่/แก้ไข 
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -50,52 +47,26 @@ $sql1="INSERT INTO `new_shortcourses` (`business_id`, `course_name`, `course_des
     </section>
 <?php
 //echo $sql1;
-if($act=="add"){
-if($results1){
-    ?>
-    <div class="col-md-12">
-          <div class="box box-success  box-solid">
-            <div class="box-header with-border">
-              <h3 class="box-title">ผลการทำงาน</h3>
+$sql1=("SELECT * FROM `new_shortcourses` where req_id='$req_id'  ");
+//echo $sql1."<br>";
+$results1 = $db->query($sql1);
 
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-              </div>
-              <!-- /.box-tools -->
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              บันทึกข้อมูลสำเร็จ
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-        </div>
-        <!-- /.col -->
-    <?php
-  }else{
-    ?>
-    <div class="col-md-12">
-          <div class="box box-warning  box-solid">
-            <div class="box-header with-border">
-              <h3 class="box-title">ผลการทำงาน</h3>
-
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-              </div>
-              <!-- /.box-tools -->
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              บันทึกข้อมูลไม่สำเร็จ
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-        </div>
-        <!-- /.col -->
-    <?php
+if($results1->num_rows > 0){                       
+  while($row1 = $results1->fetch_assoc()) {
+    //$req_id=$row1["req_id"];
+    $course_name=$row1["course_name"];
+    $course_description=$row1["course_description"];
+    $course_start=$row1["course_start"];
+    $course_hour=$row1["course_hour"];    
+    $school_1_id=$row1["school_1_id"];
+    $school_2_id=$row1["school_2_id"];
+    $school_3_id=$row1["school_3_id"];
+    $spacial_condition=$row1["spacial_condition"];
+    $count1++;
   }
+}else{
+  echo "ไม่พบข้อมูลคำร้องขอ";
+  return;
 }
 ?>
     <!-- Main content -->
@@ -122,14 +93,14 @@ if($results1){
               <div class="col-md-6 col-lg-12">
                 <div class="form-group">
                   <label for="course_name">ชื่อหลักสูตรที่ต้องการเปิด</label>
-                  <input type="text" class="form-control" id="course_name" name="course_name" placeholder="ใส่หลักสูตร">
+                  <input type="text" class="form-control" id="course_name" name="course_name" placeholder="ใส่หลักสูตร" value="<?php echo $course_name;?>">
                 </div>
               </div>
              
                <div class="col-md-6 col-lg-12">
                 <div class="form-group">
                   <label>คำอธิบายรายวิชา</label>
-                  <textarea class="form-control" name="cd" rows="3" placeholder="กรอกคำอธิบายรายวิชา"></textarea>
+                  <textarea class="form-control" name="cd" rows="3" placeholder="กรอกคำอธิบายรายวิชา"><?php echo nl2br($course_description);?></textarea>
                 </div>
               </div>
 
@@ -139,8 +110,15 @@ if($results1){
                   <select class="form-control select2" name="course_hour">
                     <?php 
                     for($num=1;$num <=200;$num++){
+                       if($num==$course_hour)
+                        {
+                          $sel="selected";
+                        }
+                        else {
+                          $sel="";
+                        }
                       ?>
-                        <option><?php echo $num;?></option>
+                        <option  <?php echo $sel;?>><?php echo $num;?></option>
                       <?php
                     }
                     ?>
@@ -155,7 +133,7 @@ if($results1){
                     <div class="input-group-addon">
                       <i class="fa fa-calendar"></i>
                     </div>
-                    <input type="text" name="date_rang" class="form-control pull-right" id="datepicker">
+                    <input type="text" name="course_start" class="form-control pull-right" id="datepicker"  value="<?php echo $course_start;?>">
                   </div>                  
                 </div>
               </div>
@@ -171,7 +149,7 @@ if($results1){
               <div class="col-md-6 col-lg-12">
                 <div class="form-group">
                   <label>วิทยาลัยที่ 1</label>
-                  <select class="form-control select2" name="school_id_1">
+                  <select class="form-control select2" name="school_1_id">
                     <option value="">--เลือก--</option>
                    <?php
                     if($results1->num_rows > 0){                       
@@ -179,8 +157,15 @@ if($results1){
                           $count1++;                          
                           $school_id=$row1["school_id"];
                           $school_name=$row1["school_name"];
+                          if($school_id==$school_1_id)
+                          {
+                            $sel="selected";
+                          }
+                          else {
+                            $sel="";
+                          }
                           ?>                        
-                          <option value="<?php echo $school_id;?>">
+                          <option value="<?php echo $school_id;?>" <?php echo $sel;?>>
                             <?php echo $count1." ".$school_name;?></option>                          
                         <?php
                       }
@@ -199,7 +184,7 @@ if($results1){
               <div class="col-md-6 col-lg-12">
                 <div class="form-group">
                   <label>วิทยาลัยที่ 2</label>
-                  <select class="form-control select2" name="school_id_2">
+                  <select class="form-control select2" name="school_2_id">
                     <option value="">--เลือก--</option>
                    <?php
                     if($results1->num_rows > 0){                       
@@ -207,8 +192,15 @@ if($results1){
                           $count1++;                          
                           $school_id=$row1["school_id"];
                           $school_name=$row1["school_name"];
+                          if($school_id==$school_2_id)
+                          {
+                            $sel="selected";
+                          }
+                          else {
+                            $sel="";
+                          }
                           ?>                        
-                          <option value="<?php echo $school_id;?>">
+                          <option value="<?php echo $school_id;?>" <?php echo $sel;?>>
                             <?php echo $count1." ".$school_name;?></option>                          
                         <?php
                       }
@@ -227,7 +219,7 @@ if($results1){
               <div class="col-md-6 col-lg-12">
                 <div class="form-group">
                   <label>วิทยาลัยที่ 3</label>
-                  <select class="form-control select2" name="school_id_3">
+                  <select class="form-control select2" name="school_3_id">
                     <option value="">--เลือก--</option>
                    <?php
                     if($results1->num_rows > 0){                       
@@ -235,8 +227,15 @@ if($results1){
                           $count1++;                          
                           $school_id=$row1["school_id"];
                           $school_name=$row1["school_name"];
+                          if($school_id==$school_3_id)
+                          {
+                            $sel="selected";
+                          }
+                          else {
+                            $sel="";
+                          }
                           ?>                        
-                          <option value="<?php echo $school_id;?>">
+                          <option value="<?php echo $school_id;?>" <?php echo $sel;?>>
                             <?php echo $count1." ".$school_name;?></option>                          
                         <?php
                       }
@@ -250,7 +249,7 @@ if($results1){
           <div class="col-md-6 col-lg-12">
                 <div class="form-group">
                   <label>รายละเอียดเพิ่มเติม</label>
-                  <textarea class="form-control" name="spacial_condition" rows="3" placeholder="กรอกรายละเอียด"></textarea>
+                  <textarea class="form-control" name="spacial_condition" rows="3" placeholder="กรอกรายละเอียด"><?php echo nl2br($spacial_condition);?></textarea>
                 </div>
               </div>
            
@@ -258,7 +257,8 @@ if($results1){
                <div class="box-footer">
                 <button type="submit" class="btn btn-primary">บันทึก</button>
                 <button type="submit" class="btn btn-default pull-right">กลับหน้าหลัก</button>
-                <input type="hidden" name="act" value="add">
+                <input type="hidden" name="act" value="esave">
+                <input type="hidden" name="req_id" value="<?php echo $req_id;?>">
               </div>
             </form>
           </div>

@@ -6,17 +6,36 @@ $subactive = 'index';
 $title = 'หน้าหลัก';
 // จัดการข้อมูลกับด้าน logic
 
+$business_id="1234";
+$act=$_GET["act"];
+
 ?>
 <?php
-require_once('template/header.php')
+require_once('template/header.php');
+
+
+if($act=="del"){
+  $req_id=$_GET["req_id"];  
+
+  $sql1="DELETE FROM `new_shortcourses` where req_id='$req_id'"; 
+  //echo $sql1;
+  $results1 = $db->query($sql1);
+  
+}
 ?>
-  <!-- Content Wrapper. Contains page content -->
+<!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        ความต้องการนักศึกษาฝึกงาน
-        <small>Preview</small>
+        ต้องการนักศึกษาฝึกงาน
+        <small>
+          <a href="index.php?extention/frm_req_trainee">
+            <button class="btn btn-info">
+              <i class="fa fa-plus-circle"></i>
+            </button>    
+          </a>
+        </small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -31,123 +50,119 @@ require_once('template/header.php')
         <!-- left column -->
         <div class="col-md-6 col-lg-12">
           <!-- general form elements -->
-          <div class="box box-danger">
-            <div class="box-header with-border">
-              <h3 class="box-title">กรุณากรอกข้อมูลให้ครบถ้วน</h3>
-            </div>
-            <!-- /.box-header -->
-            <!-- form start -->
-            <form role="form">
-              <div class="box-body">
-                <div class="form-group">
-                  <label for="exampleInputEmail1">รหัสความต้องการ..........</label>                  
-                </div>
-                 <div class="form-group">
-                  <label for="exampleInputEmail1">ชื่อสถานประกอบการ..........</label>                  
-                </div>
-                
-                <div class="form-group">
-                  <label>ชื่อสาขาที่ต้องการ</label>
-                  <select class="form-control">
-                    <option>เลือก</option>
-                    <option>สาขา1</option>
-                    <option>สาขา2</option>
-                    <option>สาขา3</option>
-                    <option>สาขา4</option>
-                    <option>สาขา5</option>
-                  </select>
-                </div>
+          <div class="box box-warning">
+            <?php
+//req_trainee : req_id   business_id  major_id  level  amount   gender  both/male/female spacial_condition  training_start   training_end 
 
-                <div class="form-group">
-                  <label>ระดับการศึกษา</label>
-                  <select class="form-control">
-                    <option>เลือก</option>
-                    <option>ปวช.</option>
-                    <option>ปวส.</option>                    
-                  </select>
-                </div>
-
-                <div class="form-group">
-                  <label for="exampleInputPassword1">เพศ</label>                 
-                </div>
-
-                 <!-- select -->
-                <div class="form-group">
-                  <label>ชาย จำนวน</label>
-                  <select class="form-control">
-                    <?php 
-                    for($num=1;$num <=200;$num++){
-                      ?>
-                        <option><?php echo $num;?></option>
-                      <?php
-                    }
-                    ?>
-                  </select>
-                </div>
-
-                <div class="form-group">
-                  <label>หญิง จำนวน</label>
-                  <select class="form-control">
-                    <?php 
-                    for($num=1;$num <=200;$num++){
-                      ?>
-                        <option><?php echo $num;?></option>
-                      <?php
-                    }
-                    ?>
-                  </select>
-                </div>
-
-                 <div class="form-group">
-                  <label>ไม่ระบุประเภท จำนวน</label>
-                  <select class="form-control">
-                    <?php 
-                    for($num=1;$num <=200;$num++){
-                      ?>
-                        <option><?php echo $num;?></option>
-                      <?php
-                    }
-                    ?>
-                  </select>
-                </div>
-
-               
-              <!-- Date range -->
-              <div class="form-group">
-                <label>วันที่เริ่ม-จบฝึกงาน</label>
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-calendar"></i>
-                  </div>
-                  <input type="text" class="form-control pull-right" id="reservation">
-                </div>
-                <!-- /.input group -->
-              </div>
-              <!-- /.form group -->
+//major :   major_id  major_name  type_code  major_eng  industrial            
+            $sql1=("SELECT * FROM `req_trainee` where business_id='$business_id' order by training_start ");
+            //echo $sql1."<br>";
+            $results1 = $db->query($sql1);
+            ?>                  
   
-                          
-                <div class="form-group">
-                  <label for="exampleInputPassword1">รายละเอียดเพิ่มเติม</label>
-                  <textarea class="form-control" rows="3" placeholder="กรอกรายละเอียดเพิ่มเติม"></textarea>
-                </div>
-
-               <div class="box-footer">
-                <button type="submit" class="btn btn-primary">บันทึก</button>
-                <button type="submit" class="btn btn-default pull-right">กลับหน้าหลัก</button>
-                
-              </div>
-            </form>
-          </div>
-          <!-- /.box -->
-
-
-               
-
-              <!-- /.box-footer -->
-            </form>
-
+            <div class="box-header with-border">
+              <h3 class="box-title"><? echo "พบข้อมูล ".$results1->num_rows." รายการ ";?></h3>
             </div>
-            <!-- /.box-body -->
+            <div class="box-body">
+              <div class="table">
+                <table width="100%" class="table datatable  table-striped table-bordered table-hover" >
+                  <thead>
+                    <tr >
+                      <th class="text-center">ลำดับ</th>
+                      <th class="text-center">ชื่อหลักสูตรใหม่</th>
+                      <th class="text-center">คำอธิบายรายวิชา</th>                     
+                      <th class="text-center">ชั่วโมงอบรม</th>
+                      <th class="text-center">วันที่อบรม</th> 
+                      <th class="text-center">ชื่อวิทยาลัยที่ต้องการให้เปิดสอน</th>  
+                      <th class="text-center">รายละเอียดเพิ่มเติม</th>   
+                      <th class="text-center">กระทำ</th>            
+                    </tr>
+                  </thead>
+                  <tbody> 
+                    <?php
+//req_trainee : req_id   business_id  major_id  level  amount   gender  spacial_condition  training_start   training_end 
+                    if($results1->num_rows > 0){  
+                      $count1=0;
+                      while($row1 = $results1->fetch_assoc()) {
+                        $req_id=$row1["req_id"];
+                        $major_id=$row1["major_id"];
+                        $level=$row1["level"];
+                        $amount=$row1["amount"];
+                        $gender=$row1["gender"];                        
+                        $spacial_condition=$row1["spacial_condition"];
+                        $training_start=$row1["training_start"];
+                        $training_end=$row1["training_end"];                        $
+                        $count1++;
+
+                        $sql2=("SELECT * FROM `school` where school_id='$school_1_id' ");
+                        //echo $sql2."<br>";
+                        $results2 = $db->query($sql2);
+                        if($results2->num_rows > 0){  
+                          $row2 = $results2->fetch_assoc();
+                          $school_name1=$row2["school_name"];                          
+                        }else{
+                          $school_name1="";
+                        }
+
+                        $sql2=("SELECT * FROM `school` where school_id='$school_2_id' ");
+                        //echo $sql2."<br>";
+                        $results2 = $db->query($sql2);
+                        if($results2->num_rows > 0){  
+                          $row2 = $results2->fetch_assoc();
+                          $school_name2=$row2["school_name"];                          
+                        }else{
+                          $school_name2="";
+                        }
+
+                        $sql2=("SELECT * FROM `school` where school_id='$school_3_id' ");
+                        //echo $sql2."<br>";
+                        $results2 = $db->query($sql2);
+                        if($results2->num_rows > 0){  
+                          $row2 = $results2->fetch_assoc();
+                          $school_name3=$row2["school_name"];                          
+                        }else{
+                          $school_name3="";
+                        }
+                                      
+                        ?>
+                        <tr >
+                          <td><?php echo $count1;?></td>                          
+                          <td><?php echo $course_name;?></td>
+                          <td><?php echo $course_description;?></td>
+                          <td><?php echo $course_hour;?></td> 
+                          <td><?php echo $course_start;?></td>           
+                          <td><?php echo $school_name1;?><br>
+                          <?php echo $school_name2;?><br>
+                          <?php echo $school_name3;?></td>
+                          <td><?php echo $spacial_condition;?></td>  
+                          <td>
+                            <small>
+                              <a href="index.php?extention/main_new_shot_course&act=del&req_id=<?php echo $req_id;?>" onclick="return confirm('ลบ?');">
+                                <button class="btn btn-sm btn-danger">
+                                  <i class="fa  fa-times"></i>
+                                </button>    
+                              </a>
+                            </small>
+                            <small>
+                              <a href="index.php?extention/edit_new_shot_course&req_id=<?php echo $req_id;?>" >
+                                <button class="btn btn-sm btn-warning">
+                                  <i class="fa  fa-pencil"></i>
+                                </button>    
+                              </a>
+                            </small>
+                          </td>                                    
+                        </tr>
+                        <?php
+                      }
+                    }
+
+                  ?>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            </div>
+           
           </div>
           <!-- /.box -->
         </div>
@@ -158,7 +173,7 @@ require_once('template/header.php')
     <!-- /.content -->
   
   <!-- /.content-wrapper -->
-   <!-- footer-section -->
+  <!-- footer-section -->
 <?php require_once 'template/footer.php'; ?>
 <!-- Page script -->
 <script>
@@ -174,8 +189,11 @@ require_once('template/header.php')
     $('[data-mask]').inputmask()
 
     //Date range picker
-    $('#reservation').daterangepicker()
-    //Date range picker with time picker
+    $('#reservation').daterangepicker({
+      locale: {
+      format: 'YYYY/MM/DD'
+        }
+    })
     $('#reservationtime').daterangepicker({ timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A' })
     //Date range as a button
     $('#daterange-btn').daterangepicker(
