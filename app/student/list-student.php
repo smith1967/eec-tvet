@@ -15,7 +15,9 @@ $params = array(
     'action' => $action,
     'limit' => $limit,
 );
+//=================fix data==========================
 $school_id="1320016201";
+//===================================================
 $params = http_build_query($params);
 $studentlist = get_student($page, $limit,$school_id);
 //echo $studentlist; exit();
@@ -96,7 +98,7 @@ require_once('template/header.php');
                         <td><?php echo convSex($studen['gender']); ?></td>
                         <td><?php echo getMinorName($studen['minor_id']); ?></td>
                         <td><?php echo getMajorName($studen['major_id']); ?></td>
-                        <td><?php echo $studen['status_id']; ?></td>
+                        <td><?php echo getStatusEdu($studen['status_id']); ?></td>
 <!--                        <td>
                             <a href="<?php //echo site_url('student/edit-student') . '&action=edit&std_id=' . $studen['std_id']; ?>" >แก้ไข</a>
                         </td>

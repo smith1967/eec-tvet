@@ -127,11 +127,6 @@ require_once('template/header.php')
   
   <?php require_once 'template/footer.php'; ?>
 
-<?php
-function getDataIndusGroup(){
-     global $db;
-    $query = "SELECT * FROM `industrial_group`";
-    $result = mysqli_query($db, $query);
-    return mysqli_fetch_array($result);
-}
+
+
   
