@@ -92,8 +92,8 @@ require_once('template/header.php')
         <!-- /.col -->
       </div>
       <!-- /.row -->      
-      <div class="row">
-            <!-- <div class="box"> -->
+<!--      <div class="row">
+             <div class="box"> 
                 <div class="form-group"> 
                     <label class="control-label col-md-3" for="zone_id">เลือกภาค</label>
                     <div class="col-md-4">
@@ -101,16 +101,16 @@ require_once('template/header.php')
                                     <option>กรุณาเลือกภาค</option>
                                     <option value="%">เลือกทั้งหมด</option>
                                     <?php
-                                    $def = isset($znoe_id) ? $zone_id : '';
-                                    $sql = "SELECT zone_id,zoneName FROM zone ORDER BY zone_id ASC";
-                                    echo gen_option($sql, $def)
+//                                    $def = isset($znoe_id) ? $zone_id : '';
+//                                    $sql = "SELECT zone_id,zoneName FROM zone ORDER BY zone_id ASC";
+//                                    echo gen_option($sql, $def)
                                     ?>
                         </select>      
                         <button type="button" class="btn btn-block btn-primary" id="check_zone_id">แสดงรายชื่อสถานประกอบการ</button>
                     </div>
                 </div>     
-            <!-- </div> -->
-        </div>
+             </div> 
+        </div>-->
 
       <div class="row">
           <div class="box-body">
@@ -119,8 +119,7 @@ require_once('template/header.php')
                                 <tr>
                                     <th>รหัส</th>
                                     <th>ชื่อสถานประกอบการ</th>
-                                    <th>จังหวัด</th>
-                                    <th>จำนวนครูฝึก</th>
+
                                     <th>ดำเนินการ</th>
                                 </tr>
                             </thead>
@@ -130,8 +129,7 @@ require_once('template/header.php')
                                 <tr>
                                     <th>รหัส</th>
                                     <th>ชื่อสถานประกอบการ</th>
-                                    <th>จังหวัด</th>
-                                    <th>จำนวนครูฝึก</th>
+
                                     <th>ดำเนินการ</th>
                                 </tr>
                             </tfoot>
@@ -154,14 +152,15 @@ require_once('template/header.php')
 <script>
     $(function () {
         // ตัวอย่างการใช้ datatable พร้อมส่ง parameter
-        $('#check_zone_id').click(function (){
-            if($('#zone_id').val()!=""){
-                var url;
-                if($('#zone_id').val()=='%'){
-                    url="ajax/get_business.php"
-                }else{
-                    url="ajax/get_business_zone.php"
-                }
+//        $('#check_zone_id').click(function (){
+//            if($('#zone_id').val()!=""){
+//                var url;
+//                if($('#zone_id').val()=='%'){
+//                    url="ajax/get_business.php"
+//                }else{
+//                    url="ajax/get_business_zone.php"
+//                }
+                url="ajax/get_business.php"
                 $('#business_list').DataTable({
                     "destroy": true,
                     "paging": true,
@@ -182,8 +181,8 @@ require_once('template/header.php')
                     "columns": [
                         {"data": "business_id"},
                         {"data": "business_name"},
-                        {"data": "province_name"},
-                        {"data": "trainers"},               
+//                        {"data": "province_name"},
+//                        {"data": "trainers"},               
         //        { "data": "gender" },
         //        { "data": "country" },
         //        { "data": "phone" },
@@ -204,8 +203,8 @@ require_once('template/header.php')
                         }
                     }
                 });
-            }
-        });
+//            }
+//        });
     });
 </script>
 

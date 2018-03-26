@@ -1,7 +1,7 @@
 <?php
 
 include_once './../include/config.php';
-if(!is_auth()) redirect ();
+//if(!is_auth()) redirect ();
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -13,7 +13,8 @@ header('Content-Type: application/json; charset=utf-8');
 //    $search_str = '%' . trim($_REQUEST['term']) . '%';
 //echo $search_str.'<br>';
 //die();
-    $query = "SELECT b.business_id,b.business_name,p.province_name,COUNT(t.trainer_id) AS trainers FROM business as b LEFT JOIN province as p ON b.province_id = p.province_code LEFT JOIN trainer AS t ON b.business_id = t.business_id GROUP BY b.business_id ORDER BY `b`.`business_id` ASC";
+//    $query = "SELECT b.business_id,b.business_name,p.province_name,COUNT(t.trainer_id) AS trainers FROM business as b LEFT JOIN province as p ON b.province_id = p.province_code LEFT JOIN trainer AS t ON b.business_id = t.business_id GROUP BY b.business_id ORDER BY `b`.`business_id` ASC";
+    $query = "SELECT business_id,business_name FROM business";
 //echo $query;
     $result = mysqli_query($db, $query);
     if ($result) {
@@ -28,13 +29,13 @@ header('Content-Type: application/json; charset=utf-8');
         $i=0;
         if($_SESSION['user']['user_type_id'] == '1'){                
             foreach ($data as $key) {
-                $data[$i]['button'] = '<a href="'.site_url('app/business/list') . '&action=delete&business_id=' . $data[$i]['business_id'].'" class="btn btn-danger btn-sm delete" onclick="return confirm(\'ยืนยันการลบข้อมูล?\');">  <i class="fa fa-remove"></i></a> |
-                                            <a href="'.site_url('app/business/edit') . '&action=edit&business_id=' . $data[$i]['business_id'].'" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>';
+                $data[$i]['button'] = '<a href="'.site_url('business/list') . '&action=delete&business_id=' . $data[$i]['business_id'].'" class="btn btn-danger btn-sm delete" onclick="return confirm(\'ยืนยันการลบข้อมูล?\');">  <i class="fa fa-remove"></i></a> |
+                                            <a href="'.site_url('business/edit') . '&action=edit&business_id=' . $data[$i]['business_id'].'" class="btn btn-warning btn-sm" ><i class="fa fa-edit">1</i></a>';
                 $i++;
             }       
         }else{
             foreach ($data as $key) {
-                $data[$i]['button'] = '<a href="'.site_url('app/business/edit') . '&action=edit&business_id=' . $data[$i]['business_id'].'" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>';
+                $data[$i]['button'] = '<a href="'.site_url('business/edit') . '&action=edit&business_id=' . $data[$i]['business_id'].'" class="btn btn-warning btn-sm" onclick="alert('.pq($data[$i]['business_id']).')"><i class="fa fa-edit"></i></a>';
                 $i++;
             }     
         }
