@@ -1,0 +1,75 @@
+      <!-- Info boxes -->
+      <!-- Info boxes -->
+      <div class="row">
+
+
+
+        <!-- /.col -->
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-yellow btn-insert">
+            <div class="inner">
+              <h3>44</h3>
+
+              <p>เพิ่มสถานประกอบการ</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-person-add"></i>
+            </div>
+            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->      
+
+
+      <div class="row">
+          <div class="box-body">
+              <table id="business_list" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>รหัส</th>
+                                    <th>ชื่อสถานประกอบการ</th>
+                                    <th>จังหวัด</th>
+                                    <th>ดำเนินการ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>รหัส</th>
+                                    <th>ชื่อสถานประกอบการ</th>
+                                    <th>จังหวัด</th>
+                                    <th>ดำเนินการ</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+            </div>
+      </div>
+        <div class="row">
+            <div class="modal fade" id="formModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <?php require_once 'views/business/form.php'; ?>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" onclick="showalert()">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+      <!-- /.row -->
+      <!-- /.row -->
+      <!-- Main row -->
+      <!-- /.row -->

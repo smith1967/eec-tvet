@@ -5,22 +5,9 @@ $active = 'home';
 $subactive = 'index';
 $title = 'หน้าหลัก';
 // จัดการข้อมูลกับด้าน logic
-if (isset($_POST['submit'])) {
-    $data = $_POST;    
-//    var_dump($data);
-//    die();
-//    $valid = do_validate($data);  // check ความถูกต้องของข้อมูล
-//    foreach ($_POST as $k => $v) {
-//        $$k = $v;
-//    }  //    var_dump($property);
-//    $valid = TRUE;
-//    if ($valid) {
-        do_insert();
-//    }
-}
-//if (isset($_GET['action']) && $_GET['action'] == 'delete') {
-//    do_delete($_GET['business_id']);
-//}
+//if (isset($_POST['submit'])) {
+//    $data = $_POST;    
+//        do_insert();
 
 ?>
 <?php
