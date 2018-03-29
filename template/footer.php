@@ -254,3 +254,8 @@
 <script src="asset/AdminLTE/dist/js/demo.js"></script>
 </body>
 </html>
+<?php
+// close database connection
+$conn = null;
+mysqli_close($db);
+?>

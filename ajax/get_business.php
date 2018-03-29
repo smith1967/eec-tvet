@@ -9,47 +9,61 @@ include_once './../include/config.php';
  */
 header("Cache-Control: no-transform,public,max-age=300,s-maxage=900");
 header('Content-Type: application/json; charset=utf-8');
+if (isset($_REQUEST['business_id'])) {
+    $business_id = $_REQUEST['business_id'];
+    $query = "SELECT * FROM business WHERE business_id =" . pq($business_id);
+} else {
+//    $query = "SELECT * FROM business";
+    $query = "SELECT b.business_id,b.business_name,p.province_name "
+            . "FROM "
+            . "business as b LEFT JOIN province as p ON b.province_code = p.province_code "
+            . "GROUP BY "
+            . "b.business_id "
+            . "ORDER BY "
+            . "`b`.`business_id` "
+            . "ASC";
+//echo $query;
+}
 //if (isset($_REQUEST)) {
 //    $search_str = '%' . trim($_REQUEST['term']) . '%';
 //echo $search_str.'<br>';
 //die();
 //    $query = "SELECT b.business_id,b.business_name,p.province_name,COUNT(t.trainer_id) AS trainers FROM business as b LEFT JOIN province as p ON b.province_id = p.province_code LEFT JOIN trainer AS t ON b.business_id = t.business_id GROUP BY b.business_id ORDER BY `b`.`business_id` ASC";
-    $query = "SELECT business_id,business_name FROM business";
 //echo $query;
-    $result = mysqli_query($db, $query);
-    if ($result) {
-        $data = array();
-        while ($row = mysqli_fetch_assoc($result)) {
-            $data[] = $row;
-        }
+$result = mysqli_query($db, $query);
+if ($result) {
+    $data = array();
+    while ($row = mysqli_fetch_assoc($result)) {
+        $data[] = $row;
+    }
 //        $json_data = array();
 //        $json_data['data'] = $data;
 //        var_dump($json_data);
 //        exit();
-        $i=0;
-        if($_SESSION['user']['user_type_id'] == '1'){                
-            foreach ($data as $key) {
-                $data[$i]['button'] = '<a href="'.site_url('business/list') . '&action=delete&business_id=' . $data[$i]['business_id'].'" class="btn btn-danger btn-sm delete" onclick="return confirm(\'ยืนยันการลบข้อมูล?\');">  <i class="fa fa-remove"></i></a> |
-                                            <a href="'.site_url('business/edit') . '&action=edit&business_id=' . $data[$i]['business_id'].'" class="btn btn-warning btn-sm" ><i class="fa fa-edit">1</i></a>';
-                $i++;
-            }       
-        }else{
-            foreach ($data as $key) {
-                $data[$i]['button'] = '<a href="'.site_url('business/edit') . '&action=edit&business_id=' . $data[$i]['business_id'].'" class="btn btn-warning btn-sm" onclick="alert('.pq($data[$i]['business_id']).')"><i class="fa fa-edit"></i></a>';
-                $i++;
-            }     
+    $i = 0;
+    if ($_SESSION['user']['user_type_id'] == '1') {
+        foreach ($data as $key) {
+            $data[$i]['button'] = '<a href="' . site_url('business/list') . '&action=delete&business_id=' . $data[$i]['business_id'] . '" class="btn btn-danger btn-sm delete" onclick="return confirm(\'ยืนยันการลบข้อมูล?\');">  <i class="fa fa-remove"></i></a> |
+                                            <a href="' . site_url('business/edit') . '&action=edit&business_id=' . $data[$i]['business_id'] . '" class="btn btn-warning btn-sm" ><i class="fa fa-edit">1</i></a>';
+            $i++;
         }
-        $datax = array('data' => $data);
-        echo json_encode($datax, JSON_UNESCAPED_UNICODE);       
+    } else {
+        foreach ($data as $key) {
+            $data[$i]['button'] = '<button type="button" class="btn btn-warning btn-sm btn-edit" data-toggle="modal" data-target="#formModal"><i class="fa fa-edit"></i></button>'
+                                .' <button type="button" class="btn btn-danger btn-sm btn-delete"><i class="fa fa-remove"></i></button>';
+            $i++;
+        }
+    }
+    $datax = array('data' => $data);
+    echo json_encode($datax, JSON_UNESCAPED_UNICODE);
 //        echo json_encode($json_data, JSON_UNESCAPED_UNICODE);
-
 //        var_dump($json_data);
 //        exit();
 //        echo json_encode($json_data);
 //    var_dump(json_encode($data));
-    } else {
-        echo "can't query";
-    }
+} else {
+    echo "can't query";
+}
 //}
 //$data = array(
 //    array(
