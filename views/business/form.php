@@ -1,6 +1,9 @@
 <div class="row">
     <!-- left column -->
     <div class="col-md-12">
+        <div class="col-md-12">
+            <p id="show-message"></p>
+        </div>
         <!-- general form elements -->
         <div class="box box-primary">
             <div class="box-header with-border">
@@ -10,7 +13,7 @@
             <!-- form start -->
             <form role="form" method="post" id="businessForm">
                 <div class="box-body">
-
+                    <input type="hidden" id="business_id" name="business_id" value=""/>
                     <div class="row">
                         <div class="col-md-12 col-xs-12">
                             <div class="form-group">
@@ -68,7 +71,7 @@
                         <div class="col-md-6">                        
                             <div class="form-group">
                                 <label for="industrial_estate_id">นิคมอุตสาหกรรม </label>
-                                <select class="form-control select2" name="industrial_estate_id">
+                                <select class="form-control select2" name="industrial_estate_id" data-width="100%">
                                     <?php
                                     $def = isset($industrial_estate_id) ? $industrial_estate_id : '2';
                                     $sql = "SELECT industrial_estate_id,industrial_estate_name FROM industrial_estate ORDER BY industrial_estate_id ASC";
@@ -84,7 +87,7 @@
                         <div class="col-md-6">                        
                             <div class="form-group">
                                 <label>กลุ่มอุตสาหกรรม</label>
-                                <select class="form-control select2" name="industrial_gid">
+                                <select class="form-control select2" name="industrial_gid" data-width="100%">
                                     <?php
                                     $def = isset($industrial_gid) ? $industrial_gid : '2';
                                     $sql = "SELECT industrial_gid,industrial_gname FROM industrial_group ORDER BY industrial_gid ASC";
@@ -99,7 +102,7 @@
                         <div class="col-md-3">                        
                             <div class="form-group">
                                 <label>จำนวนพนักงาน</label>
-                                <select class="form-control select2" name="employee_amount_id">
+                                <select class="form-control select2" name="employee_amount_id" data-width="100%">
                                     <?php
                                     $def = isset($employee_amount_id) ? $employee_amount_id : '1';
                                     $sql = "SELECT employee_amount_id,amount FROM employee_amount ORDER BY employee_amount_id ASC";
@@ -175,7 +178,7 @@
                 </div>
                 <!--/.box-body-->
                 <div class="box-footer">
-                    <button type="submit" class="btn btn-primary" name="submit">บันทึกข้อมูล</button>
+                    <button type="submit" class="btn btn-primary" id="btnForm" name="submit">บันทึกข้อมูล</button>
                     <button type="reset" class="btn btn-danger" id="reset" name="reset">ล้างข้อมูล</button>
 
                 </div>
