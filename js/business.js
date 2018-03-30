@@ -98,11 +98,12 @@ $(function () {
 //                        {student_name:student_name,student_roll_no:student_roll_no,student_class:student_class},
             dataType: "JSON",
             success: function (data) {
-                $("#message").html(data);
-                $("#message").addClass("alert alert-success").show();
+                $("#show-message").html(data).addClass("alert alert-success").show().delay(5000).fadeOut();
+//              b  $("#message").addClass("alert alert-success").show();
+                business_list.ajax.reload();
             },
             error: function (err) {
-                $("#message").addClass("alert alert-danger").show();
+                $("#show-message").html(data).addClass("alert alert-danger").show().delay(5000).fadeOut();
             }
         });
     }
@@ -281,7 +282,7 @@ $(function () {
 
     });
     
-    // edit data
+    // delete data
     $("#business_list").on('click', '.btn-delete', function () {
 //        alert('test');
 //        
@@ -325,10 +326,10 @@ $(function () {
 //                    $("#hello").text($(this).parent().siblings(":first").text());
     });
 
-    $(document).on('click', '.btn-insert', function () {
-        // get data from api
-        alert('test');
-    });    
+//    $(document).on('click', '.btn-insert', function () {
+//        // get data from api
+//        $('#btnForm').addClass();
+//    });    
     // get data to datatable
 
 });
