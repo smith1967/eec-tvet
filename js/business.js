@@ -354,6 +354,7 @@ $(function () {
 
         });
         table.ajax.reload();
+        $("#business-total").html(table.data().count());
         // fix search box in modal can't focus
         $.fn.modal.Constructor.prototype.enforceFocus = function () { };
     });
@@ -391,6 +392,7 @@ $(function () {
 
         });
         table.ajax.reload();
+//        $("#business-total").html(table.data().count());
         // fix search box in modal can't focus
         $.fn.modal.Constructor.prototype.enforceFocus = function () { };
     });
