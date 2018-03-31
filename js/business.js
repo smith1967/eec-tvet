@@ -125,13 +125,14 @@ $(function () {
 //                alert(data.message);
                 $("#show-message").html(data.message).addClass("alert alert-success").show().delay(5000).fadeOut();
                 $("#business_id").val(data.business_id);
-                
+                table.ajax.reload();
+                $("#business-total").html(table.data().count());
             },
             error: function (err) {
                 $("#show-message").html(data).addClass("alert alert-danger").show().delay(5000).fadeOut();
             }
         });
-        table.ajax.reload();
+        
     }
     function editBusiness() {
         $.ajax({
