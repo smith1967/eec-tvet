@@ -318,7 +318,7 @@ $(function () {
     //    $("#business-total").html(info.recordsTotal);
        $("#boxInsert").click(function () {  
 //           alert('insert')
-           if($("#business_id").val === ""){
+           if($("#business_id").val() === ""){
             $("#btnInsert").show();
             $("#btnEdit").hide();               
            }else{
