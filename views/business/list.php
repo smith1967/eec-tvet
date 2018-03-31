@@ -4,7 +4,7 @@
         <!-- /.col -->
         <div class="col-lg-3 col-xs-3">
           <!-- small box -->
-          <div class="small-box bg-primary btn-insert" data-toggle="modal" data-target="#formModal">
+          <div class="small-box bg-primary btn-insert" id="boxInsert" data-toggle="modal" data-target="#formModal">
             <div class="inner">
               <h3 id="business-total"></h3>
               <p>สถานประกอบการ</p>

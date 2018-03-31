@@ -314,7 +314,8 @@ $(function () {
 //        $("#business-total").html(table.data().count());
 //    }, 5000);
     //    $("#business-total").html(info.recordsTotal);
-       $().on('click', '.btn-insert', function () {  
+       $("#boxInsert").click(function () {  
+//           alert('insert')
            if($("#business_id").val === ""){
             $("#btnInsert").show();
             $("#btnEdit").hide();               
