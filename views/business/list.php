@@ -6,7 +6,7 @@
           <!-- small box -->
           <div class="small-box bg-primary btn-insert" data-toggle="modal" data-target="#formModal">
             <div class="inner">
-              <h3>44</h3>
+              <h3 id="business-total"></h3>
               <p>สถานประกอบการ</p>
             </div>
             <div class="icon">
@@ -58,7 +58,7 @@
                             <?php require_once 'views/business/form.php'; ?>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิดฟอร์ม</button>
+                            <button type="button" class="btn btn-warning" data-dismiss="modal">ปิดฟอร์ม</button>
                             <!--<button type="button" class="btn btn-primary" onclick="showalert()">Save changes</button>-->
                         </div>
                     </div>

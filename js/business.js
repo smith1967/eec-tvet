@@ -1,14 +1,32 @@
 
 $(function () {
     //  business form
+    var province_code;
+    var district_code;
+    var subdistrict_code;
+    var action;
+    $('#btnInsert').click(function () {
+        //do stuff
+        action = "insert";
+    });
+    $('#btnEdit').click(function () {
+        //do stuff
+        action = "edit";
+    });    
+    
     $("#reset").click(function () {
-//            alert("xxxx");
+        //            alert("xxxx");
         $("#message").hide();
     });
+    if ($("#business_id").val() == "") {
+        $("#btnEdit").hide();
+    } else {
+        $("#btnEdit").show();
+    }
 
     $("#businessForm").validate({
         rules: {
-//                        business_name: "required",
+            //                        business_name: "required",
             business_name: {
                 required: true,
                 minlength: 4
@@ -35,18 +53,18 @@ $(function () {
             coordinator_position: {
                 required: true,
                 minlength: 5,
-//                                equalTo: "#password"
+                //                                equalTo: "#password"
             },
-//                        coordinator_email: {
-//                                required: true,
-//                                minlength: 5,
-////                                equalTo: "#password"
-//                        },
+            //                        coordinator_email: {
+            //                                required: true,
+            //                                minlength: 5,
+            ////                                equalTo: "#password"
+            //                        },
             coordinator_email: {
                 required: true,
                 email: true
             },
-//                        agree: "required"
+            //                        agree: "required"
         },
         messages: {
             business_name: "กรุณาใส่ชื่อบริษัท",
@@ -61,11 +79,11 @@ $(function () {
             coordinator: "กรุณาใส่ชื่อผู้ประสานงาน",
             coordinator_telephone: "กรุณาใส่หมายเลขโทรศัพท์",
             coordinator_position: "กรุณาใส่ตำแหน่งผู้ประสานงาน",
-//                        coordinator_email: {
-//                                required: true,
-//                                minlength: 5,
-////                                equalTo: "#password"
-//                        },
+            //                        coordinator_email: {
+            //                                required: true,
+            //                                minlength: 5,
+            ////                                equalTo: "#password"
+            //                        },
             coordinator_email: "กรุณาใส่อีเมล์",
         },
 
@@ -87,7 +105,13 @@ $(function () {
             $(element).parents(".col-sm-5").addClass("has-success").removeClass("has-error");
         },
         submitHandler: function (form) {
-            insertBusiness();
+            if(action==="insert"){
+                insertBusiness();
+            }
+            if(action==="edit"){
+                editBusiness();
+            }
+                        
         },
     });
     function insertBusiness() {
@@ -95,12 +119,29 @@ $(function () {
             type: "POST",
             url: "ajax/post_business.php",
             data: $("#businessForm").serialize(),
-//                        {student_name:student_name,student_roll_no:student_roll_no,student_class:student_class},
+            //                        {student_name:student_name,student_roll_no:student_roll_no,student_class:student_class},
             dataType: "JSON",
             success: function (data) {
-                $("#show-message").html(data).addClass("alert alert-success").show().delay(5000).fadeOut();
-//              b  $("#message").addClass("alert alert-success").show();
-                business_list.ajax.reload();
+                alert(data.message);
+                $("#show-message").html(data.message).addClass("alert alert-success").show().delay(5000).fadeOut();
+                $("#business_id").val(data.business_id);
+                table.ajax.reload();
+            },
+            error: function (err) {
+                $("#show-message").html(data).addClass("alert alert-danger").show().delay(5000).fadeOut();
+            }
+        });
+    }
+    function editBusiness() {
+        $.ajax({
+            type: "POST",
+            url: "ajax/put_business.php",
+            data: $("#businessForm").serialize(),
+            dataType: "JSON",
+            success: function (data) {
+//                alert(data.message);
+                $("#show-message").html(data.message).addClass("alert alert-success").show().delay(5000).fadeOut();
+                table.ajax.reload();
             },
             error: function (err) {
                 $("#show-message").html(data).addClass("alert alert-danger").show().delay(5000).fadeOut();
@@ -130,7 +171,7 @@ $(function () {
 
     //แสดงข้อมูล อำเภอ  โดยใช้คำสั่ง change จะทำงานกรณีมีการเปลี่ยนแปลงที่ #province
     $("#province_code").change(function () {
-//            alert('district');
+        //            alert('district');
         //กำหนดให้ ตัวแปร province มีค่าเท่ากับ ค่าของ #province ที่กำลังถูกเลือกในขณะนั้น
         var province_code = $(this).val();
 
@@ -149,7 +190,11 @@ $(function () {
                     //แทรก Elements ข้อมูลที่ได้  ใน id amphur  ด้วยคำสั่ง append
                     $("#district_code").append("<option value='" + value.id + "'> " + value.name + "</option>");
                 });
-                $("#district_code").val("<?php set_var($district_code) ?>");
+                var d_code = "<?php set_var($district_code) ?>"
+                if(d_code === ""){
+                    d_code = district_code;
+                }
+                $("#district_code").val(d_code);
                 $("#district_code").change();
             }
         });
@@ -165,7 +210,7 @@ $(function () {
             dataType: "json", //กำหนดให้มีรูปแบบเป็น Json
             data: {district_code: district_code}, //ส่งค่าตัวแปร district_code เพื่อดึงข้อมูล ตำบล ที่มี district_code เท่ากับค่าที่ส่งไป
             success: function (data) {
-//                                console.log(JSON.stringify(data))
+                //                                console.log(JSON.stringify(data))
                 //กำหนดให้ข้อมูลใน #district เป็นค่าว่าง
                 $("#subdistrict_code").text("");
 
@@ -175,7 +220,11 @@ $(function () {
                     $("#subdistrict_code").append("<option value='" + value.id + "'> " + value.name + "</option>");
 
                 });
-                $("#subdistrict_code").val("<?php set_var($subdistrict_code) ?>");
+                var sd_code = "<?php set_var($subdistrict_code) ?>"
+                if(sd_code === ""){
+                    sd_code = subdistrict_code;
+                }
+                $("#subdistrict_code").val(sd_code);
                 $("#subdistrict_code").change();
             }
         });
@@ -190,16 +239,9 @@ $(function () {
             dataType: "json", //กำหนดให้มีรูปแบบเป็น Json
             data: {subdistrict_code: subdistrict_code}, //ส่งค่าตัวแปร district_code เพื่อดึงข้อมูล ตำบล ที่มี district_code เท่ากับค่าที่ส่งไป
             success: function (data) {
-//                                console.log(JSON.stringify(data))
-                //กำหนดให้ข้อมูลใน #district เป็นค่าว่าง
-//                                $("#postcode").val(JSON.stringify(data));
-
                 //วนลูปแสดงข้อมูล ที่ได้จาก ตัวแปร data  
                 $.each(data, function (index, value) {
-                    //แทรก Elements ข้อมูลที่ได้  ใน id district  ด้วยคำสั่ง append
-//                                   console.log(index);
                     $("#postcode").val(value.id);
-//                                $("#district_id").append("<option value='" + value.id + "'> " + value.name + "</option>");
                 });
             }
         });
@@ -214,11 +256,11 @@ $(function () {
         var subdistrict = $("#subdistrict_code option:selected").text();
 
         //ใช้คำสั่ง alert แสดงข้อมูลที่ได้
-//                alert("คุณได้เลือก :  จังหวัด : " + province + " อำเภอ : "+ amphur + "  ตำบล : " + district );
+        //                alert("คุณได้เลือก :  จังหวัด : " + province + " อำเภอ : "+ amphur + "  ตำบล : " + district );
     });
-    
+
     var url = "ajax/get_business.php";
-    var business_list = $('#business_list').DataTable({        
+    var table = $('#business_list').DataTable({
         "destroy": true,
         "paging": true,
         "lengthChange": true,
@@ -239,7 +281,7 @@ $(function () {
             {"data": "business_id"},
             {"data": "business_name"},
             {"data": "province_name"},
-//                        {"data": "trainers"},               
+            //                        {"data": "trainers"},               
             //        { "data": "gender" },
             //        { "data": "country" },
             //        { "data": "phone" },
@@ -258,78 +300,148 @@ $(function () {
                 "next": "หน้าต่อไป",
                 "previous": "หน้าก่อน"
             }
+        },
+        // Display total Record
+        "initComplete": function (settings, json) {
+            var info = this.api().page.info();
+            $("#business-total").html(info.recordsTotal);
         }
     });
-    
-    // edit data
-    $("#business_list tbody").on('click', '.btn-edit', function () {
+
+    var info = table.page.info();
+//    setInterval( function  () {
+//        table.ajax.reload();
+//        $("#business-total").html(table.data().count());
+//    }, 5000);
+    //    $("#business-total").html(info.recordsTotal);
+       $().on('click', '.btn-insert', function () {  
+           if($("#business_id").val === ""){
+            $("#btnInsert").show();
+            $("#btnEdit").hide();               
+           }else{
+            $("#btnInsert").show();
+            $("#btnEdit").show();                
+           }
+
         // get data from api
         var url = './ajax/get_business';
         var id = $(this).parent().siblings(":first").text();
         var data = {
             business_id: id
         };
-
         $.getJSON(url, data, function (data, status) {
-
             //Do stuff with the JSON data
-            alert("Data: " + data + "\nStatus: " + status);
+        $.each(data, function (key, val) {
+//            console.log(key)
+            $.each(val, function (k, v) {
+                if(k==="province_code" || k==="district_code" ||k==="subdistrict_code"){
+                    console.log(k + ":" +v);
+                    if(k==="district_code"){
+                        district_code = v;
+                    }else if(k==="subdistrict_code"){
+                       subdistrict_code = v;
+                    }
+                    
+                    $("#"+k).val(v);
+                    $("#"+k).change();                    
+                }else{
+                    $("#"+k).val(v);
+                }
+            });
+        });
 
         });
+        table.ajax.reload();
         // fix search box in modal can't focus
-        $.fn.modal.Constructor.prototype.enforceFocus = function() {};
-        
-
+        $.fn.modal.Constructor.prototype.enforceFocus = function () { };
     });
-    
+
+    // edit data
+    $("#business_list tbody").on('click', '.btn-edit', function () {   
+            $("#btnInsert").hide();
+            $("#btnEdit").show();
+        // get data from api
+        var url = './ajax/get_business';
+        var id = $(this).parent().siblings(":first").text();
+        var data = {
+            business_id: id
+        };
+        $.getJSON(url, data, function (data, status) {
+            //Do stuff with the JSON data
+        $.each(data, function (key, val) {
+//            console.log(key)
+            $.each(val, function (k, v) {
+                if(k==="province_code" || k==="district_code" ||k==="subdistrict_code"){
+                    console.log(k + ":" +v);
+                    if(k==="district_code"){
+                        district_code = v;
+                    }else if(k==="subdistrict_code"){
+                       subdistrict_code = v;
+                    }
+                    
+                    $("#"+k).val(v);
+                    $("#"+k).change();                    
+                }else{
+                    $("#"+k).val(v);
+                }
+            });
+        });
+
+        });
+        table.ajax.reload();
+        // fix search box in modal can't focus
+        $.fn.modal.Constructor.prototype.enforceFocus = function () { };
+    });
+
     // delete data
     $("#business_list").on('click', '.btn-delete', function () {
-//        alert('test');
-//        
-        if ( $(this).parents('tr').hasClass('active') ) {
+        //        alert('test');
+        //        
+        if ($(this).parents('tr').hasClass('active')) {
             $(this).parents('tr').removeClass('active');
-//            alert('1');
-        }
-        else {
-            business_list.$('tr.active').removeClass('active');
+            //            alert('1');
+        } else {
+            table.$('tr.active').removeClass('active');
             $(this).parents('tr').addClass('active');
-//            alert('2');
+            //            alert('2');
         }
-        
-//        business_list.row().remove($(this)).parents('tr')).draw( false );
-//        business_list.row.remove($(this).parents('tr')).draw();
 
-        
+        //        table.row().remove($(this)).parents('tr')).draw( false );
+        //        table.row.remove($(this).parents('tr')).draw();
+
+
         // get data from api
-        if(!confirm('ยืนยันการลบข้อมูล'))
+        if (!confirm('ยืนยันการลบข้อมูล'))
             return;
         var url = './ajax/del_business';
         var id = $(this).parent().siblings(":first").text();
         var data = {
             business_id: id
         };
-//
+        //
         $.getJSON(url, data, function (data, status) {
             //Do stuff with the JSON data
             if (status === 'success') {
-//                console.log(data);
-                
-                business_list.row('.active').remove().draw( false );
-                business_list.ajax.reload();
+                //                console.log(data);
+
+                table.row('.active').remove().draw(false);
+                table.ajax.reload();
                 $("#message").text(data).addClass("alert alert-success").show().delay(5000).fadeOut();
+                // Display total Record
+                $("#business-total").html(table.data().count());
             }
-//            
-         });
+            //    
+        });
 
         // set data to html element
 
-//                    $("#hello").text($(this).parent().siblings(":first").text());
+        //                    $("#hello").text($(this).parent().siblings(":first").text());
     });
 
-//    $(document).on('click', '.btn-insert', function () {
-//        // get data from api
-//        $('#btnForm').addClass();
-//    });    
+    //    $(document).on('click', '.btn-insert', function () {
+    //        // get data from api
+    //        $('#btnForm').addClass();
+    //    });    
     // get data to datatable
 
 });

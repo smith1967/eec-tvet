@@ -14,6 +14,7 @@
             <form role="form" method="post" id="businessForm">
                 <div class="box-body">
                     <input type="hidden" id="business_id" name="business_id" value=""/>
+                    
                     <div class="row">
                         <div class="col-md-12 col-xs-12">
                             <div class="form-group">
@@ -178,8 +179,9 @@
                 </div>
                 <!--/.box-body-->
                 <div class="box-footer">
-                    <button type="submit" class="btn btn-primary" id="btnForm" name="submit">บันทึกข้อมูล</button>
-                    <button type="reset" class="btn btn-danger" id="reset" name="reset">ล้างข้อมูล</button>
+                    <button type="submit" class="btn btn-primary" id="btnInsert" name="submit">บันทึกเพิ่มข้อมูล</button>
+                    <button type="submit" class="btn btn-success" id="btnEdit" name="submit">บันทึกแก้ไขข้อมูล</button>
+                    <button type="reset" class="btn btn-danger" id="btnReset" name="reset">ล้างข้อมูลในฟอร์ม</button>
 
                 </div>
             </form>
