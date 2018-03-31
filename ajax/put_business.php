@@ -9,68 +9,53 @@ include_once './../include/config.php';
  */
 header("Cache-Control: no-transform,public,max-age=300,s-maxage=900");
 header('Content-Type: application/json; charset=utf-8');
-if(isset($_REQUEST['business_id'])){
-    $business_id = $_REQUEST['business_id'];
-    $query =  "UPDATE `business` SET "
-            . "`business_name` = \'dfsdfsdfdfsdf\', "
-            . "`address` = \'333\', "
-            . "`coordinator` = \'fdsfsdfsd\', "
-            . "`gps` = \'345,666\' "
-            . "WHERE "
-            . "`business`.`business_id` = ".pq($business_id);    
+if(isset($_POST['business_id'])){
+    $sql = "UPDATE "
+            . "`business` "
+            . "SET "
+            . "`business_name` = :business_name,"
+            . " `address` = :address,"
+            . " `subdistrict_code` = :subdistrict_code,"
+            . " `district_code` = :district_code,"
+            . " `province_code` = :province_code,"
+            . " `industrial_estate_id` = :industrial_estate_id,"
+            . " `industrial_gid` = :industrial_gid,"
+            . " `employee_amount_id` = :employee_amount_id,"
+            . " `telephone` = :telephone,"
+            . " `coordinator` = :coordinator,"
+            . " `coordinator_position` = :coordinator_position,"
+            . " `coordinator_telephone` = :coordinator_telephone,"
+            . " `coordinator_email` = :coordinator_email,"
+            . " `coordinator_line_id` = :coordinator_line_id,"
+            . " `gps` = :gps"
+            . " WHERE"
+            . " `business`.`business_id` = :business_id";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':business_name',$_POST['business_name'],PDO::PARAM_STR);
+    $stmt->bindParam(':address', $_POST['address'], PDO::PARAM_INT);
+    $stmt->bindParam(':subdistrict_code', $_POST['subdistrict_code'], PDO::PARAM_INT);
+    $stmt->bindParam(':district_code', $_POST['district_code'], PDO::PARAM_INT);
+    $stmt->bindParam(':province_code', $_POST['province_code'], PDO::PARAM_INT);
+    $stmt->bindParam(':industrial_estate_id', $_POST['industrial_estate_id'], PDO::PARAM_INT);
+    $stmt->bindParam(':industrial_gid', $_POST['industrial_gid'], PDO::PARAM_INT);
+    $stmt->bindParam(':employee_amount_id', $_POST['employee_amount_id'], PDO::PARAM_INT);
+    $stmt->bindParam(':telephone', $_POST['telephone'], PDO::PARAM_STR);
+    $stmt->bindParam(':coordinator', $_POST['coordinator'], PDO::PARAM_STR);
+    $stmt->bindParam(':coordinator_position', $_POST['coordinator_position'], PDO::PARAM_STR);
+    $stmt->bindParam(':coordinator_telephone', $_POST['coordinator_telephone'], PDO::PARAM_STR);
+    $stmt->bindParam(':coordinator_email', $_POST['coordinator_email'], PDO::PARAM_STR);
+    $stmt->bindParam(':coordinator_line_id', $_POST['coordinator_line_id'], PDO::PARAM_STR);
+    $stmt->bindParam(':gps', $_POST['gps'], PDO::PARAM_STR);
+    $stmt->bindParam(':business_id', $_POST['business_id'], PDO::PARAM_INT);
+    $stmt->execute();
+    $count = $stmt->rowCount();
+    $res = array(
+        'message' => "แก้ไขข้อมูลจำนวน $count แถว",
+    );
+    echo json_encode($res);
 }else{
-    
+    $res = array(
+        'message' => 'ไม่มีการแก้ไขข้อมูล!',
+    );
+    echo json_encode($res);
 }
-//if (isset($_REQUEST)) {
-//    $search_str = '%' . trim($_REQUEST['term']) . '%';
-//echo $search_str.'<br>';
-//die();
-//    $query = "SELECT b.business_id,b.business_name,p.province_name,COUNT(t.trainer_id) AS trainers FROM business as b LEFT JOIN province as p ON b.province_id = p.province_code LEFT JOIN trainer AS t ON b.business_id = t.business_id GROUP BY b.business_id ORDER BY `b`.`business_id` ASC";
-    
-//echo $query;
-    $result = mysqli_query($db, $query);
-    if ($result) {
-        $data = array();
-        while ($row = mysqli_fetch_assoc($result)) {
-            $data[] = $row;
-        }
-//        $json_data = array();
-//        $json_data['data'] = $data;
-//        var_dump($json_data);
-//        exit();
-        $i=0;
-        if($_SESSION['user']['user_type_id'] == '1'){                
-            foreach ($data as $key) {
-                $data[$i]['button'] = '<a href="'.site_url('business/list') . '&action=delete&business_id=' . $data[$i]['business_id'].'" class="btn btn-danger btn-sm delete" onclick="return confirm(\'ยืนยันการลบข้อมูล?\');">  <i class="fa fa-remove"></i></a> |
-                                            <a href="'.site_url('business/edit') . '&action=edit&business_id=' . $data[$i]['business_id'].'" class="btn btn-warning btn-sm" ><i class="fa fa-edit">1</i></a>';
-                $i++;
-            }       
-        }else{
-            foreach ($data as $key) {
-                $data[$i]['button'] = '<button type="button" class="btn btn-warning btn-sm btn-edit" data-toggle="modal" data-target="#formModal"><i class="fa fa-edit"></i></button>';
-                $i++;
-            }     
-        }
-        $datax = array('data' => $data);
-        echo json_encode($datax, JSON_UNESCAPED_UNICODE);       
-//        echo json_encode($json_data, JSON_UNESCAPED_UNICODE);
-
-//        var_dump($json_data);
-//        exit();
-//        echo json_encode($json_data);
-//    var_dump(json_encode($data));
-    } else {
-        echo "can't query";
-    }
-//}
-//$data = array(
-//    array(
-//      'id'=>1,
-//    'name'=>'test'  
-//    ),
-//        array(
-//      'id'=>2,
-//    'name'=>'test2'  
-//    ),
-//);
-//echo json_encode($data);

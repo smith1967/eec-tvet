@@ -11,7 +11,34 @@ header("Cache-Control: no-transform,public,max-age=300,s-maxage=900");
 header('Content-Type: application/json; charset=utf-8');
 if (isset($_REQUEST['business_id'])) {
     $business_id = $_REQUEST['business_id'];
-    $query = "SELECT * FROM business WHERE business_id =" . pq($business_id);
+    $sql = "SELECT "
+            . "`business_id`,"
+            . " `business_name`,"
+            . " `address`,"
+            . " `province_code`,"
+            . " `district_code`,"
+            . " `subdistrict_code`,"
+            . " `industrial_estate_id`,"
+            . " `industrial_gid`,"
+            . " `employee_amount_id`,"
+            . " `telephone`,"
+            . " `coordinator`,"
+            . " `coordinator_position`,"
+            . " `coordinator_telephone`,"
+            . " `coordinator_email`,"
+            . " `coordinator_line_id`,"
+            . " `gps`,"
+            . " `economic_zone`"
+            . " FROM "
+            . "business "
+            . "WHERE "
+            . "business_id =" . pq($business_id);
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':business_id', $business_id, PDO::PARAM_INT);
+    $stmt->execute();
+    $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    echo json_encode($res);
+    return;
 } else {
 //    $query = "SELECT * FROM business";
     $query = "SELECT b.business_id,b.business_name,p.province_name "
@@ -50,7 +77,7 @@ if ($result) {
     } else {
         foreach ($data as $key) {
             $data[$i]['button'] = '<button type="button" class="btn btn-warning btn-sm btn-edit" data-toggle="modal" data-target="#formModal"><i class="fa fa-edit"></i></button>'
-                                .' <button type="button" class="btn btn-danger btn-sm btn-delete"><i class="fa fa-remove"></i></button>';
+                    . ' <button type="button" class="btn btn-danger btn-sm btn-delete"><i class="fa fa-remove"></i></button>';
             $i++;
         }
     }

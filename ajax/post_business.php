@@ -51,7 +51,10 @@ if ($_POST) {
 //    $query = "INSERT INTO group_config (groupname, group_desc, upload, download) VALUES (".pq($data['groupname']).", ".pq($data['group_desc']).", ".pq($data['upload']).", ".pq($data['download']).");";
     mysqli_query($db, $query);
     if (mysqli_affected_rows($db) > 0) {
-        $res = "เพิ่มข้อมูลสำเร็จ:";
+        $res = array(
+            'message' => 'เพิ่มข้อมูลสำเร็จ',
+            'business_id'  => mysqli_insert_id($db)
+        );
         echo json_encode($res);
     } else {
         $error = "ไม่สามารถเพิ่มข้อมูลได้ : ". mysqli_error($db). " : " . $query;
