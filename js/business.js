@@ -310,10 +310,10 @@ $(function () {
     });
 
     var info = table.page.info();
-//    setInterval( function  () {
-//        table.ajax.reload();
-//        $("#business-total").html(table.data().count());
-//    }, 5000);
+    setInterval( function  () {
+        table.ajax.reload();
+        $("#business-total").html(table.data().count());
+    }, 10000);
     //    $("#business-total").html(info.recordsTotal);
        $("#boxInsert").click(function () {  
 //           alert('insert')
