@@ -361,7 +361,7 @@ $(function () {
             $("#btnInsert").hide();
             $("#btnEdit").show();
         // get data from api
-        var url = './ajax/get_business';
+        var url = './ajax/get_business.php';
         var id = $(this).parent().siblings(":first").text();
         var data = {
             business_id: id
