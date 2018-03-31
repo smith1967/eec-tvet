@@ -122,15 +122,16 @@ $(function () {
             //                        {student_name:student_name,student_roll_no:student_roll_no,student_class:student_class},
             dataType: "JSON",
             success: function (data) {
-                alert(data.message);
+//                alert(data.message);
                 $("#show-message").html(data.message).addClass("alert alert-success").show().delay(5000).fadeOut();
                 $("#business_id").val(data.business_id);
-                table.ajax.reload();
+                
             },
             error: function (err) {
                 $("#show-message").html(data).addClass("alert alert-danger").show().delay(5000).fadeOut();
             }
         });
+        table.ajax.reload();
     }
     function editBusiness() {
         $.ajax({
