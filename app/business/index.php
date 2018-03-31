@@ -41,7 +41,7 @@ require_once('template/header.php')
             </div>
         </div>
      <!-- ใส่ข้อมูลต่างๆที่นี่ เริ่มต้นด้วย class="row" -->
-    <?php    require_once 'views/business/list.php'; ?>
+    <?php    require_once 'views/business/index.php'; ?>
     </section>
     <!-- /.content -->
   </div>
