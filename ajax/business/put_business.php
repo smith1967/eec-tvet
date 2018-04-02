@@ -33,7 +33,7 @@ if(isset($_POST['business_id'])){
             . " `business`.`business_id` = :business_id";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':business_name',$_POST['business_name'],PDO::PARAM_STR);
-    $stmt->bindParam(':address', $_POST['address'], PDO::PARAM_INT);
+    $stmt->bindParam(':address', $_POST['address'], PDO::PARAM_STR);
     $stmt->bindParam(':subdistrict_code', $_POST['subdistrict_code'], PDO::PARAM_INT);
     $stmt->bindParam(':district_code', $_POST['district_code'], PDO::PARAM_INT);
     $stmt->bindParam(':province_code', $_POST['province_code'], PDO::PARAM_INT);
