@@ -9,6 +9,7 @@ include_once './../../include/config.php';
  */
 header("Cache-Control: no-transform,public,max-age=300,s-maxage=900");
 header('Content-Type: application/json; charset=utf-8');
+check_token($_REQUEST['token']);
 if(isset($_REQUEST['business_id'])){
     $business_id = $_REQUEST['business_id'];
     $sql = "DELETE FROM business WHERE business_id =  :business_id";

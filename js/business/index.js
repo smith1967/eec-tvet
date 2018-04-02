@@ -436,7 +436,8 @@ $(function () {
         var url = './ajax/business/del_business';
         var id = $(this).parent().siblings(":first").text();
         var data = {
-            business_id: id
+            business_id: id,
+            token: "<?php echo $token ?>"
         };
         //
         $.getJSON(url, data, function (data, status) {
