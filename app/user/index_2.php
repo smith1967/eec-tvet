@@ -1,7 +1,6 @@
 <?php
 if (!defined('BASE_PATH'))
 exit('No direct script access allowed');
-$token = gen_token();
 $active = 'business';
 $subactive = 'list';
 $title = 'หน้าหลัก';
@@ -41,10 +40,8 @@ require_once('template/header.php')
                 <p id="message"></p>
             </div>
         </div>
-     <!-- เรียกใช้ views ตั้งชื่อ ตาม folder/finename หลัก -->
-    <?php
-        require_once 'views/'.$ctrl_act.'.php'; 
-    ?>
+     <!-- ใส่ข้อมูลต่างๆที่นี่ เริ่มต้นด้วย class="row" -->
+    <?php    require_once 'views/business/index.php'; ?>
     </section>
     <!-- /.content -->
   </div>
@@ -54,7 +51,6 @@ require_once('template/header.php')
 <?php require_once 'template/footer.php'; ?>
 
 <!-- js function -->
-<!-- เรียกใช้ js ตั้งชื่อ ตาม folder/finename หลัก -->
 <script>
-<?php require_once 'js/'.$ctrl_act.'.js'; ?>
+<?php require_once 'js/business.js'; ?>
 </script>

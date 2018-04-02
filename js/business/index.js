@@ -117,7 +117,7 @@ $(function () {
     function insertBusiness() {
         $.ajax({
             type: "POST",
-            url: "ajax/post_business.php",
+            url: "ajax/business/post_business.php",
             data: $("#businessForm").serialize(),
             //                        {student_name:student_name,student_roll_no:student_roll_no,student_class:student_class},
             dataType: "JSON",
@@ -137,7 +137,7 @@ $(function () {
     function editBusiness() {
         $.ajax({
             type: "POST",
-            url: "ajax/put_business.php",
+            url: "ajax/business/put_business.php",
             data: $("#businessForm").serialize(),
             dataType: "JSON",
             success: function (data) {
@@ -156,7 +156,10 @@ $(function () {
     $.ajax({
         url: "<?php echo SITE_URL ?>ajax/get_data.php",
         dataType: "json", //กำหนดให้มีรูปแบบเป็น Json
-        data: {show_province: 'show_province'}, //ส่งค่าตัวแปร show_province เพื่อดึงข้อมูล จังหวัด
+        data: {
+            show_province: 'show_province',
+            token : '<?php echo $token ?>'
+        }, //ส่งค่าตัวแปร show_province เพื่อดึงข้อมูล จังหวัด
         success: function (data) {
 
             //วนลูปแสดงข้อมูล ที่ได้จาก ตัวแปร data
@@ -180,7 +183,10 @@ $(function () {
         $.ajax({
             url: "<?php echo SITE_URL ?>ajax/get_data.php",
             dataType: "json", //กำหนดให้มีรูปแบบเป็น Json
-            data: {province_code: province_code}, //ส่งค่าตัวแปร province_code เพื่อดึงข้อมูล อำเภอ ที่มี province_code เท่ากับค่าที่ส่งไป
+            data: {
+                province_code: province_code,
+                token: "<?php echo $token ?>"
+            }, //ส่งค่าตัวแปร province_code เพื่อดึงข้อมูล อำเภอ ที่มี province_code เท่ากับค่าที่ส่งไป
             success: function (data) {
 
                 //กำหนดให้ข้อมูลใน #amphur เป็นค่าว่าง
@@ -210,7 +216,10 @@ $(function () {
         $.ajax({
             url: "<?php echo SITE_URL ?>ajax/get_data.php",
             dataType: "json", //กำหนดให้มีรูปแบบเป็น Json
-            data: {district_code: district_code}, //ส่งค่าตัวแปร district_code เพื่อดึงข้อมูล ตำบล ที่มี district_code เท่ากับค่าที่ส่งไป
+            data: {
+                district_code: district_code,
+                token: "<?php echo $token ?>"
+            }, //ส่งค่าตัวแปร district_code เพื่อดึงข้อมูล ตำบล ที่มี district_code เท่ากับค่าที่ส่งไป
             success: function (data) {
                 //                                console.log(JSON.stringify(data))
                 //กำหนดให้ข้อมูลใน #district เป็นค่าว่าง
@@ -239,7 +248,10 @@ $(function () {
         $.ajax({
             url: "<?php echo SITE_URL ?>ajax/get_data.php",
             dataType: "json", //กำหนดให้มีรูปแบบเป็น Json
-            data: {subdistrict_code: subdistrict_code}, //ส่งค่าตัวแปร district_code เพื่อดึงข้อมูล ตำบล ที่มี district_code เท่ากับค่าที่ส่งไป
+            data: {
+                subdistrict_code: subdistrict_code,
+                token: "<?php echo $token ?>"
+            }, //ส่งค่าตัวแปร district_code เพื่อดึงข้อมูล ตำบล ที่มี district_code เท่ากับค่าที่ส่งไป
             success: function (data) {
                 //วนลูปแสดงข้อมูล ที่ได้จาก ตัวแปร data  
                 $.each(data, function (index, value) {
@@ -261,7 +273,7 @@ $(function () {
         //                alert("คุณได้เลือก :  จังหวัด : " + province + " อำเภอ : "+ amphur + "  ตำบล : " + district );
     });
 
-    var url = "ajax/get_business.php";
+    var url = "ajax/business/get_business.php";
     var table = $('#business_list').DataTable({
         "destroy": true,
         "paging": true,
@@ -276,7 +288,8 @@ $(function () {
             "url": url,
             "type": "POST",
             "data": function (d) {
-                d.zone_id = $('#zone_id').val();
+                d.token = "<?php echo $token ?>"
+//                d.zone_id = $('#zone_id').val();
             }
         },
         "columns": [
@@ -327,10 +340,11 @@ $(function () {
            }
 
         // get data from api
-        var url = './ajax/get_business.php';
+        var url = './ajax/business/get_business.php';
         var id = $(this).parent().siblings(":first").text();
         var data = {
-            business_id: id
+            business_id: id,
+            token: "<?php echo $token ?>"
         };
         $.getJSON(url, data, function (data, status) {
             //Do stuff with the JSON data
@@ -365,10 +379,11 @@ $(function () {
             $("#btnInsert").hide();
             $("#btnEdit").show();
         // get data from api
-        var url = './ajax/get_business.php';
+        var url = './ajax/business/get_business.php';
         var id = $(this).parent().siblings(":first").text();
         var data = {
-            business_id: id
+            business_id: id,
+            token: "<?php echo $token ?>"
         };
         $.getJSON(url, data, function (data, status) {
             //Do stuff with the JSON data
@@ -418,7 +433,7 @@ $(function () {
         // get data from api
         if (!confirm('ยืนยันการลบข้อมูล'))
             return;
-        var url = './ajax/del_business';
+        var url = './ajax/business/del_business';
         var id = $(this).parent().siblings(":first").text();
         var data = {
             business_id: id
