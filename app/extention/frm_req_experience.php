@@ -5,42 +5,51 @@ $active = 'home';
 $subactive = 'index';
 $title = 'หน้าหลัก';
 // จัดการข้อมูลกับด้าน logic
-
 $business_id="1234";
-
-?>
-<?php
 require_once('template/header.php');
 $act=$_POST["act"];
+
 if($act=="add"){
-  //$business_id=$_POST["business_id"];
-  $school_id=$_POST["school_id"];
-  $shortcourse_code=$_POST["shortcourse_code"];  
-  $trainee_hour=$_POST["trainee_hour"];
-  //$shortcourse_code==$_POST["shortcourse_code"];
-  //echo $shortcourse_school_id."<br>";
-  //echo $shortcourse_code."<br>";
-  $trainee_amount=$_POST["trainee_amount"];
+//req_trainee : req_id   business_id  major_id  level  amount   gender  both/male/female spacial_condition   training_semes 
+
+  $major_id=$_POST["major_id"];  
+  $level=$_POST["level"];
+  $amount_1=$_POST["amount_1"]; 
+  $amount_2=$_POST["amount_2"];
+  $amount_3=$_POST["amount_3"];   
+  if(!empty($amount_3)){
+    $amount=$amount_3;
+    $gender="b";
+  }else if(!empty($amount_1)){
+    $amount=$amount_1;
+    $gender="m";
+  }else if(!empty($amount_2)){
+    $amount=$amount_2;
+    $gender="f";
+  }else{
+    $amount=0;
+    $gender="";
+  }
+  $spacial_condition=$_POST["spacial_condition"];
   $date_rang_arr=explode("-",$_POST["date_rang"]);  
   $training_start_date=$date_rang_arr[0];
   $training_end_date=$date_rang_arr[1];
-  $status="request";
-
-  $sql1="INSERT INTO `req_shortcourses` (`business_id`, `school_id`, `shortcourse_code`, `trainee_amount`, `training_hour`, `training_start_date`, `training_end_date`, `status`) VALUES ('$business_id', '$school_id', '$shortcourse_code', '$trainee_amount', '$trainee_hour', '$training_start_date', '$training_end_date', '$status');"; 
-  $results1 = $db->query($sql1);
-
-redirect('extention/main_req_shot_course');
   
-}
-//req_id   business_id  school_id  course_id   trainee_amount  training_hour  training_start_date  training_end_date  status 
+//req_experience :   req_id  business_id  major_id  level  amount  gender  spacial_condition  training_start  training_end
+$sql1="INSERT INTO `req_experience` (`business_id`, `major_id`, `level`, `amount`, `gender`, `spacial_condition`, `training_start`, `training_end`) VALUES ('$business_id', '$major_id', '$level', '$amount', '$gender', '$spacial_condition', '$training_start_date', '$training_end_date');";
 
+  $results1 = $db->query($sql1);
+  //echo "$sql1";
+ // redirect('extention/main_req_experience');
+}
 ?>
-<!-- Content Wrapper. Contains page content -->
+  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        สถานประกอบการสมัครเข้ารับการอบรม/เพิ่ม    
+        ต้องการนักศึกษาฝึกประสบการณ์/เพิ่ม
+        
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -49,53 +58,7 @@ redirect('extention/main_req_shot_course');
       </ol>
     </section>
 <?php
-if($act=="add"){
-if($results1){
-    ?>
-    <div class="col-md-12">
-          <div class="box box-success  box-solid">
-            <div class="box-header with-border">
-              <h3 class="box-title">ผลการทำงาน</h3>
-
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-              </div>
-              <!-- /.box-tools -->
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              บันทึกข้อมูลสำเร็จ
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-        </div>
-        <!-- /.col -->
-    <?php
-  }else{
-    ?>
-    <div class="col-md-12">
-          <div class="box box-warning  box-solid">
-            <div class="box-header with-border">
-              <h3 class="box-title">ผลการทำงาน</h3>
-
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-              </div>
-              <!-- /.box-tools -->
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              บันทึกข้อมูลไม่สำเร็จ
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-        </div>
-        <!-- /.col -->
-    <?php
-  }
-}
+echo $sql1."<br>";
 ?>
     <!-- Main content -->
     <section class="content">
@@ -103,7 +66,7 @@ if($results1){
         <!-- left column -->
         <div class="col-md-6 col-lg-12">
           <!-- general form elements -->
-          <div class="box box-warning">
+          <div class="box box-danger">
             <div class="box-header with-border">
               <h3 class="box-title">กรุณากรอกข้อมูลให้ครบถ้วน</h3>
             </div>
@@ -111,33 +74,33 @@ if($results1){
             <!-- form start -->
             <form role="form" method="POST" action="">
               <div class="box-body">                
-                <div class="form-group">
-                  <label>ชื่อสถานประกอบการ <?php echo $business_id;?></label>                  
+                 <div class="form-group">
+                  <label for="exampleInputEmail1">ชื่อสถานประกอบการ <?php echo $business_id;?></label>                  
                 </div>
-<?php
-//shortcourse_id  course_name   course_hour   course_description  PDF  school_id shortcourse_code
+                
+                <?php
 
-$sql1=("SELECT * FROM `shortcourses` order by school_id,shortcourse_code ");
-$results1 = $db->query($sql1);
-$count1=0;
-?>
+              $sql1=("SELECT * FROM `major` order by major_id");
+              $results1 = $db->query($sql1);
+              $count1=0;
+              ?>
               <div class="col-md-6 col-lg-12">
                 <div class="form-group">
-                  <label>เลือกหลักสูตรที่ต้องการอบรม</label>
-                  <select class="form-control select2" name="shortcourse_code">
+                  <label>ชื่อสาขาที่ต้องการ</label>
+                  <select class="form-control select2" name="major_id">
                     <option value="">--เลือก--</option>
                    <?php
                     if($results1->num_rows > 0){                       
-                      while($row1 = $results1->fetch_assoc()) {
-                        $school_id = $row1["school_id"];
-                        $shortcourse_code = $row1["shortcourse_code"]; 
-                        $course_name = $row1["course_name"]; 
-                        $course_hour = $row1["course_hour"]; 
-                        $count1++;
-                        
-                        ?>                        
-                          <option value="<?php echo $shortcourse_code;?>">
-                            <?php echo $count1." ".$course_name;?></option>                          
+                      while($row1 = $results1->fetch_assoc()) {                        
+                          $count1++;                          
+                          $major_id=$row1["major_id"];
+                          $major_name=$row1["major_name"];
+                          $type_code=$row1["type_code"];
+                          $major_eng=$row1["major_eng"];
+                          $industrial=$row1["industrial"];
+                          ?>                        
+                          <option value="<?php echo $major_id;?>">
+                            <?php echo $count1." ".$major_name;?></option>                          
                         <?php
                       }
                     }
@@ -145,46 +108,28 @@ $count1=0;
                     
                   </select>
                 </div>
-          </div>
+              
 
-          <?php
-//school_id school_name
-
-$sql1=("SELECT * FROM `school` order by school_id ");
-$results1 = $db->query($sql1);
-$count2=0;
-?>
-              <div class="col-md-6 col-lg-12">
+             
                 <div class="form-group">
-                  <label>ชื่อวิทยาลัยที่เปิดสอน</label>
-                  <select class="form-control select2" name="school_id">
-                   <option value="">--เลือก--</option>
-                   <?php
-                    if($results1->num_rows > 0){                       
-                      while($row1 = $results1->fetch_assoc()) {
-                        $school_id = $row1["school_id"];
-                        $school_name = $row1["school_name"];  
-						$count2++;
-                        ?>                        
-                          <option value="<?php echo $school_id;?>">
-                            <?php echo $count2." ".$school_name;?> </option>                          
-                        <?php
-                      }
-                    }
-                   ?>
-                    
+
+                  <label>ระดับการศึกษา</label>
+                  <select class="form-control" name="level">
+                    <option value="">--เลือก--</option>
+                    <option>ปวช.</option>
+                    <option>ปวส.</option>   
+                    <option>ป.ตรี</option>                   
                   </select>
                 </div>
-          </div>
+              
 
-         
-          <div class="col-md-6 col-lg-12">     
-                <div class="form-group">
-                  <label>จำนวนชั่วโมงที่ต้องการอบรม</label>
-                  <select class="form-control select2" name="trainee_hour">
+             <label>เพศ(เลือกรายการเดียว)</label>
+                <div class="form-group">                  
+                  <label>เพศชาย จำนวน</label>
+                  <select class="form-control" name="amount_1"> 
                     <option value="">--เลือก--</option>
                     <?php 
-                    for($num=1;$num <=300;$num++){
+                    for($num=1;$num <=200;$num++){
                       ?>
                         <option><?php echo $num;?></option>
                       <?php
@@ -192,15 +137,13 @@ $count2=0;
                     ?>
                   </select>
                 </div>
-          </div>
 
-          <div class="col-md-6 col-lg-12">     
                 <div class="form-group">
-                  <label>จำนวนผู้เข้าอบรม</label>
-                  <select class="form-control select2" name="trainee_amount">
+                  <label>เพศหญิง จำนวน</label>
+                  <select class="form-control"  name="amount_2">
                     <option value="">--เลือก--</option>
                     <?php 
-                    for($num=1;$num <=300;$num++){
+                    for($num=1;$num <=200;$num++){
                       ?>
                         <option><?php echo $num;?></option>
                       <?php
@@ -208,10 +151,25 @@ $count2=0;
                     ?>
                   </select>
                 </div>
-          </div>
-           <div class="col-md-6 col-lg-12">     
+
+                 <div class="form-group">
+                  <label>ไม่ระบุเพศ จำนวน</label>                  
+                  <select class="form-control"  name="amount_3">
+                    <option value="">--เลือก--</option>
+                    <?php 
+                    for($num=1;$num <=200;$num++){
+                      ?>
+                        <option><?php echo $num;?></option>
+                      <?php
+                    }
+                    ?>
+                  </select>
+                </div>
+                <?php
+//req_trainee : req_id   business_id  major_id  level  amount   gender  both/male/female spacial_condition  training_start   training_end 
+ ?>              
               <!-- Date range -->
-              <div class="form-group">
+             <div class="form-group">
                 <label>วันที่เริ่ม-จบอบรม</label>
                 <div class="input-group">
                   <div class="input-group-addon">
@@ -221,13 +179,24 @@ $count2=0;
                 </div>
                 <!-- /.input group -->
               </div>
-            </div>
-              <!-- /.form group -->  
+              <!-- /.form group -->
+  
+                          
+                <div class="form-group">
+                  <label for="">รายละเอียดเพิ่มเติม</label>
+                  <textarea class="form-control" rows="3" name="spacial_condition"
+                   placeholder="กรอกรายละเอียดเพิ่มเติม"></textarea>
+                </div>
+
                <div class="box-footer">
                 <button type="submit" class="btn btn-primary">บันทึก</button>
-                <button type="submit" class="btn btn-default pull-right">กลับหน้าหลัก</button>
+                <a href="index.php?extention/main_req_experience">
+                <button  class="btn btn-default pull-right">กลับหน้าหลัก</button>
+              </a>
                 <input type="hidden" name="act" value="add">
               </div>
+            </div>
+
             </form>
           </div>
           <!-- /.box -->
@@ -250,7 +219,7 @@ $count2=0;
     <!-- /.content -->
   
   <!-- /.content-wrapper -->
-  <!-- footer-section -->
+   <!-- footer-section -->
 <?php require_once 'template/footer.php'; ?>
 <!-- Page script -->
 <script>
@@ -266,7 +235,7 @@ $count2=0;
     $('[data-mask]').inputmask()
 
     //Date range picker
-    $('#reservation').daterangepicker({
+     $('#reservation').daterangepicker({
       locale: {
       format: 'YYYY/MM/DD'
         }
@@ -294,7 +263,8 @@ $count2=0;
 
     //Date picker
     $('#datepicker').datepicker({
-      autoclose: true
+      autoclose: true,
+      format: 'yyyy/mm/dd'
     })
 
     //iCheck for checkbox and radio inputs

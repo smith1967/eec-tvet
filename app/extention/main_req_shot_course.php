@@ -15,10 +15,9 @@ require_once('template/header.php');
 
 
 if($act=="del"){
-  $sch_id=$_GET["sch_id"];
-  $shc_id=$_GET["shc_id"];
-
-  $sql1="DELETE FROM `req_shortcourses` where business_id='$business_id'and  school_id='$sch_id' and  shotcourse_code='$shc_id' "; 
+  $req_id=$_GET["req_id"];
+  
+  $sql1="DELETE FROM `req_shortcourses` where req_id='$req_id' "; 
   //echo $sql1;
   $results1 = $db->query($sql1);
   
@@ -28,8 +27,8 @@ if($act=="del"){
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>
-        ขอเปิดสอนหลักสูตรระยะสั้น
+      <h1>        
+        สถานประกอบการสมัครเข้ารับการอบรม
         <small>
           <a href="index.php?extention/frm_req_shot_course">
             <button class="btn btn-info">
@@ -59,7 +58,6 @@ if($act=="del"){
 
             $sql1=("SELECT * FROM `req_shortcourses` where business_id='$business_id' ");
             $results1 = $db->query($sql1);
-
             ?>                  
   
             <div class="box-header with-border">
@@ -73,9 +71,10 @@ if($act=="del"){
                       <th class="text-center">ลำดับ</th>
                       <th class="text-center">สถานศึกษา</th>
                       <th class="text-center">การอบรม</th>
-                      <th class="text-center">จำนวนผู้เข้าอบรม</th>
-                      <th class="text-center">ชั่วโมงอบรม</th>
+					  <th class="text-center">ชั่วโมงอบรม</th>
+                      <th class="text-center">จำนวนผู้เข้าอบรม</th>                      
                       <th class="text-center">วันที่อบรม</th> 
+					  
                       <th class="text-center">สถานะ</th>   
                       <th class="text-center">กระทำ</th>            
                     </tr>
@@ -89,7 +88,7 @@ if($act=="del"){
                         $req_id=$row1["req_id"];
                         //$business_id=$row1["business_id"];
                         $school_id=$row1["school_id"];
-                        $shotcourse_code=$row1["shotcourse_code"];
+                        $shortcourse_code=$row1["shortcourse_code"];
                         $trainee_amount=$row1["trainee_amount"];
                         $training_hour=$row1["training_hour"];
                         $training_start_date=$row1["training_start_date"];
@@ -98,6 +97,7 @@ if($act=="del"){
                         $count1++;
 
                         $sql2=("SELECT * FROM `school` where school_id='$school_id' ");
+                        //echo $sql2."<br>";
                         $results2 = $db->query($sql2);
                         if($results2->num_rows > 0){  
                           $row2 = $results2->fetch_assoc();
@@ -106,7 +106,7 @@ if($act=="del"){
                           $school_name="ไม่พบข้อมูลวิทยาลัย";
                         }
 
-                        $sql3=("SELECT * FROM `shotcourses` where shotcourse_code='$shotcourse_code' ");
+                        $sql3=("SELECT * FROM `shortcourses` where shortcourse_code='$shortcourse_code' ");
                         //echo $sql3."<br>";
                         $results3 = $db->query($sql3);
                         if($results3->num_rows > 0){  
@@ -121,20 +121,20 @@ if($act=="del"){
                           <td><?php echo $count1;?></td>                          
                           <td><?php echo $school_name;?></td>
                           <td><?php echo $course_name;?></td>
-                          <td><?php echo $trainee_amount;?></td>
-                          <td><?php echo $training_hour;?></td>
+						  <td><?php echo $training_hour;?></td>
+                          <td><?php echo $trainee_amount;?></td>                          
                           <td><?php echo $training_start_date." ถึง ".$training_end_date;?></td>
                           <td><?php echo $status;?></td>  
                           <td>
                             <small>
-                              <a href="index.php?extention/main_req_shot_course&act=del&sch_id=<?php echo $school_id;?>&shc_id=<?php echo $shotcourse_code;?>" onclick="return confirm('ลบ?');">
+                              <a href="index.php?extention/main_req_shot_course&act=del&req_id=<?php echo $req_id;?>" onclick="return confirm('ลบ?');">
                                 <button class="btn btn-sm btn-danger">
                                   <i class="fa  fa-times"></i>
                                 </button>    
                               </a>
                             </small>
                             <small>
-                              <a href="index.php?extention/edit_req_shot_course&sch_id=<?php echo $school_id;?>&shc_id=<?php echo $shotcourse_code;?>" >
+                              <a href="index.php?extention/edit_req_shot_course&req_id=<?php echo $req_id;?>" >
                                 <button class="btn btn-sm btn-warning">
                                   <i class="fa  fa-pencil"></i>
                                 </button>    

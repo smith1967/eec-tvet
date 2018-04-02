@@ -5,51 +5,18 @@ $active = 'home';
 $subactive = 'index';
 $title = 'หน้าหลัก';
 // จัดการข้อมูลกับด้าน logic
-$business_id="1234";
-require_once('template/header.php');
-$act=$_POST["act"];
 
-if($act=="add"){
-//req_trainee : req_id   business_id  major_id  level  amount   gender  both/male/female spacial_condition   training_semes 
-
-  $major_id=$_POST["major_id"];  
-  $level=$_POST["level"];
-  $amount_1=$_POST["amount_1"]; 
-  $amount_2=$_POST["amount_2"];
-  $amount_3=$_POST["amount_3"]; 
-  $training_semes=$_POST["training_semes"]; 
-  if(!empty($amount_3)){
-    $amount=$amount_3;
-    $gender="b";
-  }else if(!empty($amount_1)){
-    $amount=$amount_1;
-    $gender="m";
-  }else if(!empty($amount_2)){
-    $amount=$amount_2;
-    $gender="f";
-  }else{
-    $amount=0;
-    $gender="";
-  }
-  $training_semes=$_POST["training_semes"];
-  $spacial_condition=$_POST["spacial_condition"];
-  
-  
-
-$sql1="INSERT INTO `req_trainee` (`business_id`, `major_id`, `level`, `amount`, `gender`, `spacial_condition`, `training_semes`) VALUES ('$business_id', '$major_id', '$level', '$amount', '$gender', '$spacial_condition', '$training_semes');";
-
-  $results1 = $db->query($sql1);
-  echo "$results1";
- // redirect('extention/main_req_trainee');
-}
+?>
+<?php
+require_once('template/header.php')
 ?>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        ต้องการนักศึกษาฝึกงาน/เพิ่ม
-        
+        ความต้องการนักศึกษาฝึกงาน
+        <small>Preview</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -57,9 +24,7 @@ $sql1="INSERT INTO `req_trainee` (`business_id`, `major_id`, `level`, `amount`, 
         <li class="active">General Elements</li>
       </ol>
     </section>
-<?php
-//echo $sql1."<br>";
-?>
+
     <!-- Main content -->
     <section class="content">
       <div class="row">
@@ -72,62 +37,44 @@ $sql1="INSERT INTO `req_trainee` (`business_id`, `major_id`, `level`, `amount`, 
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" method="POST" action="">
-              <div class="box-body">                
+            <form role="form">
+              <div class="box-body">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">รหัสความต้องการ..........</label>                  
+                </div>
                  <div class="form-group">
-                  <label for="exampleInputEmail1">ชื่อสถานประกอบการ <?php echo $business_id;?></label>                  
+                  <label for="exampleInputEmail1">ชื่อสถานประกอบการ..........</label>                  
                 </div>
                 
-                <?php
-//req_trainee : req_id   business_id  major_id  level  amount   gender  both/male/female spacial_condition  training_semes  
-              $sql1=("SELECT * FROM `major` order by major_id");
-              $results1 = $db->query($sql1);
-              $count1=0;
-              ?>
-              <div class="col-md-6 col-lg-12">
                 <div class="form-group">
                   <label>ชื่อสาขาที่ต้องการ</label>
-                  <select class="form-control select2" name="major_id">
-                    <option value="">--เลือก--</option>
-                   <?php
-                    if($results1->num_rows > 0){                       
-                      while($row1 = $results1->fetch_assoc()) {                        
-                          $count1++;                          
-                          $major_id=$row1["major_id"];
-                          $major_name=$row1["major_name"];
-                          $type_code=$row1["type_code"];
-                          $major_eng=$row1["major_eng"];
-                          $industrial=$row1["industrial"];
-                          ?>                        
-                          <option value="<?php echo $major_id;?>">
-                            <?php echo $count1." ".$major_name;?></option>                          
-                        <?php
-                      }
-                    }
-                   ?>
-                    
+                  <select class="form-control">
+                    <option>เลือก</option>
+                    <option>สาขา1</option>
+                    <option>สาขา2</option>
+                    <option>สาขา3</option>
+                    <option>สาขา4</option>
+                    <option>สาขา5</option>
                   </select>
                 </div>
-              
 
-             
                 <div class="form-group">
-
                   <label>ระดับการศึกษา</label>
-                  <select class="form-control" name="level">
-                    <option value="">--เลือก--</option>
+                  <select class="form-control">
+                    <option>เลือก</option>
                     <option>ปวช.</option>
-                    <option>ปวส.</option>   
-                    <option>ป.ตรี</option>                   
+                    <option>ปวส.</option>                    
                   </select>
                 </div>
-              
 
-             <label>เพศ(เลือกรายการเดียว)</label>
-                <div class="form-group">                  
-                  <label>เพศชาย จำนวน</label>
-                  <select class="form-control" name="amount_1"> 
-                    <option value="">--เลือก--</option>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">เพศ</label>                 
+                </div>
+
+                 <!-- select -->
+                <div class="form-group">
+                  <label>ชาย จำนวน</label>
+                  <select class="form-control">
                     <?php 
                     for($num=1;$num <=200;$num++){
                       ?>
@@ -139,9 +86,8 @@ $sql1="INSERT INTO `req_trainee` (`business_id`, `major_id`, `level`, `amount`, 
                 </div>
 
                 <div class="form-group">
-                  <label>เพศหญิง จำนวน</label>
-                  <select class="form-control"  name="amount_2">
-                    <option value="">--เลือก--</option>
+                  <label>หญิง จำนวน</label>
+                  <select class="form-control">
                     <?php 
                     for($num=1;$num <=200;$num++){
                       ?>
@@ -153,9 +99,8 @@ $sql1="INSERT INTO `req_trainee` (`business_id`, `major_id`, `level`, `amount`, 
                 </div>
 
                  <div class="form-group">
-                  <label>ไม่ระบุเพศ จำนวน</label>                  
-                  <select class="form-control"  name="amount_3">
-                    <option value="">--เลือก--</option>
+                  <label>ไม่ระบุประเภท จำนวน</label>
+                  <select class="form-control">
                     <?php 
                     for($num=1;$num <=200;$num++){
                       ?>
@@ -165,38 +110,32 @@ $sql1="INSERT INTO `req_trainee` (`business_id`, `major_id`, `level`, `amount`, 
                     ?>
                   </select>
                 </div>
-                <?php
-//req_trainee : req_id   business_id  major_id  level  amount   gender  both/male/female spacial_condition  training_start   training_end 
- ?>              
+
+               
               <!-- Date range -->
               <div class="form-group">
-                <label>เวลาในการฝึกงาน(ตามปีการศึกษาของสถานศึกษา)</label>
-                <select class="form-control"  name="training_semes">
-                    <option value="">--เลือก--</option>                    
-                    <option value="1">เทอม 1 (พฤษภาคม ถึง กันยายน)</option>
-                    <option value="2">เทอม 2 (ตุลาคม ถึง กุมภาพันธ์)</option>
-                    <option value="3">ภาคฤดูร้อน (มีนาคม ถึง เมษายน)</option>                      
-                </select>
+                <label>วันที่เริ่ม-จบฝึกงาน</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input type="text" class="form-control pull-right" id="reservation">
+                </div>
                 <!-- /.input group -->
               </div>
               <!-- /.form group -->
   
                           
                 <div class="form-group">
-                  <label for="">รายละเอียดเพิ่มเติม</label>
-                  <textarea class="form-control" rows="3" name="spacial_condition"
-                   placeholder="กรอกรายละเอียดเพิ่มเติม"></textarea>
+                  <label for="exampleInputPassword1">รายละเอียดเพิ่มเติม</label>
+                  <textarea class="form-control" rows="3" placeholder="กรอกรายละเอียดเพิ่มเติม"></textarea>
                 </div>
 
                <div class="box-footer">
                 <button type="submit" class="btn btn-primary">บันทึก</button>
-                <a href="index.php?extention/main_req_trainee">
-                <button  class="btn btn-default pull-right">กลับหน้าหลัก</button>
-              </a>
-                <input type="hidden" name="act" value="add">
+                <button type="submit" class="btn btn-default pull-right">กลับหน้าหลัก</button>
+                
               </div>
-            </div>
-
             </form>
           </div>
           <!-- /.box -->
@@ -235,11 +174,7 @@ $sql1="INSERT INTO `req_trainee` (`business_id`, `major_id`, `level`, `amount`, 
     $('[data-mask]').inputmask()
 
     //Date range picker
-     $('#reservation').daterangepicker({
-      locale: {
-      format: 'YYYY/MM/DD'
-        }
-    })
+    $('#reservation').daterangepicker()
     //Date range picker with time picker
     $('#reservationtime').daterangepicker({ timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A' })
     //Date range as a button
@@ -263,8 +198,7 @@ $sql1="INSERT INTO `req_trainee` (`business_id`, `major_id`, `level`, `amount`, 
 
     //Date picker
     $('#datepicker').datepicker({
-      autoclose: true,
-      format: 'yyyy/mm/dd'
+      autoclose: true
     })
 
     //iCheck for checkbox and radio inputs

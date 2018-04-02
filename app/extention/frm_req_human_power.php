@@ -16,8 +16,7 @@ if($act=="add"){
   $level=$_POST["level"];
   $amount_1=$_POST["amount_1"]; 
   $amount_2=$_POST["amount_2"];
-  $amount_3=$_POST["amount_3"]; 
-  $training_semes=$_POST["training_semes"]; 
+  $amount_3=$_POST["amount_3"];   
   if(!empty($amount_3)){
     $amount=$amount_3;
     $gender="b";
@@ -31,16 +30,20 @@ if($act=="add"){
     $amount=0;
     $gender="";
   }
-  $training_semes=$_POST["training_semes"];
   $spacial_condition=$_POST["spacial_condition"];
+  $date_rang_arr=explode("-",$_POST["date_rang"]);  
+  $req_start=$date_rang_arr[0];
+  $req_end=$date_rang_arr[1];
+  $age_start=$_POST["age_start"];
+  $age_end=$_POST["age_end"];
   
-  
-
-$sql1="INSERT INTO `req_trainee` (`business_id`, `major_id`, `level`, `amount`, `gender`, `spacial_condition`, `training_semes`) VALUES ('$business_id', '$major_id', '$level', '$amount', '$gender', '$spacial_condition', '$training_semes');";
+//req_human_power : req_id  business_id  major_id  level  amount  gender  org_date req_date   change_req  req_start  req_end   age_start  age_end   spacial_condition
+         
+$sql1="INSERT INTO `req_human_power` ( `business_id`, `major_id`, `level`, `amount`, `gender`, `org_date`, `req_date`, `change_req`, `req_start`, `req_end`, `age_start`, `age_end`, `spacial_condition`) VALUES ('$business_id', '$major_id', '$level', '$amount', '$gender', NOW(), NOW(), '0', '$req_start', '$req_end', '$age_start', '$age_end', '$spacial_condition');";
 
   $results1 = $db->query($sql1);
-  echo "$results1";
- // redirect('extention/main_req_trainee');
+  //echo "$sql1";
+ redirect('extention/main_req_human_power');
 }
 ?>
   <!-- Content Wrapper. Contains page content -->
@@ -48,7 +51,7 @@ $sql1="INSERT INTO `req_trainee` (`business_id`, `major_id`, `level`, `amount`, 
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        ต้องการนักศึกษาฝึกงาน/เพิ่ม
+        ต้องการกำลังคน/เพิ่ม
         
       </h1>
       <ol class="breadcrumb">
@@ -79,7 +82,7 @@ $sql1="INSERT INTO `req_trainee` (`business_id`, `major_id`, `level`, `amount`, 
                 </div>
                 
                 <?php
-//req_trainee : req_id   business_id  major_id  level  amount   gender  both/male/female spacial_condition  training_semes  
+
               $sql1=("SELECT * FROM `major` order by major_id");
               $results1 = $db->query($sql1);
               $count1=0;
@@ -114,7 +117,7 @@ $sql1="INSERT INTO `req_trainee` (`business_id`, `major_id`, `level`, `amount`, 
                 <div class="form-group">
 
                   <label>ระดับการศึกษา</label>
-                  <select class="form-control" name="level">
+                  <select class="form-control  select2" name="level">
                     <option value="">--เลือก--</option>
                     <option>ปวช.</option>
                     <option>ปวส.</option>   
@@ -126,7 +129,7 @@ $sql1="INSERT INTO `req_trainee` (`business_id`, `major_id`, `level`, `amount`, 
              <label>เพศ(เลือกรายการเดียว)</label>
                 <div class="form-group">                  
                   <label>เพศชาย จำนวน</label>
-                  <select class="form-control" name="amount_1"> 
+                  <select class="form-control  select2" name="amount_1"> 
                     <option value="">--เลือก--</option>
                     <?php 
                     for($num=1;$num <=200;$num++){
@@ -140,7 +143,7 @@ $sql1="INSERT INTO `req_trainee` (`business_id`, `major_id`, `level`, `amount`, 
 
                 <div class="form-group">
                   <label>เพศหญิง จำนวน</label>
-                  <select class="form-control"  name="amount_2">
+                  <select class="form-control  select2"  name="amount_2">
                     <option value="">--เลือก--</option>
                     <?php 
                     for($num=1;$num <=200;$num++){
@@ -154,7 +157,7 @@ $sql1="INSERT INTO `req_trainee` (`business_id`, `major_id`, `level`, `amount`, 
 
                  <div class="form-group">
                   <label>ไม่ระบุเพศ จำนวน</label>                  
-                  <select class="form-control"  name="amount_3">
+                  <select class="form-control select2"  name="amount_3">
                     <option value="">--เลือก--</option>
                     <?php 
                     for($num=1;$num <=200;$num++){
@@ -169,18 +172,44 @@ $sql1="INSERT INTO `req_trainee` (`business_id`, `major_id`, `level`, `amount`, 
 //req_trainee : req_id   business_id  major_id  level  amount   gender  both/male/female spacial_condition  training_start   training_end 
  ?>              
               <!-- Date range -->
-              <div class="form-group">
-                <label>เวลาในการฝึกงาน(ตามปีการศึกษาของสถานศึกษา)</label>
-                <select class="form-control"  name="training_semes">
-                    <option value="">--เลือก--</option>                    
-                    <option value="1">เทอม 1 (พฤษภาคม ถึง กันยายน)</option>
-                    <option value="2">เทอม 2 (ตุลาคม ถึง กุมภาพันธ์)</option>
-                    <option value="3">ภาคฤดูร้อน (มีนาคม ถึง เมษายน)</option>                      
-                </select>
+             <div class="form-group">
+                <label>ช่วงวันที่ที่ต้องการ</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input type="text" name="date_rang" class="form-control pull-right" id="reservation">
+                </div>
                 <!-- /.input group -->
               </div>
               <!-- /.form group -->
   
+               <div class="form-group">
+                  <label>ช่วงอายุที่ต้องการ</label>  
+                                
+                    <select class="form-control select2"  name="age_start">
+                      <option value="">--เลือก--</option>
+                      <?php 
+                      for($num=1;$num <=100;$num++){
+                        ?>
+                          <option><?php echo $num;?></option>
+                        <?php
+                      }
+                      ?>
+                    </select>
+                    ถึง
+                    <select class="form-control select2"  name="age_end">
+                      <option value="">--เลือก--</option>
+                      <?php 
+                      for($num=1;$num <=100;$num++){
+                        ?>
+                          <option><?php echo $num;?></option>
+                        <?php
+                      }
+                      ?>
+                    </select>
+                  
+                </div>
                           
                 <div class="form-group">
                   <label for="">รายละเอียดเพิ่มเติม</label>
@@ -190,7 +219,7 @@ $sql1="INSERT INTO `req_trainee` (`business_id`, `major_id`, `level`, `amount`, 
 
                <div class="box-footer">
                 <button type="submit" class="btn btn-primary">บันทึก</button>
-                <a href="index.php?extention/main_req_trainee">
+                <a href="index.php?extention/main_req_experience">
                 <button  class="btn btn-default pull-right">กลับหน้าหลัก</button>
               </a>
                 <input type="hidden" name="act" value="add">

@@ -15,9 +15,10 @@ require_once('template/header.php');
 
 
 if($act=="del"){
-  $req_id=$_GET["req_id"];  
+  $sch_id=$_GET["sch_id"];
+  $shc_id=$_GET["shc_id"];
 
-  $sql1="DELETE FROM `new_shortcourses` where req_id='$req_id'"; 
+  $sql1="DELETE FROM `req_shortcourses` where business_id='$business_id'and  school_id='$sch_id' and  shortcourse_code='$shc_id' "; 
   //echo $sql1;
   $results1 = $db->query($sql1);
   
@@ -28,9 +29,9 @@ if($act=="del"){
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        ต้องการนักศึกษาฝึกงาน
+        ขอเปิดสอนหลักสูตรระยะสั้น
         <small>
-          <a href="index.php?extention/frm_req_trainee">
+          <a href="index.php?extention/frm_req_shot_course">
             <button class="btn btn-info">
               <i class="fa fa-plus-circle"></i>
             </button>    
@@ -52,11 +53,11 @@ if($act=="del"){
           <!-- general form elements -->
           <div class="box box-warning">
             <?php
-//req_trainee : req_id   business_id  major_id  level  amount   gender  both/male/female spacial_condition  training_start   training_end 
+            //req_id   business_id  school_id  course_id   trainee_amount  training_hour  training_start_date  training_end_date  status 
 
-//major :   major_id  major_name  type_code  major_eng  industrial            
-            $sql1=("SELECT * FROM `req_trainee` where business_id='$business_id' order by req_id ");
-            //echo $sql1."<br>";
+            //INSERT INTO `req_shortcourses` (`req_id`, `business_id`, `school_id`, `course_id`, `trainee_amount`, `training_hour`, `training_start_date`, `training_end_date`, `status`) VALUES ('1', '2', '3', '4', '5', '6', '2018-03-05', '2018-03-09', 'request');
+
+            $sql1=("SELECT * FROM `req_shortcourses` where business_id='$business_id' ");
             $results1 = $db->query($sql1);
             ?>                  
   
@@ -69,79 +70,71 @@ if($act=="del"){
                   <thead>
                     <tr >
                       <th class="text-center">ลำดับ</th>
-                      <th class="text-center">ชื่อสาขาที่ต้องการ</th>
-                      <th class="text-center">ระดับการศึกษา</th>                     
-                      <th class="text-center">เพศ</th>
-                      <th class="text-center">จำนวน</th> 
-                      <th class="text-center">เวลาในการฝึกงาน</th>  
-                      <th class="text-center">รายละเอียดเพิ่มเติม</th>   
+                      <th class="text-center">สถานศึกษา</th>
+                      <th class="text-center">การอบรม</th>
+                      <th class="text-center">จำนวนผู้เข้าอบรม</th>
+                      <th class="text-center">ชั่วโมงอบรม</th>
+                      <th class="text-center">วันที่อบรม</th> 
+                      <th class="text-center">สถานะ</th>   
                       <th class="text-center">กระทำ</th>            
                     </tr>
                   </thead>
                   <tbody> 
                     <?php
-//req_trainee : req_id   business_id  major_id  level  amount   gender  spacial_condition  training_start   training_end 
-                   
+//req_id   business_id  school_id  course_id   trainee_amount  training_hour  training_start_date  training_end_date  status 
                     if($results1->num_rows > 0){  
-                     $count2=0;
+                      $count1=0;
                       while($row1 = $results1->fetch_assoc()) {
-                        $count2++; 
                         $req_id=$row1["req_id"];
-                        $major_id=$row1["major_id"];
-                        $level=$row1["level"];
-                        $amount=$row1["amount"];
-                        $gender=$row1["gender"];                        
-                        $spacial_condition=$row1["spacial_condition"];
-                        $training_semes=$row1["training_semes"];
-                        //echo   $count2."==<br>";                     
-                                    
-                        $sql2=("SELECT * FROM `major` where major_id='$major_id' ");
-                        $results2 = $db->query($sql2);  
-                        if($results2->num_rows > 0){                       
-                          while($row2 = $results2->fetch_assoc()) { 
-                              $major_id=$row2["major_id"];
-                              $major_name=$row2["major_name"];
-                              $type_code=$row2["type_code"];
-                              $major_eng=$row2["major_eng"];
-                              $industrial=$row2["industrial"];                             
-                          }
-                        }     
-                        if($gender=="m")                  
-                          $gender_text="ชาย";
-                        else if($gender=="f")                  
-                          $gender_text="หญิง";
-                        else if($gender=="b")                  
-                          $gender_text="ได้ทุกเพศ";
-                        else
-                          $gender_text="";
+                        //$business_id=$row1["business_id"];
+                        $school_id=$row1["school_id"];
+                        $shortcourse_code=$row1["shortcourse_code"];
+                        $trainee_amount=$row1["trainee_amount"];
+                        $training_hour=$row1["training_hour"];
+                        $training_start_date=$row1["training_start_date"];
+                        $training_end_date=$row1["training_end_date"];
+                        $status=$row1["status"];
+                        $count1++;
 
-                        if($training_semes=="1")                  
-                          $ts_text="เทอม1";
-                        else if($training_semes=="2")                  
-                          $ts_text="เทอม2";
-                        else if($training_semes=="3")                  
-                          $ts_text="ภาคฤดูร้อน";
-                        else
-                          $ts_text="ไม่ระบุ";
+                        $sql2=("SELECT * FROM `school` where school_id='$school_id' ");
+                        //echo $sql2."<br>";
+                        $results2 = $db->query($sql2);
+                        if($results2->num_rows > 0){  
+                          $row2 = $results2->fetch_assoc();
+                          $school_name=$row2["school_name"];                          
+                        }else{
+                          $school_name="ไม่พบข้อมูลวิทยาลัย";
+                        }
+
+                        $sql3=("SELECT * FROM `shortcourses` where shortcourse_code='$shortcourse_code' ");
+                        //echo $sql3."<br>";
+                        $results3 = $db->query($sql3);
+                        if($results3->num_rows > 0){  
+                          $row3 = $results3->fetch_assoc();
+                          $course_name=$row3["course_name"];                          
+                        }else{
+                          $course_name="ไม่พบข้อมูลการอบรม";
+                        }
+                                           
                         ?>
                         <tr >
-                          <td><?php echo $count2;?></td>                          
-                          <td><?php echo $major_name;?></td>
-                          <td><?php echo $level;?></td>
-                          <td><?php echo $gender_text;?></td> 
-                          <td><?php echo $amount;?></td>           
-                          <td><?php echo $ts_text;?></td>
-                          <td><?php echo $spacial_condition;?></td>  
+                          <td><?php echo $count1;?></td>                          
+                          <td><?php echo $school_name;?></td>
+                          <td><?php echo $course_name;?></td>
+                          <td><?php echo $trainee_amount;?></td>
+                          <td><?php echo $training_hour;?></td>
+                          <td><?php echo $training_start_date." ถึง ".$training_end_date;?></td>
+                          <td><?php echo $status;?></td>  
                           <td>
                             <small>
-                              <a href="index.php?extention/main_req_trainee&act=del&req_id=<?php echo $req_id;?>" onclick="return confirm('ลบ?');">
+                              <a href="index.php?extention/main_req_shot_course&act=del&req_id=<?php echo $req_id;?>&sch_id=<?php echo $school_id;?>&shc_id=<?php echo $shortcourse_code;?>" onclick="return confirm('ลบ?');">
                                 <button class="btn btn-sm btn-danger">
                                   <i class="fa  fa-times"></i>
                                 </button>    
                               </a>
                             </small>
                             <small>
-                              <a href="index.php?extention/edit_req_trainee&req_id=<?php echo $req_id;?>" >
+                              <a href="index.php?extention/edit_req_shot_course&req_id=<?php echo $req_id;?>&sch_id=<?php echo $school_id;?>&shc_id=<?php echo $shortcourse_code;?>" >
                                 <button class="btn btn-sm btn-warning">
                                   <i class="fa  fa-pencil"></i>
                                 </button>    
