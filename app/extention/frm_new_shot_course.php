@@ -31,7 +31,7 @@ if($act=="add"){
 $sql1="INSERT INTO `new_shortcourses` (`business_id`, `course_name`, `course_description`, `course_start`, `course_hour`, `school_1_id`, `school_2_id`, `school_3_id`, `spacial_condition`) VALUES ('$business_id', '$course_name', '$cd', '$date_rang', '$course_hour', '$school_id_1', '$school_id_2', '$school_id_3', '$spacial_condition');";
 
   $results1 = $db->query($sql1);
-  
+  redirect('extention/main_new_shot_course');
 }
 
 ?>
@@ -40,7 +40,7 @@ $sql1="INSERT INTO `new_shortcourses` (`business_id`, `course_name`, `course_des
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        ขอเปิดสอนหลักสูตรระยะสั้นใหม่/เพิ่ม    
+        สถานประกอบการต้องการเปิดการอบรมหลักสูตรใหม่/เพิ่ม    
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -121,7 +121,7 @@ if($results1){
 
               <div class="col-md-6 col-lg-12">
                 <div class="form-group">
-                  <label for="course_name">ชื่อหลักสูตรที่ต้องการเปิด</label>
+                  <label for="course_name">ชื่อหลักสูตรที่ต้องการจัดอบรม</label>
                   <input type="text" class="form-control" id="course_name" name="course_name" placeholder="ใส่หลักสูตร">
                 </div>
               </div>

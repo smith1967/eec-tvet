@@ -17,7 +17,7 @@ require_once('template/header.php');
 if($act=="del"){
   $req_id=$_GET["req_id"];  
 
-  $sql1="DELETE FROM `new_shortcourses` where req_id='$req_id'"; 
+  $sql1="DELETE FROM `req_human_power` where req_id='$req_id'"; 
   //echo $sql1;
   $results1 = $db->query($sql1);
   
@@ -28,9 +28,9 @@ if($act=="del"){
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        ต้องการนักศึกษาฝึกงาน
+        ต้องการกำลังคน
         <small>
-          <a href="index.php?extention/frm_req_trainee">
+          <a href="index.php?extention/frm_req_human_power">
             <button class="btn btn-info">
               <i class="fa fa-plus-circle"></i>
             </button>    
@@ -52,10 +52,9 @@ if($act=="del"){
           <!-- general form elements -->
           <div class="box box-warning">
             <?php
-//req_trainee : req_id   business_id  major_id  level  amount   gender  both/male/female spacial_condition  training_start   training_end 
-
-//major :   major_id  major_name  type_code  major_eng  industrial            
-            $sql1=("SELECT * FROM `req_trainee` where business_id='$business_id' order by req_id ");
+//req_human_power : req_id  business_id  major_id  level  amount  gender  org_date req_date   change_req  req_start  req_end   age_start  age_end   spacial_condition
+         
+            $sql1=("SELECT * FROM `req_human_power` where business_id='$business_id' order by req_id DESC ");
             //echo $sql1."<br>";
             $results1 = $db->query($sql1);
             ?>                  
@@ -72,16 +71,18 @@ if($act=="del"){
                       <th class="text-center">ชื่อสาขาที่ต้องการ</th>
                       <th class="text-center">ระดับการศึกษา</th>                     
                       <th class="text-center">เพศ</th>
-                      <th class="text-center">จำนวน</th> 
-                      <th class="text-center">เวลาในการฝึกงาน</th>  
+                      <th class="text-center">จำนวน</th>
+                      <th class="text-center">เปลี่ยน</th> 
+                      <th class="text-center">ช่วงเวลาที่ต้องการ</th>  
+                      <th class="text-center">ช่วงอายุที่ต้องการ</th>  
                       <th class="text-center">รายละเอียดเพิ่มเติม</th>   
                       <th class="text-center">กระทำ</th>            
                     </tr>
                   </thead>
                   <tbody> 
                     <?php
-//req_trainee : req_id   business_id  major_id  level  amount   gender  spacial_condition  training_start   training_end 
-                   
+//req_human_power : req_id  business_id  major_id  level  amount  gender  org_date req_date   change_req  req_start  req_end   age_start  age_end   spacial_condition
+         
                     if($results1->num_rows > 0){  
                      $count2=0;
                       while($row1 = $results1->fetch_assoc()) {
@@ -92,7 +93,13 @@ if($act=="del"){
                         $amount=$row1["amount"];
                         $gender=$row1["gender"];                        
                         $spacial_condition=$row1["spacial_condition"];
-                        $training_semes=$row1["training_semes"];
+                        $org_date=$row1["org_date"];
+                        $req_date=$row1["req_date"];
+                        $change_req=$row1["change_req"];
+                        $req_start=$row1["req_start"];
+                        $req_end=$row1["req_end"];
+                        $age_start=$row1["age_start"];
+                        $age_end=$row1["age_end"];
                         //echo   $count2."==<br>";                     
                                     
                         $sql2=("SELECT * FROM `major` where major_id='$major_id' ");
@@ -114,34 +121,30 @@ if($act=="del"){
                           $gender_text="ได้ทุกเพศ";
                         else
                           $gender_text="";
-
-                        if($training_semes=="1")                  
-                          $ts_text="เทอม1";
-                        else if($training_semes=="2")                  
-                          $ts_text="เทอม2";
-                        else if($training_semes=="3")                  
-                          $ts_text="ภาคฤดูร้อน";
-                        else
-                          $ts_text="ไม่ระบุ";
+                       
                         ?>
                         <tr >
                           <td><?php echo $count2;?></td>                          
                           <td><?php echo $major_name;?></td>
                           <td><?php echo $level;?></td>
                           <td><?php echo $gender_text;?></td> 
-                          <td><?php echo $amount;?></td>           
-                          <td><?php echo $ts_text;?></td>
+                          <td><?php echo $amount;?></td> 
+                          <td><?php echo $change_req;?></td>          
+                          <td><?php echo $req_start;?> ถึง 
+                            <?php echo $req_end;?></td>
+                          <td><?php echo $age_start;?> ถึง 
+                            <?php echo $age_end;?></td>
                           <td><?php echo $spacial_condition;?></td>  
                           <td>
                             <small>
-                              <a href="index.php?extention/main_req_trainee&act=del&req_id=<?php echo $req_id;?>" onclick="return confirm('ลบ?');">
+                              <a href="index.php?extention/main_req_human_power&act=del&req_id=<?php echo $req_id;?>" onclick="return confirm('ลบ?');">
                                 <button class="btn btn-sm btn-danger">
                                   <i class="fa  fa-times"></i>
                                 </button>    
                               </a>
                             </small>
                             <small>
-                              <a href="index.php?extention/edit_req_trainee&req_id=<?php echo $req_id;?>" >
+                              <a href="index.php?extention/edit_req_human_power&req_id=<?php echo $req_id;?>" >
                                 <button class="btn btn-sm btn-warning">
                                   <i class="fa  fa-pencil"></i>
                                 </button>    

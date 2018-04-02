@@ -16,18 +16,16 @@ $req_id=$_REQUEST["req_id"];
 
 if($act=="esave"){
   //$business_id=$_POST["business_id"];
-  //$school_id=$_POST["school_id"];
-  $shortcourse_code_arr=explode("*",$_POST["shortcourse_codex"]);
-  $shortcourse_code=$shortcourse_code_arr[0];
-  $shortcourse_school_id=$shortcourse_code_arr[1];
-  $training_hour=$shortcourse_code_arr[2];
+  $school_id=$_POST["school_id"];
+  $shortcourse_code=$_POST["shortcourse_code"];
+  $training_hour=$_POST["training_hour"];
   $trainee_amount=$_POST["trainee_amount"];
   $date_rang_arr=explode("-",$_POST["date_rang"]);  
   $training_start_date=$date_rang_arr[0];
   $training_end_date=$date_rang_arr[1];
   $status="request";
 
-  $sql1="UPDATE `req_shortcourses` SET  `school_id` = '$shortcourse_school_id', `shortcourse_code` = '$shortcourse_code', `trainee_amount` = '$trainee_amount', `training_hour` = '$training_hour', `training_start_date` = '$training_start_date', `training_end_date` = '$training_end_date' WHERE `req_id` = '$req_id' ;";
+  $sql1="UPDATE `req_shortcourses` SET  `school_id` = '$school_id', `shortcourse_code` = '$shortcourse_code', `trainee_amount` = '$trainee_amount', `training_hour` = '$training_hour', `training_start_date` = '$training_start_date', `training_end_date` = '$training_end_date' WHERE `req_id` = '$req_id' ;";
   $results1 = $db->query($sql1);
 
 redirect('extention/main_req_shot_course');
@@ -42,7 +40,7 @@ redirect('extention/main_req_shot_course');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        ขอเปิดสอนหลักสูตรระยะสั้น/แก้ไข      
+        สถานประกอบการสมัครเข้ารับการอบรม/แก้ไข      
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -75,19 +73,19 @@ redirect('extention/main_req_shot_course');
 //echo $sch_id."<br>";
 //echo $shc_id."<br>";
 //  req_id  business_id  school_id  shortcourse_code  trainee_amount  training_hour  training_start_date  training_end_date  status
-$sql1=("SELECT * FROM `req_shortcourses` where req_id='$req_id'  ");
+$sql1=("SELECT * FROM `req_shortcourses` where $business_id='$business_id' and  req_id='$req_id'  ");
 //echo $sql1."<br>";
 $results1 = $db->query($sql1);
 
 if($results1->num_rows > 0){                       
   while($row1 = $results1->fetch_assoc()) {
-    $business_id = $row1["business_id"];
-    $school_id = $row1["school_id"];
-    $shortcourse_code = $row1["shortcourse_code"];
-    $trainee_amount = $row1["trainee_amount"];
-    $training_hour = $row1["training_hour"];
-    $training_start_date = $row1["training_start_date"];
-    $training_end_date = $row1["training_end_date"];
+    //$business_id = $row1["business_id"];
+    $school_idx = $row1["school_id"];
+    $shortcourse_codex = $row1["shortcourse_code"];
+    $trainee_amountx = $row1["trainee_amount"];
+    $training_hourx = $row1["training_hour"];
+    $training_start_datex = $row1["training_start_date"];
+    $training_end_datex = $row1["training_end_date"];
   }
 }else{
   echo "ไม่พบข้อมูลคำร้องขอ";
@@ -101,10 +99,10 @@ $sql1=("SELECT * FROM `shortcourses`  order by school_id,shortcourse_code ");
 //echo $sql1."<br>";
 $results1 = $db->query($sql1);
 $count1=0;
-?>
+?><div class="col-md-6 col-lg-12">
                 <div class="form-group">
                   <label>ชื่อหลักสูตร</label>
-                  <select class="form-control select2" name="shortcourse_codex">
+                  <select class="form-control select2" name="shortcourse_code">
                    <?php
                     if($results1->num_rows > 0){                       
                       while($row1 = $results1->fetch_assoc()) {
@@ -115,17 +113,7 @@ $count1=0;
                         
                         $count1++;
 
-                        $sql2=("SELECT * FROM `school` where school_id='$school_id' ");
-                        //echo $sql2."<br>";
-                        $results2 = $db->query($sql2);
-                        if($results2->num_rows > 0){                       
-                          $row2 = $results2->fetch_assoc();                            
-                          $school_name=$row2["school_name"];                           
-                        }else{
-                          $school_name="ไม่พบข้อมูลสถานศึกษา";
-                        }
-
-                        if(($school_id==$sch_id)&&($shortcourse_code==$shc_id))
+                        if($shortcourse_code==$shortcourse_codex)
                         {
                           $sel="selected";
                         }
@@ -133,7 +121,7 @@ $count1=0;
                           $sel="";
                         }
                         ?>                        
-                          <option value="<?php echo $shortcourse_code;?>*<?php echo $school_id;?>*<?php echo $course_hour;?>" <?php echo $sel;?>><?php echo $count1." ".$course_name;?> : <?php echo $school_name;?> : <?php echo $course_hour;?> ชั่วโมง</option>                          
+                          <option value="<?php echo $shortcourse_code;?>" <?php echo $sel;?>><?php echo $count1." ".$course_name;?></option>                          
                         <?php
 
                       }
@@ -142,14 +130,75 @@ $count1=0;
                     
                   </select>
                 </div>
+<?php
+//school_id school_name
 
+$sql1=("SELECT * FROM `school` order by school_id ");
+$results1 = $db->query($sql1);
+$count2=0;
+?>
+              
+                <div class="form-group">
+                  <label>ชื่อวิทยาลัยที่เปิดสอน</label>
+                  <select class="form-control select2" name="school_id">
+                   <option value="">--เลือก--</option>
+                   <?php
+                    if($results1->num_rows > 0){                       
+                      while($row1 = $results1->fetch_assoc()) {
+                        $school_id = $row1["school_id"];
+                        $school_name = $row1["school_name"];  
+						$count2++;
+						
+                        if($school_id==$school_idx)
+                        {
+                          $sel="selected";
+                        }
+                        else {
+                          $sel="";
+                        }
+                        ?>                        
+                          <option value="<?php echo $school_id;?>"  <?php echo $sel;?>>
+                            <?php echo $count2." ".$school_name;?> </option>                          
+                        <?php
+                      }
+                    }
+                   ?>
+                    
+                  </select>
+                </div>
+          
+
+         
+              
+                <div class="form-group">
+                  <label>จำนวนชั่วโมงที่ต้องการอบรม</label>
+                  <select class="form-control select2" name="training_hour">
+                    <option value="">--เลือก--</option>
+                    <?php 
+
+                    for($num=1;$num <=300;$num++){
+						  if($num==$training_hourx)
+                        {
+                          $sel="selected";
+                        }
+                        else {
+                          $sel="";
+                        }
+                      ?>
+                        <option <?php echo $sel;?>><?php echo $num;?></option>
+                      <?php
+                    }
+                    ?>
+                  </select>
+                </div>
+          
                
                 <div class="form-group">
                   <label>จำนวนผู้เข้าอบรม</label>
                   <select class="form-control" name="trainee_amount">
                     <?php 
                     for($num=1;$num <=200;$num++){
-                       if($num==$trainee_amount)
+                       if($num==$trainee_amountx)
                         {
                           $sel="selected";
                         }
@@ -190,6 +239,7 @@ $count1=0;
               </div>
             </form>
           </div>
+		  </div>
           <!-- /.box -->
 
 
@@ -230,8 +280,8 @@ $count1=0;
       locale: {
       format: 'YYYY/MM/DD'
         },
-        startDate: '<?php echo $training_start_date;?>',
-        endDate: '<?php echo $training_end_date;?>'
+        startDate: '<?php echo $training_start_datex;?>',
+        endDate: '<?php echo $training_end_datex;?>'
     })
     //Date range picker with time picker
     $('#reservationtime').daterangepicker({ timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A' })

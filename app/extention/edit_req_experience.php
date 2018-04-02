@@ -5,19 +5,22 @@ $active = 'home';
 $subactive = 'index';
 $title = 'หน้าหลัก';
 // จัดการข้อมูลกับด้าน logic
+
 $business_id="1234";
+
+?>
+<?php
 require_once('template/header.php');
 $act=$_POST["act"];
+$req_id=$_REQUEST["req_id"];
 
-if($act=="add"){
-//req_trainee : req_id   business_id  major_id  level  amount   gender  both/male/female spacial_condition   training_semes 
-
-  $major_id=$_POST["major_id"];  
-  $level=$_POST["level"];
+if($act=="esave"){
+  $major_id=$_POST["major_id"];
+  $level=$_POST["level"];  
+  $gender=$_POST["gender"];
   $amount_1=$_POST["amount_1"]; 
   $amount_2=$_POST["amount_2"];
   $amount_3=$_POST["amount_3"]; 
-  $training_semes=$_POST["training_semes"]; 
   if(!empty($amount_3)){
     $amount=$amount_3;
     $gender="b";
@@ -31,25 +34,26 @@ if($act=="add"){
     $amount=0;
     $gender="";
   }
-  $training_semes=$_POST["training_semes"];
   $spacial_condition=$_POST["spacial_condition"];
+  $date_rang_arr=explode("-",$_POST["date_rang"]);  
+  $training_start_date=$date_rang_arr[0];
+  $training_end_date=$date_rang_arr[1];
   
-  
-
-$sql1="INSERT INTO `req_trainee` (`business_id`, `major_id`, `level`, `amount`, `gender`, `spacial_condition`, `training_semes`) VALUES ('$business_id', '$major_id', '$level', '$amount', '$gender', '$spacial_condition', '$training_semes');";
-
+//req_experience :   req_id  business_id  major_id  level  amount  gender  spacial_condition  training_start  training_end
+  $sql1="UPDATE `req_experience` SET  `major_id` = '$major_id', `level` = '$level', `amount` = '$amount', `gender` = '$gender', `spacial_condition` = '$spacial_condition', `training_start` = '$training_start_date' , `training_end` = '$training_end_date' WHERE `req_id` = '$req_id' ;";
   $results1 = $db->query($sql1);
-  echo "$results1";
- // redirect('extention/main_req_trainee');
+
+redirect('extention/main_req_experience');
+  
 }
+
 ?>
-  <!-- Content Wrapper. Contains page content -->
+<!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        ต้องการนักศึกษาฝึกงาน/เพิ่ม
-        
+        ต้องการนักศึกษาฝึกประสบการณ์/แก้ไข      
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -59,6 +63,7 @@ $sql1="INSERT INTO `req_trainee` (`business_id`, `major_id`, `level`, `amount`, 
     </section>
 <?php
 //echo $sql1."<br>";
+
 ?>
     <!-- Main content -->
     <section class="content">
@@ -66,7 +71,7 @@ $sql1="INSERT INTO `req_trainee` (`business_id`, `major_id`, `level`, `amount`, 
         <!-- left column -->
         <div class="col-md-6 col-lg-12">
           <!-- general form elements -->
-          <div class="box box-danger">
+          <div class="box box-warning">
             <div class="box-header with-border">
               <h3 class="box-title">กรุณากรอกข้อมูลให้ครบถ้วน</h3>
             </div>
@@ -74,11 +79,31 @@ $sql1="INSERT INTO `req_trainee` (`business_id`, `major_id`, `level`, `amount`, 
             <!-- form start -->
             <form role="form" method="POST" action="">
               <div class="box-body">                
-                 <div class="form-group">
-                  <label for="exampleInputEmail1">ชื่อสถานประกอบการ <?php echo $business_id;?></label>                  
+                <div class="form-group">
+                  <label>ชื่อสถานประกอบการ <?php echo $business_id;?></label>                  
                 </div>
-                
-                <?php
+<?php
+
+$sql1=("SELECT * FROM `req_experience` where $business_id='$business_id' and  req_id='$req_id'  ");
+//echo $sql1."<br>";
+$results1 = $db->query($sql1);
+
+if($results1->num_rows > 0){                       
+  while($row1 = $results1->fetch_assoc()) {
+    //$business_id = $row1["business_id"];
+    $major_idx = $row1["major_id"];
+    $levelx = $row1["level"];
+    $amountx = $row1["amount"];
+    $genderx = $row1["gender"];
+    $spacial_conditionx = $row1["spacial_condition"];
+    $training_startx=$row1["training_start"];
+    $training_endx=$row1["training_end"];
+  }
+}else{
+  echo "ไม่พบข้อมูลคำร้องขอ";
+  return;
+}
+
 //req_trainee : req_id   business_id  major_id  level  amount   gender  both/male/female spacial_condition  training_semes  
               $sql1=("SELECT * FROM `major` order by major_id");
               $results1 = $db->query($sql1);
@@ -98,8 +123,16 @@ $sql1="INSERT INTO `req_trainee` (`business_id`, `major_id`, `level`, `amount`, 
                           $type_code=$row1["type_code"];
                           $major_eng=$row1["major_eng"];
                           $industrial=$row1["industrial"];
+
+                          if($major_id==$major_idx)
+                          {
+                            $sel="selected";
+                          }
+                          else {
+                            $sel="";
+                          }
                           ?>                        
-                          <option value="<?php echo $major_id;?>">
+                          <option value="<?php echo $major_id;?>" <?php echo $sel;?>>
                             <?php echo $count1." ".$major_name;?></option>                          
                         <?php
                       }
@@ -114,24 +147,54 @@ $sql1="INSERT INTO `req_trainee` (`business_id`, `major_id`, `level`, `amount`, 
                 <div class="form-group">
 
                   <label>ระดับการศึกษา</label>
-                  <select class="form-control" name="level">
+                  <select class="form-control select2" name="level">
                     <option value="">--เลือก--</option>
-                    <option>ปวช.</option>
-                    <option>ปวส.</option>   
-                    <option>ป.ตรี</option>                   
+                    <option 
+                    <?php 
+                    if($levelx=="ปวช.")
+                      echo " selected";
+                    ?>
+                    >ปวช.</option>
+                    <option
+                     <?php 
+                    if($levelx=="ปวส.")
+                      echo " selected";
+                    ?>
+                    >ปวส.</option>   
+                    <option
+                     <?php 
+                    if($levelx=="ป.ตรี")
+                      echo " selected";
+                    ?>
+                    >ป.ตรี</option>                   
                   </select>
                 </div>
               
-
+            <?php
+             if($genderx=="m"){
+                $sel1="selected";
+              }else if($genderx=="f"){
+                $sel2="selected";
+              }else if($genderx=="b"){
+                $sel3="selected";
+              }
+            ?>
              <label>เพศ(เลือกรายการเดียว)</label>
                 <div class="form-group">                  
                   <label>เพศชาย จำนวน</label>
-                  <select class="form-control" name="amount_1"> 
+                  <select class="form-control select2" name="amount_1"> 
                     <option value="">--เลือก--</option>
                     <?php 
                     for($num=1;$num <=200;$num++){
+                       if($num==$amountx)
+                          {
+                            $sel=$sel1;
+                          }
+                          else {
+                            $sel="";
+                          }
                       ?>
-                        <option><?php echo $num;?></option>
+                        <option <?php echo $sel;?>><?php echo $num;?></option>
                       <?php
                     }
                     ?>
@@ -140,12 +203,19 @@ $sql1="INSERT INTO `req_trainee` (`business_id`, `major_id`, `level`, `amount`, 
 
                 <div class="form-group">
                   <label>เพศหญิง จำนวน</label>
-                  <select class="form-control"  name="amount_2">
+                  <select class="form-control select2"  name="amount_2">
                     <option value="">--เลือก--</option>
                     <?php 
                     for($num=1;$num <=200;$num++){
+                      if($num==$amountx)
+                          {
+                            $sel=$sel2;
+                          }
+                          else {
+                            $sel="";
+                          }
                       ?>
-                        <option><?php echo $num;?></option>
+                        <option <?php echo $sel;?>><?php echo $num;?></option>
                       <?php
                     }
                     ?>
@@ -154,12 +224,19 @@ $sql1="INSERT INTO `req_trainee` (`business_id`, `major_id`, `level`, `amount`, 
 
                  <div class="form-group">
                   <label>ไม่ระบุเพศ จำนวน</label>                  
-                  <select class="form-control"  name="amount_3">
+                  <select class="form-control select2"  name="amount_3">
                     <option value="">--เลือก--</option>
                     <?php 
                     for($num=1;$num <=200;$num++){
+                      if($num==$amountx)
+                          {
+                            $sel=$sel3;
+                          }
+                          else {
+                            $sel="";
+                          }
                       ?>
-                        <option><?php echo $num;?></option>
+                        <option <?php echo $sel;?>><?php echo $num;?></option>
                       <?php
                     }
                     ?>
@@ -167,25 +244,38 @@ $sql1="INSERT INTO `req_trainee` (`business_id`, `major_id`, `level`, `amount`, 
                 </div>
                 <?php
 //req_trainee : req_id   business_id  major_id  level  amount   gender  both/male/female spacial_condition  training_start   training_end 
+
+                if($training_semesx=="1"){
+                $sel1="selected";
+              }else if($training_semesx=="2"){
+                $sel2="selected";
+              }else if($training_semesx=="3"){
+                $sel3="selected";
+              }else{
+                $sel1="";
+                $sel2="";
+                $sel3="";
+              }
  ?>              
               <!-- Date range -->
               <div class="form-group">
-                <label>เวลาในการฝึกงาน(ตามปีการศึกษาของสถานศึกษา)</label>
-                <select class="form-control"  name="training_semes">
-                    <option value="">--เลือก--</option>                    
-                    <option value="1">เทอม 1 (พฤษภาคม ถึง กันยายน)</option>
-                    <option value="2">เทอม 2 (ตุลาคม ถึง กุมภาพันธ์)</option>
-                    <option value="3">ภาคฤดูร้อน (มีนาคม ถึง เมษายน)</option>                      
-                </select>
-                <!-- /.input group -->
-              </div>
+                <label>วันที่เริ่ม-จบอบรม</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input type="text" name="date_rang" class="form-control pull-right" id="reservation"
+                   >
+                </div>
               <!-- /.form group -->
   
                           
                 <div class="form-group">
                   <label for="">รายละเอียดเพิ่มเติม</label>
                   <textarea class="form-control" rows="3" name="spacial_condition"
-                   placeholder="กรอกรายละเอียดเพิ่มเติม"></textarea>
+                   placeholder="กรอกรายละเอียดเพิ่มเติม">
+                     <?php echo $spacial_conditionx;?>
+                   </textarea>
                 </div>
 
                <div class="box-footer">
@@ -193,12 +283,14 @@ $sql1="INSERT INTO `req_trainee` (`business_id`, `major_id`, `level`, `amount`, 
                 <a href="index.php?extention/main_req_trainee">
                 <button  class="btn btn-default pull-right">กลับหน้าหลัก</button>
               </a>
-                <input type="hidden" name="act" value="add">
+                <input type="hidden" name="act" value="esave">
+                <input type="hidden" name="req_id" value="<?php echo $req_id;?>">
               </div>
             </div>
 
             </form>
           </div>
+          <!-- /.box -->
           <!-- /.box -->
 
 
@@ -219,7 +311,7 @@ $sql1="INSERT INTO `req_trainee` (`business_id`, `major_id`, `level`, `amount`, 
     <!-- /.content -->
   
   <!-- /.content-wrapper -->
-   <!-- footer-section -->
+  <!-- footer-section -->
 <?php require_once 'template/footer.php'; ?>
 <!-- Page script -->
 <script>
@@ -235,10 +327,12 @@ $sql1="INSERT INTO `req_trainee` (`business_id`, `major_id`, `level`, `amount`, 
     $('[data-mask]').inputmask()
 
     //Date range picker
-     $('#reservation').daterangepicker({
+    $('#reservation').daterangepicker({
       locale: {
       format: 'YYYY/MM/DD'
-        }
+        },
+        startDate: '<?php echo $training_startx;?>',
+        endDate: '<?php echo $training_endx;?>'
     })
     //Date range picker with time picker
     $('#reservationtime').daterangepicker({ timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A' })
@@ -263,8 +357,7 @@ $sql1="INSERT INTO `req_trainee` (`business_id`, `major_id`, `level`, `amount`, 
 
     //Date picker
     $('#datepicker').datepicker({
-      autoclose: true,
-      format: 'yyyy/mm/dd'
+      autoclose: true
     })
 
     //iCheck for checkbox and radio inputs

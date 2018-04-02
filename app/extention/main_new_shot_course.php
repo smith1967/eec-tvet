@@ -28,7 +28,7 @@ if($act=="del"){
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        ขอเปิดสอนหลักสูตรระยะสั้นใหม่
+        สถานประกอบการต้องการเปิดการอบรมหลักสูตรใหม่
         <small>
           <a href="index.php?extention/frm_new_shot_course">
             <button class="btn btn-info">
