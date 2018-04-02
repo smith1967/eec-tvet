@@ -1,10 +1,12 @@
 <?php
 require_once 'include/config.php';
 include_once 'library/acl.php';
+//var_dump($_SERVER);
 $req = substr($_SERVER['REQUEST_URI'], strlen($_SERVER['SCRIPT_NAME'])+1);
 $param = explode('&', $req);
 // var_dump($req);
-//var_dump($req);
+
+//die();
 //var_dump(is_dvt_staff());
 
 $ctrl_act = array_shift($param);
@@ -30,6 +32,11 @@ $file = dirname(__FILE__) . '/app/' . $ctrl_act . '.php';
 if (!is_file($file)) {
 	$file = dirname(__FILE__) . '/app/home/index.php';
 }
+//$file = dirname(__FILE__) . '/app/' . $_SERVER['PATH_INFO'] . '.php';
+//if (!is_file($file)) {
+//	$file = dirname(__FILE__) . '/app/home/index.php';
+//}
+
 // var_dump($file);
 // die();
 ob_start();

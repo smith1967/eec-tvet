@@ -46,7 +46,7 @@ function del0($s){
 }
 // M=>ชาย
 function convSex($s){
-    if ($s=='M'){
+    if ($s=='m'){
         $r='ชาย';
     }else{
         $r='หญิง';
@@ -61,4 +61,13 @@ function getzoneName($zone_id){
     $rs = mysqli_query($db, $query);
     $row = mysqli_fetch_array($rs,MYSQLI_ASSOC);
     return $row['zoneName'];
+}
+
+function getStatusEdu($id){
+    global $db;
+    $query = "SELECT * FROM status_education where status_education_id='".$id."'";
+    //echo $query;
+    $rs = mysqli_query($db, $query);
+    $row = mysqli_fetch_array($rs,MYSQLI_ASSOC);
+    return $row['description'];
 }
