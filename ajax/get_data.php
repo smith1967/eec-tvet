@@ -4,6 +4,7 @@ include_once './../include/config.php';
 //var_dump($_GET);
 header("Cache-Control: no-transform,public,max-age=300,s-maxage=900");
 header('Content-Type: application/json; charset=utf-8');
+check_token($_REQUEST['token']);
 if(isset($_GET['show_province'])){
 
         //คำสั่ง SQL เลือก id และ  ชื่อจังหวัด

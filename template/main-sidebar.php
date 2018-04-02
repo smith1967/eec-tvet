@@ -84,28 +84,31 @@ $menu = Array(
             ),
         ),
     ),
-    'business' => array(
-        'title' => 'สถานประกอบการ',
+    'industrial' => array(
+        'title' => 'อุตสาหกรรม',
         'url' => '#',
         'class' => 'fa fa-building-o',
-        'cond' => is_auth(),
+        'cond' => true,
         'subitems' => array(
-            'list' => array(
-                'title' => 'รายชื่อ',
-                'cond' => is_auth(),
-                'url' => 'business/list',
+            'group' => array(
+                'title' => 'จัดการกลุ่ม s-curve',
+                'cond' => true,
+                'url' => 'industrial/group',
             ),
-            'insert' => array(
-                'title' => 'เพิ่มข้อมูล',
-                'url' => 'business/insert',
-                'cond' => is_auth(),
-            ),
-            'edit' => array(
-                'title' => 'แก้ไขข้อมูล',
-                'url' => 'business/edit',
-                'cond' => is_auth(),
-            ),
+            'estate' => array(
+                'title' => 'จัดการกลุ่มนิคม',
+                'cond' => true,
+                'url' => 'industrial/estate',
+
+            ),         
         ),
+    ),
+    'business' => array(
+        'title' => 'สถานประกอบการ',
+        'url' => site_url('business/index'),
+        'class' => 'fa fa-building-o',
+        'cond' => true,
+        'subitems' => array(),
     ),
     'trainer' => array(
         'title' => 'ครูฝึก',
@@ -249,22 +252,22 @@ $menu = Array(
         'subitems' => array(
             'signup' => array(
                 'title' => 'สมัครสมาชิก',
-                'url' => 'app/user/signup',
+                'url' => 'user/signup',
                 'cond' => !is_auth(),
             ),
             'edit' => array(
                 'title' => 'แก้ไขข้อมูล',
-                'url' => 'app/user/edit',
+                'url' => 'user/edit',
                 'cond' => is_auth(),
             ),
             'login' => array(
                 'title' => 'เข้าระบบ',
-                'url' => 'app/user/login',
+                'url' => 'user/login',
                 'cond' => !is_auth(),
             ),
             'logout' => array(
                 'title' => 'ออกระบบ',
-                'url' => 'app/user/logout',
+                'url' => 'user/logout',
                 'cond' => is_auth(),
             ),
         ),
