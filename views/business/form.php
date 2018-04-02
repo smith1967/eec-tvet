@@ -1,9 +1,6 @@
 <div class="row">
     <!-- left column -->
     <div class="col-md-12">
-        <div class="col-md-12">
-            <p id="show-message"></p>
-        </div>
         <!-- general form elements -->
         <div class="box box-primary">
             <div class="box-header with-border">
@@ -14,7 +11,7 @@
             <form role="form" method="post" id="businessForm">
                 <div class="box-body">
                     <input type="hidden" id="business_id" name="business_id" value=""/>
-                    
+                    <input type="hidden" id="token" name="token" value="<?php echo $token ?>"/>
                     <div class="row">
                         <div class="col-md-12 col-xs-12">
                             <div class="form-group">
@@ -177,6 +174,7 @@
                         </div>
                     </div>                                                     
                 </div>
+
                 <!--/.box-body-->
                 <div class="box-footer">
                     <button type="submit" class="btn btn-primary" id="btnInsert" name="submit">บันทึกเพิ่มข้อมูล</button>
@@ -185,6 +183,9 @@
 
                 </div>
             </form>
+        </div>
+        <div class="col-md-12">
+            <p id="show-message"></p>
         </div>
     </div>    
 
