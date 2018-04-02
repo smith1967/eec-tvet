@@ -1,11 +1,10 @@
 <?php
 if (!defined('BASE_PATH'))
     exit('No direct script access allowed');
-$title = "student";
-$active = 'admin';
-$subactive = 'list-student';
-is_admin('home/index');
-$school_id=$_SESSION['user']['school_id'];
+$active = 'home';
+$subactive = 'index';
+$title = 'นำเข้าข้อมูลนักเรียน กำลังศึกษา';
+
 
 $page = isset($_GET['page']) ? $_GET['page'] : 0;
 $action = isset($_GET['action']) ? $_GET['action'] : "list";
@@ -16,6 +15,9 @@ $params = array(
     'action' => $action,
     'limit' => $limit,
 );
+//=================fix data==========================
+$school_id="1320016201";
+//===================================================
 $params = http_build_query($params);
 $studentlist = get_student($page, $limit,$school_id);
 //echo $studentlist; exit();
@@ -23,6 +25,7 @@ $studentlist = get_student($page, $limit,$school_id);
 $url = site_url('student/list-student&') . $params;
 //    var_dump($businesslist);
 //    exit();
+
 $total = get_total($school_id);
 //if(!isset($total))redirect("/admin/index");
 ?>
@@ -31,16 +34,22 @@ $total = get_total($school_id);
 if (isset($_GET['action']) && $_GET['action'] == 'delete') {
     do_delete($_GET['std_id']);
 }
-require_once INC_PATH . 'header.php'; 
+require_once('template/header.php');
+
 ?>
-<div class="container">   
-    <?php 
-    include_once INC_PATH . 'submenu-student.php'; 
-    show_message();
-    ?>
-    <div class="page-header">
-        <h3>ข้อมูลนักเรียน <?php echo getSchoolName($school_id) ?></h3>
-    </div>
+<div class="content-wrapper">
+    <section class="content-header">
+      <h1>
+        นำเข้าข้อมูลนักเรียน กำลังศึกษา <small>ตรวจสอบไฟล์</small>
+      </h1>
+      <div class="col-md-12">
+        <?php show_message() ?>                
+      </div>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+
     <?php
     echo pagination($total, $url, $page, $order, $limit) ;
     ?>
@@ -52,25 +61,25 @@ require_once INC_PATH . 'header.php';
             </div>
         </div>
     </form>-->
-    <div class="table-responsive">
-        <table class="table table-striped table-condensed table-hover">
-            <thead>
-                <tr>
-                    <th>ลำดับ</th>
-                    <th>รหัสนักเรียน</th>
-<!--                    <th>รหัสสถานศึกษา</th>-->
-                    <th>รหัสประจำตัวประชาชน</th>
-                    <th>ชื่อนักเรียน</th>
-                    <th>วันเดือนปีเกิด</th>
-                    <th>เพศ</th>
-                    <th>สาขางาน</th>
-                    <th>สาขาวิชา</th>
-<!--                    <th>สถานะภาพ</th>
-                    <th>รหัสประเภทวิชา</th>-->
-                </tr>
+            <div class="table-responsive">
+            <table class="table table-striped table-condensed table-hover">
+                <thead>
+                    <tr>
+                        <th>ลำดับ</th>
+                        <th>รหัสนักเรียน</th>
+                        <th>รหัสสถานศึกษา</th>
+                        <th>รหัสประจำตัวประชาชน</th>
+                        <th>ชื่อนักเรียน</th>
+                        <th>นามสกุล</th>
+                        <th>วันเดือนปีเกิด</th>
+                        <th>เพศ</th>
+                        <th>สาขางาน</th>
+                        <th>สาขาวิชา</th>
+                        <th>สถานะภาพ</th>
+                    </tr>
 
-            </thead>
-            <tbody>
+                </thead>
+                <tbody>
                 <?php
                 $cn=0;
 //                var_dump($studentlist);
@@ -80,16 +89,16 @@ require_once INC_PATH . 'header.php';
 
                     <tr>
                         <td><?php echo $cn; ?></td>
-                        <td><?php echo $studen['std_id']; ?></td>
-<!--                        <td><?php echo $studen['school_id']; ?></td>-->
+                        <td><?php echo $studen['student_id']; ?></td>
+                        <td><?php echo $studen['school_id']; ?></td>
                         <td><?php echo $studen['citizen_id']; ?></td>
-                        <td><?php echo $studen['std_name']; ?></td>
-                        <td><?php echo chDay3($studen['dateofbirth']); ?></td>
-                        <td><?php echo convSex($studen['sex']); ?></td>
+                        <td><?php echo $studen['name']; ?></td>
+                        <td><?php echo $studen['lastname']; ?></td>
+                        <td><?php echo chDay3($studen['dob']); ?></td>
+                        <td><?php echo convSex($studen['gender']); ?></td>
                         <td><?php echo getMinorName($studen['minor_id']); ?></td>
                         <td><?php echo getMajorName($studen['major_id']); ?></td>
-<!--                        <td><?php echo $studen['end_edu_id']; ?></td>
-                        <td><?php echo $studen['typcode']; ?></td>-->
+                        <td><?php echo getStatusEdu($studen['status_id']); ?></td>
 <!--                        <td>
                             <a href="<?php //echo site_url('student/edit-student') . '&action=edit&std_id=' . $studen['std_id']; ?>" >แก้ไข</a>
                         </td>
@@ -98,12 +107,14 @@ require_once INC_PATH . 'header.php';
                         </td>-->
                     </tr>  
                 <?php endforeach; ?>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
+</div>
 
-<?php require_once INC_PATH . 'footer.php'; ?>
+<?php require_once 'template/footer.php'; ?>
 <?php
 
 
@@ -111,17 +122,15 @@ require_once INC_PATH . 'header.php';
 function get_student($page = 0, $limit = 10,$school_id) {
     global $db;
     $start = $page * $limit;
-    $query = "SELECT * FROM student WHERE `school_id`=".pq($school_id)." LIMIT " . $start . "," . $limit . "";
-    var_dump($query);
+    $query = "SELECT * FROM student where school_id='$school_id' LIMIT " . $start . "," . $limit . "";
+    ///var_dump($query);
     //$query = "SELECT * FROM student  LIMIT " . $start . "," . $limit . "";
     $result = mysqli_query($db, $query);
     $studentlist = array();
     while ($row = mysqli_fetch_array($result)) {
         $studentlist[] = $row;
     }
-     
     return $studentlist;
-
 }
 
 function get_total($school_id) {
@@ -184,7 +193,7 @@ function do_delete($std_id) {
 //}
 //// M=>ชาย
 //function convSex($s){
-//    if ($s=='M'){
+//    if ($s=='m'){
 //        $r='ชาย';
 //    }else{
 //        $r='หญิง';
