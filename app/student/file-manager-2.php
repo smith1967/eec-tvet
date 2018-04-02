@@ -128,7 +128,7 @@ function do_upload() {
     $filename = $_FILES['uploadfile']['tmp_name'];
     $stdfile = UPLOAD_DIR . date('Y-m-d') . '_' . basename($_FILES['uploadfile']['name']);
     $ext = pathinfo($stdfile, PATHINFO_EXTENSION); // die();
-    $file_name_Upload= $_FILES['uploadfile']['name'];
+    $file_name_Upload= strtolower($_FILES['uploadfile']['name']);
    // echo strtolower($ext);    exit();
     if (strtolower($ext) != 'csv') {
         set_err("ชนิดของไฟล์ไม่ถูกต้อง กรุณาตรวจสอบอีกครั้งครับ");
@@ -136,13 +136,14 @@ function do_upload() {
         //echo "Error: " . $_FILES["uploadfile"]["error"] . "<br>";
         set_err("<p>Error: " . $_FILES["uploadfile"]["error"] . "<p/>");
     }else if (file_exists($stdfile)) {
-        unlink($stdfile);
+        //unlink($stdfile);
+        set_err("ไฟลืข้อมูลนี้มีอยู่แล้ว :" . $file_name_Upload);
     }else if (!move_uploaded_file($filename, $stdfile)) {
         set_err("อัพโหลดไฟล์ข้อมูลผิดพลาด :" . $stdfile);
     }else{
         $_SESSION['upload_file']="$filename";
         $_SESSION['upload']='OK';
-        set_info("อัพโหลดไฟล์ข้อมูล ".$stdfile. 
+        set_info("อัพโหลดไฟล์ข้อมูล ".$file_name_Upload." เรียบร้อยแล้ว"); 
     }
     redirect('student/file-manager-2');
 }

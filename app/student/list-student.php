@@ -16,7 +16,8 @@ $params = array(
     'limit' => $limit,
 );
 //=================fix data==========================
-$school_id="1320016201";
+//$school_id="1320016201";
+$school_id=$_SESSION['school_id'];
 //===================================================
 $params = http_build_query($params);
 $studentlist = get_student($page, $limit,$school_id);
@@ -40,7 +41,7 @@ require_once('template/header.php');
 <div class="content-wrapper">
     <section class="content-header">
       <h1>
-        นำเข้าข้อมูลนักเรียน กำลังศึกษา <small>ตรวจสอบไฟล์</small>
+        ข้อมูลนักเรียน กำลังศึกษา <small>ตรวจสอบรายชื่อ</small>
       </h1>
       <div class="col-md-12">
         <?php show_message() ?>                
@@ -68,7 +69,7 @@ require_once('template/header.php');
                         <th>ลำดับ</th>
                         <th>รหัสนักเรียน</th>
                         <th>รหัสสถานศึกษา</th>
-                        <th>รหัสประจำตัวประชาชน</th>
+                        <!--<th>รหัสประจำตัวประชาชน</th>-->
                         <th>ชื่อนักเรียน</th>
                         <th>นามสกุล</th>
                         <th>วันเดือนปีเกิด</th>
@@ -77,7 +78,6 @@ require_once('template/header.php');
                         <th>สาขาวิชา</th>
                         <th>สถานะภาพ</th>
                     </tr>
-
                 </thead>
                 <tbody>
                 <?php
@@ -86,19 +86,18 @@ require_once('template/header.php');
                 foreach ($studentlist as $studen) :
                     $cn++;
                     ?>
-
                     <tr>
                         <td><?php echo $cn; ?></td>
                         <td><?php echo $studen['student_id']; ?></td>
                         <td><?php echo $studen['school_id']; ?></td>
-                        <td><?php echo $studen['citizen_id']; ?></td>
+<!--                        <td><?php // echo $studen['citizen_id']; ?></td>-->
                         <td><?php echo $studen['name']; ?></td>
                         <td><?php echo $studen['lastname']; ?></td>
                         <td><?php echo chDay3($studen['dob']); ?></td>
                         <td><?php echo convSex($studen['gender']); ?></td>
                         <td><?php echo getMinorName($studen['minor_id']); ?></td>
                         <td><?php echo getMajorName($studen['major_id']); ?></td>
-                        <td><?php echo getStatusEdu($studen['status_id']); ?></td>
+                        <td><?php echo getStatusEdu($studen['status_education_id']); ?></td>
 <!--                        <td>
                             <a href="<?php //echo site_url('student/edit-student') . '&action=edit&std_id=' . $studen['std_id']; ?>" >แก้ไข</a>
                         </td>

@@ -25,6 +25,7 @@ if (isset($_GET['action'])) {
         if (is_file($filename)){
             unlink($filename);
             set_info('ลบไฟล์ ' . $_GET['filename'].' เรียบร้อยแล้ว');
+            
         }
         else
             set_err('ไม่สามารถลบไฟล์ ' . $filename);
@@ -123,32 +124,36 @@ if (isset($_GET['action'])) {
            // $fstd="std_".substr($school_id,2,8);
             //echo "a=".$fstd."<br>";
         if ($handle = opendir(UPLOAD_DIR)) :
-            
+            ?>
+                        <div class="table-responsive col-md-6">
+                            <table class="table" >
+                                <thead>
+                                    <th>ชื่อไฟล์</th><th>ตรวจสอบไฟล์</th><th>ลบไฟล์</th>
+                                </thead>
+<?php
             while (false !== ($entry = readdir($handle))) :
 //                echo "Std_20016201=".substr($entry,11,12)."<br>";
 //                echo "std=".strtolower(substr($entry,11,3))."<br>";
                 //if ($entry != "." && $entry != ".." && strtolower(substr($entry, 11, 12)) == $fstd && substr($entry, 24, 4) == $_SESSION['user']["year"] && substr($entry, 29, 1) == $_SESSION['user']["round"]):
                     if ($entry != "." && $entry != ".." && strtolower(substr($entry,11,3))== "std"
                             && substr($entry, 24, 4) == $_SESSION["year"] && substr($entry, 29, 1) == $_SESSION["round"]) {   
-                    ?>
-                        <div class="table-responsive col-md-6">
-                            <table class="table" >
-                                <thead>
-                                    <th>ชื่อไฟล์</th><th>ตรวจสอบไฟล์</th><th>ลบไฟล์</th>
-                                </thead>
+                            ?>
                                 <tr>
                                     <td> <?php echo $entry . "\n"; ?></td>
-                <?php
-                $checklink = site_url('student/check-data') . '&action=check&filename=' . $entry;
-                $unlink = site_url('student/file-manager') . '&action=del&filename=' . $entry;
-                ?>
+                                    <?php
+                                    $checklink = site_url('student/check-data') . '&action=check&filename=' . $entry;
+                                    $unlink = site_url('student/file-manager') . '&action=del&filename=' . $entry;
+                                    ?>
                                     <td class="text-center"><a href="<?php echo $checklink ?>"><span class="glyphicon glyphicon-eye-open"></span></a></td>
                                     <td class="text-center"><a href="<?php echo $unlink ?>"><span class="glyphicon glyphicon-remove"></span></a></td>
                                 </tr>
+                            <?php
+                    }                        
+            endwhile;
+                ?>
                                 <tr><td colspan="3" align='center'>คลิกตรวจสอบไฟล์ เพื่อดำเนินการขั้นตอนต่อไป</td></tr>
                 <?php
-                    }
-            endwhile;
+            
             closedir($handle);
         endif;
     endif;
