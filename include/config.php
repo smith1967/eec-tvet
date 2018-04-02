@@ -7,7 +7,7 @@
  *     2. testing
  *     3. production
  */
-define('ENVIRONMENT', '1');
+define('ENVIRONMENT', '2');
 if (defined('ENVIRONMENT'))
 {
 	switch (ENVIRONMENT)
@@ -56,8 +56,8 @@ define('OU_NAME', 'สำนักงานการอาชีวศึกษ�
 // database parameter
 $host = 'localhost';
 $user = 'root';
-$password = 'admin$cstc';
-$database = 'dve2017';
+$password = '';
+$database = 'eec_data';
 $charset = 'utf8';
 //GRANT ALL PRIVILEGES ON dve2017.* TO dvt@localhost IDENTIFIED BY 'dvt2017!';
 /*--- Database connect ---*/
