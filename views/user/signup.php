@@ -59,13 +59,20 @@
                     </div>                      
 
                     <input type="hidden" class="form-control" id="school_id"  name="school_id" value="<?php set_var($school_id) ?>">
-                    <div class="form-group"> 
+                    <div class="form-group" id="school"> 
                         <label class="control-label col-md-3" for="school_name">ชื่อสถานศึกษา</label>
                         <div class="col-md-5">
                             <input type="text" class="form-control" id="school_name" placeholder="ชื่อสถานศึกษา" name="school_name" value="<?php set_var($school_name) ?>">
                         </div>
                     </div>
-
+                    <input type="hidden" class="form-control" id="business_id"  name="business_id" value="<?php set_var($business_id) ?>">
+                    <div class="form-group" id="business"> 
+                        <label class="control-label col-md-3" for="school_name">ชื่อสถานประกอบการ</label>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="business_name" placeholder="ชื่อสถานประกอบ" name="business_name" value="<?php set_var($business_name) ?>">
+                        </div>
+                    </div>
+                    
                     <div class="form-group">
                         <label class="control-label col-md-3" for="email">อีเมล์</label>
                         <div class="col-md-5">
