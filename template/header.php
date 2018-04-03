@@ -29,6 +29,8 @@
   <link rel="stylesheet" href="asset/AdminLTE/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
    <!-- jvectormap -->
   <link rel="stylesheet" href="asset/AdminLTE/bower_components/jvectormap/jquery-jvectormap.css">
+  <link rel="stylesheet" href="asset/AdminLTE/bower_components/jquery-ui/themes/base/jquery-ui.min.css">
+  
   <!-- Theme style -->
   <link rel="stylesheet" href="asset/AdminLTE/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
