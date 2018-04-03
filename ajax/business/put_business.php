@@ -50,9 +50,17 @@ if(isset($_POST['business_id'])){
     $stmt->bindParam(':business_id', $_POST['business_id'], PDO::PARAM_INT);
     $stmt->execute();
     $count = $stmt->rowCount();
-    $res = array(
-        'message' => "แก้ไขข้อมูลจำนวน $count แถว",
-    );
+    if ($stmt) {
+        $res = array(
+            'message' => "แก้ไขข้อมูลจำนวน $count แถว",
+            'status' => "success"
+        );
+    } else {
+        $res = array(
+            'message' => "ไม่สามารถบันทึกข้อมูล : ". $stmt->errorInfo(),
+            'status' => 'fail'
+        );
+    }
     echo json_encode($res);
 }else{
     $res = array(

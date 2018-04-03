@@ -77,16 +77,6 @@ try {
     $conn->exec("SET CHARACTER SET utf8");
     // set the PDO error mode to exception
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-//    $sql = "UPDATE MyGuests SET lastname='Doe' WHERE id=2";
-//
-//    // Prepare statement
-//    $stmt = $conn->prepare($sql);
-//
-//    // execute the query
-//    $stmt->execute();
-//
-//    // echo a message to say the UPDATE succeeded
-//    echo $stmt->rowCount() . " records UPDATED successfully";
 } catch (PDOException $e) {
     header("Content-type: text/html; charset=utf-8");
     echo $sql . "<br>" . $e->getMessage();

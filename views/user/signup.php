@@ -32,6 +32,32 @@
                             <input type="password" class="form-control" id="confirm_password" name="confirm_password" value='<?php echo isset($confirm_password) ? $confirm_password : ''; ?>'>
                         </div>
                     </div>
+                    <!-- radio -->
+                    <div class="form-group">
+                        <div class="col-md-offset-3 col-md-9">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="user_type_id" id="staff_ecc" value="2" checked>
+                                    เจ้าหน้าที่ศูนย์ EEC
+                                </label>
+                            </div>
+
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="user_type_id" id="staff_school" value="3">
+                                    เจ้าหน้าในสถานศึกษา
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="user_type_id" id="staff_business" value="4">
+                                    เจ้าหน้าที่ในสถานประกอบการ
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>                      
+
                     <input type="hidden" class="form-control" id="school_id"  name="school_id" value="<?php set_var($school_id) ?>">
                     <div class="form-group"> 
                         <label class="control-label col-md-3" for="school_name">ชื่อสถานศึกษา</label>
@@ -58,7 +84,8 @@
                             <input type="text" class="form-control" id="lname" name="lname" placeholder="นามสกุลภาษาไทย" value='<?php echo isset($lname) ? $lname : ''; ?>'>
                         </div>
                     </div>
-                    <input type="hidden" id="user_type_id" name="user_type_id" value="4" /> 
+
+                    <!-- <input type="hidden" id="user_type_id" name="user_type_id" value="4" />  -->
                     <!--                    <div class="form-group"> 
                                             <label class="control-label col-md-3" for="user_type_id">ประเภทผู้ใช้</label>
                                             <div class="col-md-4">
@@ -86,7 +113,7 @@
                     
                                         </div>     -->
                     <div class="form-group">
-                        <div class="col-sm-offset-3 col-sm-10">
+                        <div class="col-md-offset-3 col-md-9">
                             <div class="checkbox">
                                 <label>
                                     <input type="checkbox" id="aree" name="agree" value="1">ยืนยันข้อมูลถูกต้อง

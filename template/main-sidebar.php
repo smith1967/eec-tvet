@@ -28,27 +28,36 @@ $menu = Array(
 ////            ),
 //        ),
 //    ),    
-    'school' => array(
-        'title' => 'สถานศึกษา',
+    'extension' => array(
+        'title' => 'ความต้องการ',
         'url' => '#',
-        'class' => 'fa fa-graduation-cap',
-        'cond' => is_school_staff(),
+        'class' => 'fa fa-building-o',
+        'cond' => true,
         'subitems' => array(
-//            'index' => array(
-//                'title' => 'หน้าหลัก',
-//                'cond' => true,
-//                'url' => 'app/school/index',
-//            ),
-            'list' => array(
-                'title' => 'ข้อมูล',
-                'url' => 'app/school/list-data',
-                'cond' => is_school_staff(),
+           'main_req_experience' => array(
+               'title' => 'ทวิภาคี',
+               'cond' => true,
+               'url' => 'extension/main_req_experience',
+           ),
+
+            'main_req_human_power' => array(
+                'title' => 'แรงงาน',
+                'cond' => true,
+                'url' => 'extension/main_req_human_power',
             ),
-            'edit' => array(
-                'title' => 'แก้ไขข้อมูล',
-                'url' => 'app/school/edit-data',
-                'cond' => is_school_staff() ,
+
+             'main_req_trainee' => array(
+                'title' => 'นักศึกษาฝึกงาน',
+                'cond' => true,
+                'url' => 'extension/main_req_trainee',
             ),
+
+             'main_req_shot_course' => array(
+                'title' => 'หลักสูตรระยะสั้น',
+                'cond' => true,
+                'url' => 'extension/main_req_shot_course',
+            ),
+
         ),
     ),
     'student' => array(

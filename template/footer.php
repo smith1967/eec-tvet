@@ -206,6 +206,7 @@
 
 <!-- jQuery 3 -->
 <script src="asset/AdminLTE/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="asset/AdminLTE/plugins/jQueryUI/jquery-ui.min.js"></script>
 <!--jquery validate-->
 <script type="text/javascript" src="asset/jquery-validation/dist/jquery.validate.min.js"></script>
 <script type="text/javascript" src="asset/jquery-validation/dist/additional-methods.min.js"></script>
