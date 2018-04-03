@@ -1,7 +1,7 @@
+/cache/
+/config/development/
+/include/
+/asset/
 /nbproject/private/
-include/config.php
-asset/.DS_Store
-.DS_Store
-include/config.php
-*.properties
-nbproject/project.xml
+/upload/
+

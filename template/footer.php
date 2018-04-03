@@ -3,22 +3,22 @@
   <!--Section footer By Smith -->
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 2.4.0
+      <b>Version</b> 0.9.1
     </div>
-    <strong>Copyright &copy; 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
+    <strong>Copyright &copy; 2014-2016 <a href="https://eec.chpt.ac.th">EEC-TVET</a>.</strong> All rights
     reserved.
   </footer>
 
   <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Create the tabs -->
+<!--  <aside class="control-sidebar control-sidebar-dark">
+     Create the tabs 
     <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
       <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
       <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
     </ul>
-    <!-- Tab panes -->
+     Tab panes 
     <div class="tab-content">
-      <!-- Home tab content -->
+       Home tab content 
       <div class="tab-pane" id="control-sidebar-home-tab">
         <h3 class="control-sidebar-heading">Recent Activity</h3>
         <ul class="control-sidebar-menu">
@@ -67,7 +67,7 @@
             </a>
           </li>
         </ul>
-        <!-- /.control-sidebar-menu -->
+         /.control-sidebar-menu 
 
         <h3 class="control-sidebar-heading">Tasks Progress</h3>
         <ul class="control-sidebar-menu">
@@ -120,12 +120,12 @@
             </a>
           </li>
         </ul>
-        <!-- /.control-sidebar-menu -->
+         /.control-sidebar-menu 
 
       </div>
-      <!-- /.tab-pane -->
+       /.tab-pane 
 
-      <!-- Settings tab content -->
+       Settings tab content 
       <div class="tab-pane" id="control-sidebar-settings-tab">
         <form method="post">
           <h3 class="control-sidebar-heading">General Settings</h3>
@@ -140,7 +140,7 @@
               Some information about this general settings option
             </p>
           </div>
-          <!-- /.form-group -->
+           /.form-group 
 
           <div class="form-group">
             <label class="control-sidebar-subheading">
@@ -152,7 +152,7 @@
               Other sets of options are available
             </p>
           </div>
-          <!-- /.form-group -->
+           /.form-group 
 
           <div class="form-group">
             <label class="control-sidebar-subheading">
@@ -164,7 +164,7 @@
               Allow the user to show his name in blog posts
             </p>
           </div>
-          <!-- /.form-group -->
+           /.form-group 
 
           <h3 class="control-sidebar-heading">Chat Settings</h3>
 
@@ -174,7 +174,7 @@
               <input type="checkbox" class="pull-right" checked>
             </label>
           </div>
-          <!-- /.form-group -->
+           /.form-group 
 
           <div class="form-group">
             <label class="control-sidebar-subheading">
@@ -182,7 +182,7 @@
               <input type="checkbox" class="pull-right">
             </label>
           </div>
-          <!-- /.form-group -->
+           /.form-group 
 
           <div class="form-group">
             <label class="control-sidebar-subheading">
@@ -190,12 +190,12 @@
               <a href="javascript:void(0)" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
             </label>
           </div>
-          <!-- /.form-group -->
+           /.form-group 
         </form>
       </div>
-      <!-- /.tab-pane -->
+       /.tab-pane 
     </div>
-  </aside>
+  </aside>-->
   <!-- /.control-sidebar -->
   <!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->
@@ -206,11 +206,36 @@
 
 <!-- jQuery 3 -->
 <script src="asset/AdminLTE/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="asset/AdminLTE/plugins/jQueryUI/jquery-ui.min.js"></script>
+<!--jquery validate-->
+<script type="text/javascript" src="asset/jquery-validation/dist/jquery.validate.min.js"></script>
+<script type="text/javascript" src="asset/jquery-validation/dist/additional-methods.min.js"></script>
+<script type="text/javascript" src="asset/jquery-validation/dist/localization/messages_th.min.js"></script>
+
 <!-- Bootstrap 3.3.7 -->
 <script src="asset/AdminLTE/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- DataTables -->
 <script src="asset/AdminLTE/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="asset/AdminLTE/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<!-- Select2 -->
+<script src="asset/AdminLTE/bower_components/select2/dist/js/select2.full.min.js"></script>
+<!-- InputMask -->
+<script src="asset/AdminLTE/plugins/input-mask/jquery.inputmask.js"></script>
+<script src="asset/AdminLTE/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+<script src="asset/AdminLTE/plugins/input-mask/jquery.inputmask.extensions.js"></script>
+<!-- date-range-picker -->
+<script src="asset/AdminLTE/bower_components/moment/min/moment.min.js"></script>
+<script src="asset/AdminLTE/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+<!-- bootstrap datepicker -->
+<script src="asset/AdminLTE/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<!-- bootstrap color picker -->
+<script src="asset/AdminLTE/bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+<!-- bootstrap time picker -->
+<script src="asset/AdminLTE/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+<!-- SlimScroll -->
+<script src="asset/AdminLTE/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<!-- iCheck 1.0.1 -->
+<script src="asset/AdminLTE/plugins/iCheck/icheck.min.js"></script>
 <!-- FastClick -->
 <script src="asset/AdminLTE/bower_components/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
@@ -230,3 +255,8 @@
 <script src="asset/AdminLTE/dist/js/demo.js"></script>
 </body>
 </html>
+<?php
+// close database connection
+$conn = null;
+mysqli_close($db);
+?>

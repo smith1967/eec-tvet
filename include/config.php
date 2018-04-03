@@ -54,15 +54,15 @@ define('UPLOAD_DIR', BASE_PATH . 'upload/');
 define('APP_URL', SITE_URL.'app/');
 define('OU_NAME', 'สำนักงานการอาชีวศึกษา');
 // database parameter
-$host = 'localhost';
-$user = 'root';
-$password = '';
-$database = 'eec_data';
+$dbhost = 'localhost';
+$dbuser = 'root';
+$dbpassword = 'admin$cstc';
+$dbname = 'eec_data';
 $charset = 'utf8';
 //GRANT ALL PRIVILEGES ON dve2017.* TO dvt@localhost IDENTIFIED BY 'dvt2017!';
 /*--- Database connect ---*/
 
-$db = mysqli_connect($host, $user, $password, $database);
+$db = mysqli_connect($dbhost, $dbuser, $dbpassword, $dbname);
 //$mysqli = new mysqli($host, $user, $password, $database);
 if (mysqli_connect_error())
 {    
@@ -71,6 +71,21 @@ if (mysqli_connect_error())
 }
 mysqli_set_charset($db, $charset);
 //$mysqli->set_charset($charset);
+try {
+    $conn = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $dbpassword);
+    // set utf8
+    $conn->exec("SET CHARACTER SET utf8");
+    // set the PDO error mode to exception
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    header("Content-type: text/html; charset=utf-8");
+    echo $sql . "<br>" . $e->getMessage();
+    die();
+}
+//if($conn){
+//    echo "Connect database";
+//    die();
+//}
 
 require_once LIB_PATH.'/functions.php';
 
