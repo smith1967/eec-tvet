@@ -1,11 +1,11 @@
 ﻿<?php
-if (!defined('BASE_PATH'))
-exit('No direct script access allowed');
+
+require_once('app/report/library.php');
+noDirect();
 $active = 'report';
 $subactive = 'index';
 $title = 'รายงาน';
 
-require_once('app/report/library.php');
 
 print sHeader($title,$active);
 

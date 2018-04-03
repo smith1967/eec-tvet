@@ -3,6 +3,14 @@
 function sInit(){   
     return 0;
 }
+
+function noDirect(){
+    
+    if (!defined('BASE_PATH')) {
+        exit('No direct script access allowed');
+    }
+}
+
 function sHeader($title,$subTitle){
 require_once('template/header.php');
     return '
@@ -25,7 +33,10 @@ require_once('template/header.php');
 
 function sFooter(){
     return '</section>
-</div>';
+</div>
+<script src="asset/AdminLTE/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="asset/AdminLTE/dist/js/adminlte.min.js"></script>
+';
  require_once 'template/footer.php';
 }
 
@@ -38,11 +49,13 @@ function sInfoBox($title,$content,$icon){
               <h3 class="box-title">'.$title.'</h3>
 
               <div class="box-tools pull-right">
-                <button type="button" class="btn btn-default btn-sm" data-widget="collapse"><i class="fa fa-minus"></i>
+                <button type="button" class="btn btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                 </button>
-                <button type="button" class="btn btn-default btn-sm" data-widget="remove"><i class="fa fa-times"></i>
+                <button type="button" class="btn btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i>
                 </button>
               </div>
+              </div>
+              <div class="box-body">
             '.$content.'
             </div>
 	  </div>';
