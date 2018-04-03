@@ -3,13 +3,13 @@ if (!defined('BASE_PATH'))
     exit('No direct script access allowed');
 $active = 'home';
 $subactive = 'index';
-$title = 'นำเข้าข้อมูลนักเรียน กำลังศึกษา';
+$title = 'นำเข้าข้อมูลนักเรียน จบการศึกษา';
 
 if (!isset($_GET['filename'])){
-    redirect('app/student/file-manager');
+    redirect('app/student/file-manager-2');
 }
 //--import--
-//http://localhost/eec-tvet/index.php?student/check-data&action=import&type=std&filename=2018-03-23_Std_20016201_2561_1.csv
+//http://localhost/eec-tvet/index.php?student/check-data-2-2&action=import&type=std&filename=2018-03-23_Std_20016201_2561_1.csv
 if (isset($_GET['action']) && $_GET['action'] == 'import' && $_GET['type'] == 'std') {
     $filename = UPLOAD_DIR . $_GET['filename'];
     do_transfer_std($filename);
@@ -22,7 +22,7 @@ require_once('template/header.php');
 <div class="content-wrapper">
     <section class="content-header">
       <h1>
-        นำเข้าข้อมูลนักเรียน กำลังศึกษา <small>ตรวจสอบไฟล์</small>
+        นำเข้าข้อมูลนักเรียน จบการศึกษา <small>ตรวจสอบไฟล์</small>
       </h1>
       <div class="col-md-12">
         <?php show_message() ?>                
@@ -32,18 +32,18 @@ require_once('template/header.php');
         <div class="row">
             <div class="col-md-12">
                 <?php
-                    //http://localhost/eec-tvet/index.php?student/check-data&action=check&filename=2018-03-23_Std_20016201_2561_1.csv
+                    //http://localhost/eec-tvet/index.php?student/check-data-2&action=check&filename=2018-03-23_Std_20016201_2561_1.csv
                     if (isset($_GET['action'])) {
                         if ($_GET['action'] == 'check') {
                             $filename = UPLOAD_DIR . $_GET['filename'];
                             if (validate_std_file($filename)) {
-                                $importlink = site_url('student/check-data') . '&action=import&type=std&filename=' . $_GET['filename'];
+                                $importlink = site_url('student/check-data-2') . '&action=import&type=std&filename=' . $_GET['filename'];
                                 echo '<div class="alert alert-success col-md-6">ข้อมูลแฟ้ม ' .$_GET['filename']. ' ถูกต้อง &nbsp;&nbsp;&nbsp;<a href= ' . $importlink . '>';
                                 ?>
                                 <button type="button" id="button1" class="btn btn-info"> โอนแฟ้มข้อมูล </button></a>
                                 <?php
                             } else {
-                                $uploadlink = site_url('student/file-manager');
+                                $uploadlink = site_url('student/file-manager-2');
                                 echo '<div class="alert alert-warning col-md-4">ข้อมูลไม่ถูกต้องกลับไป <a href= ' . $uploadlink . '>จัดการแฟ้มข้อมูล </a></div>';
                             //die("not valid");
                             }
@@ -117,7 +117,7 @@ function do_transfer_std($stdfile) {
             //ข้อมูลแถวแรก ============    
             if (substr($data[4],-4)=="E+12") {
                 set_err("รูปแบบข้อมูลรหัสประจำตัวประชาชน ผิดพลาด : ".$data[4]."<br> ตรวจสอบ และส่งไฟล์ใหม่");
-                redirect('student/check-data');
+                redirect('student/check-data-2');
             }
             //$count++;
 //            $name=getSerName($data[5]).$data[6]."  ".$data[7];
@@ -134,15 +134,13 @@ function do_transfer_std($stdfile) {
                     `lastname`, `gender`, `address`, `district_id`, `subdistrict_id`, 
                     `province_id`, `telephone`, `major_id`, `minor_id`, `e-mail`, `GPA`, 
                     `line_id`, `status_education_id`, `dob`) values(
-                    '$data[4]','$data[44]','$data[2]',
-                    '$data[6]','$data[7]','$sex',    
-                    '$data[11]','$district_id','$data[14]','$province_id',
-                    '','$major_id','$data[39]','',
-                    '$data[42]','','$data[61]','$dofb' 
+                    '$data[4]','$data[44]','$data[2]','$data[6]',
+                    '$data[7]','$sex','$data[11]','$district_id','$data[14]',
+                    '$province_id','','$major_id','$data[39]','','$data[42]',
+                    '','$data[61]','$dofb'    
                     )";
 //            header('Content-Type: text/html; charset=utf-8');
 //            echo $strsql;exit();
-         //  set_err($strsql);exit();
             $res = mysqli_query($db,$strsql);
             //   if ($count==3)exit();
             if ($res){
@@ -172,15 +170,10 @@ function getSerName($id){
 }
 
 function chDay1($s){
-    if($s!=''){
 	$d=explode("/",$s);
 //print_r($d);
 	$y=$d[2]-543;
 	return $y."-".$d[1]."-".$d[0];
-    }
-    else{
-        return $s;
-    }
 }
 //function convSex($id){
 //	if ($id==1){return "M";}

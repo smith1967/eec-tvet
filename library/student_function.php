@@ -27,13 +27,19 @@ function getMinorName($minor_id){
 
 //แปลง 2011-03-08 to 8 มีนาคม 2554
 function chDay3($s){
+    if ($s!=''){
 	$d=explode("-",$s);
 	//print_r($d);
+        
 	$arr_month=array('มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน',
                      'กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม');
 	$y=$d[0]+543;
 	//$da=ins0($d[0]);
-	return del0($d[2])." ".$arr_month[$d[1]-1]." ".$y;
+        if ($d[1]!=0)
+            return del0($d[2])." ".$arr_month[$d[1]-1]." ".$y;
+    }else{
+        return $s;
+    }
 }
 //ตัดเลข 0 ถ้าไม่ถึง 10 // 08 >> 8
 function del0($s){
