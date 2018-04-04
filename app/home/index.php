@@ -26,6 +26,9 @@ require_once('template/header.php')
 
     <!-- Main content -->
     <section class="content">
+        <div class="col-md-12">
+            <p id="message"></p>
+        </div>
         <!-- Info boxes -->
         <div class="row">
             <div class="col-md-3 col-sm-6 col-xs-12">
@@ -94,9 +97,9 @@ require_once('template/header.php')
 
             <div class="col-md-9">
                 <div class="box box-primary">
-<!--                    <div class="box box-header">
-                        <h5>Date Picker</h5>
-                    </div>-->
+                    <!--                    <div class="box box-header">
+                                            <h5>Date Picker</h5>
+                                        </div>-->
                     <div class="box-body">    
                         <!-- Date range -->
                         <div class="form-group">

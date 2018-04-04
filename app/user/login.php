@@ -4,16 +4,12 @@ if (!defined('BASE_PATH'))
 $active = 'user';
 $subactive = 'login';
 $title = 'เข้าระบบ';
-// check post data
-if (isset($_POST['submit'])) {
-    $data = $_POST;
-    do_login($data);
-}
+$token = gen_token();
 // จัดการข้อมูลกับด้าน logic
 $content_header = array(
     'header' => 'ผู้ใช้งาน',
-    'subheader' => 'Signup',
-    'breadcrumb' => 'ลงทะเบียน'
+    'subheader' => 'เข้าระบบ',
+    'breadcrumb' => 'เข้าระบบ'
 );
 ?>
 <?php
@@ -58,65 +54,8 @@ require_once('template/header.php')
 
 <!-- js function -->
 <!-- เรียกใช้ js ตั้งชื่อ ตาม folder/finename หลัก -->
+<script type="text/javascript" src="asset/js/md5.min.js"></script>
+    
 <script>
 <?php require_once 'js/' . $ctrl_act . '.js'; ?>
 </script>
-<?php
-
-// functions section 
-function do_login($data) {
-    global $db;
-    $strHash = create_password_hash(md5($data['password']), PASSWORD_DEFAULT);
-    $query = "SELECT * FROM user WHERE username = " . pq($data['username']) . " AND status = 'Y'";
-    $result = mysqli_query($db, $query);
-    if ($result) {
-        $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-        if (verify_password_hash($row['password'], $strHash)) {
-            unset($row['password']);
-            $_SESSION['user'] = $row;
-//            $_SESSION['user']['token'] = urlencode($strHash);
-//            var_dump($strHash);
-            //Generate a random string.
-            $token = openssl_random_pseudo_bytes(16);
-
-            //Convert the binary data into hexadecimal representation.
-            $token = bin2hex($token);
-            $_SESSION['user']['token'] = $token;
-            do_insert_log($data['username'], 'Y', $token);
-            set_info('ยินดีต้อนรับคุณ' . $row['fname']);
-//            die();
-        } else {
-            do_insert_log($data['username'], 'N', '');
-            set_err("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง!!");
-            redirect('app/user/login');
-        }
-    } else {
-        do_insert_log($data['username'], 'N', '');
-        set_err("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง!!");
-    }
-    redirect('app/home/index');
-}
-
-function do_insert_log($username, $event, $token) {
-    global $db;
-    $query = "INSERT INTO `access_log` ("
-            . "`id`, "
-            . "`username`, "
-            . "`token`, "
-            . "`event`, "
-            . "`ip_address`, "
-            . "`user_agent` "
-            . ") VALUES ("
-            . "NULL, "
-            . pq($username) . ", "
-            . pq($token) . ", "
-            . pq($event) . ","
-            . pq($_SERVER['REMOTE_ADDR']) . ", "
-            . pq($_SERVER['HTTP_USER_AGENT']) . ")";
-//    var_dump($query);
-//    die();
-    $result = mysqli_query($db, $query);
-    if (mysqli_error($db)) {
-        set_err('ไม่สามารถบันทึกข้อมูลได้ : ' . mysqli_error($db));
-    }
-}

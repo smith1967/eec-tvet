@@ -33,7 +33,7 @@ if (isset($_REQUEST['business_id'])) {
             . " FROM "
             . "business "
             . "WHERE "
-            . "business_id =" . pq($business_id);
+            . "business_id = :business_id";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':business_id', $business_id, PDO::PARAM_INT);
     $stmt->execute();
