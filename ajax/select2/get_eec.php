@@ -10,7 +10,7 @@ header("Cache-Control: no-transform,public,max-age=300,s-maxage=900");
 header('Content-Type: application/json; charset=utf-8');
 check_token($_REQUEST['token']);
 
-$sql = "SELECT eec_center_id,office_name FROM eec ";
+$sql = "SELECT eec_center_id,office_name FROM eec_center ";
 
 //ประมวณผลคำสั่ง SQL
 $result = $db->query($sql);
