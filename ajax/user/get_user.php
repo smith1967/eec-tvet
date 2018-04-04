@@ -2,12 +2,14 @@
 include_once './../../include/config.php';
 header("Cache-Control: no-transform,public,max-age=300,s-maxage=900");
 header('Content-Type: application/json; charset=utf-8');
-//check_token($_REQUEST['token']);
+check_token($_REQUEST['token']);
+$token = $_REQUEST['token'];
 if (isset($_REQUEST['username']) && $_REQUEST['username'] !== '' && $_REQUEST['password'] !== '') {
     $password = $_REQUEST['password'];
     $username = $_GET['username'];
     $strHash = create_password_hash($password, PASSWORD_DEFAULT);
-    $sql = "SELECT * FROM user WHERE username = :username AND status = 'disactive'";
+    $sql = "SELECT * FROM user WHERE username = :username ";
+    //AND status = 'disactive'
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':username', $username, PDO::PARAM_STR);
     $stmt->execute();
