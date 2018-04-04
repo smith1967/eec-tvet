@@ -70,7 +70,7 @@ function sInfoBox($title,$content,$icon){
 	  </div>';
 }
 
-function sBox($content,$md,$sm,$xs){
+function sBox($content,$md=3,$sm=6,$xs=12){
     if(!isset($md))$md=3;
     if(!isset($sm))$sm=6;
     if(!isset($xs))$xs=12;
