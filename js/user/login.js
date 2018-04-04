@@ -1,6 +1,7 @@
 $(function () {
     var token = '<?php echo $token ?>';
-    var passwd;
+    var password;
+    var salt = '<?php echo $salt ?>';
     var url;
 //    alert('test');
 //    $.validator.addMethod("PASSWORD", function (value, element) {
@@ -51,13 +52,14 @@ $(function () {
     });
     function checkLogin() {
         url = 'ajax/user/get_user.php';
-        passwd = md5($('#password').val());
+        password = salt+$('#password').val();
+        password = md5(password);
         $.ajax({            
             url: url,
             dataType: "json", //กำหนดให้มีรูปแบบเป็น Json
             data: {
                 username: $('#username').val(),
-                password: passwd,
+                password: password,
                 token: token
             }, //ส่งค่าตัวแปร show_province เพื่อดึงข้อมูล จังหวัด
             success: function (data) {

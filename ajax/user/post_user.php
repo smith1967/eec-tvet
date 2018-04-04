@@ -5,7 +5,7 @@ header("Cache-Control: no-transform,public,max-age=300,s-maxage=900");
 header('Content-Type: application/json; charset=utf-8');
 check_token($_REQUEST['token']);
 $data = $_POST;
-$password = md5($data['password']);
+$password = md5($salt.$data['password']);
 $sql = "INSERT INTO `user`("
         . "`user_id`,"
         . " `username`,"
