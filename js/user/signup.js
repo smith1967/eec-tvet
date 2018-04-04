@@ -121,11 +121,14 @@ $(function () {
             //                        {student_name:student_name,student_roll_no:student_roll_no,student_class:student_class},
             dataType: "JSON",
             success: function (data) {
-//                alert(data.message);
-                $("#show-message").html(data.message).addClass("alert alert-success").show().delay(5000).fadeOut();
-//                $("#business_id").val(data.business_id);
-//                table.ajax.reload();
-//                $("#business-total").html(table.data().count());
+                if (data.status === 'success') {
+                    window.location.href = "<?php echo site_url('user/login'); ?>";
+                    $("#show-message").removeClass();
+                    $("#show-message").html(data.message).addClass("alert alert-success").show().delay(5000).fadeOut();
+                } else {
+                    $("#show-message").removeClass();
+                    $("#show-message").html(data.message).addClass("alert alert-danger").show().delay(5000).fadeOut();
+                }
             },
             error: function (err) {
                 $("#show-message").html(data).addClass("alert alert-danger").show().delay(5000).fadeOut();
