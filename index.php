@@ -30,7 +30,8 @@ $ctrl_act = array_shift($param);
 // die();
 $file = dirname(__FILE__) . '/app/' . $ctrl_act . '.php';
 if (!is_file($file)) {
-	$file = dirname(__FILE__) . '/app/home/index.php';
+        $ctrl_act = 'home/index';
+	$file = dirname(__FILE__) . '/app/'.$ctrl_act.'.php';
 }
 //$file = dirname(__FILE__) . '/app/' . $_SERVER['PATH_INFO'] . '.php';
 //if (!is_file($file)) {

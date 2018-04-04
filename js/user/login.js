@@ -63,9 +63,11 @@ $(function () {
             success: function (data) {
                 if (data.status === 'success') {
                     window.location.href = "<?php echo site_url(); ?>";
+                    $("#message").removeClass();
                     $("#message").html(data.message).addClass("alert alert-success").show().delay(5000).fadeOut();
                 } else {
-                    $("#show-message").html(data.message).addClass("alert alert-danger").show().delay(5000).fadeOut();
+                    $("#message").removeClass();
+                    $("#message").html(data.message).addClass("alert alert-danger").show().delay(5000).fadeOut();
                 }
             },
             error: function (err) {
