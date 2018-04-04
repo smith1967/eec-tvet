@@ -35,11 +35,15 @@ $sql = "INSERT INTO `user`("
 mysqli_query($db, $sql);
 if (mysqli_affected_rows($db) > 0) {
     $res = array(
-        'message' => 'เพิ่มข้อมูลสำเร็จ',
-        'business_id' => mysqli_insert_id($db)
+        'message' => 'สมัครสมาชิกเรียบร้อย',
+        'status' => 'success'
     );
     echo json_encode($res);
 } else {
-    $error = "ไม่สามารถเพิ่มข้อมูลได้ : " . mysqli_error($db) . " : " . $sql;
+    $res = array(
+        'message' => "ไม่สามารถเพิ่มข้อมูลได้ : " . mysqli_error($db),
+        'status' => 'fail'
+    );    
+//    $error = "ไม่สามารถเพิ่มข้อมูลได้ : " . mysqli_error($db) . " : " . $sql;
     echo json_encode($error);
 }
