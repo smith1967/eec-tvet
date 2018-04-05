@@ -52,13 +52,13 @@ define('UPLOAD_DIR', BASE_PATH . 'upload/');
 //var_dump(LIB_PATH);
 //die();
 define('APP_URL', SITE_URL.'app/');
-define('OU_NAME', 'สำนักงานการอาชีวศึกษา');
 // database parameter
 $dbhost = 'localhost';
 $dbuser = 'root';
 $dbpassword = '';
-$dbname = 'eec_data';
+$dbname = '';
 $charset = 'utf8';
+$salt='';	//  salt password
 //GRANT ALL PRIVILEGES ON dve2017.* TO dvt@localhost IDENTIFIED BY 'dvt2017!';
 /*--- Database connect ---*/
 
