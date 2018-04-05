@@ -253,6 +253,29 @@ $menu = Array(
             ),
         ),
     ),
+    'report' => array(
+        'title' => 'รายงาน',
+        'url' => '#',
+        'class' => 'fa fa-book',
+        'cond' => true,
+        'subitems' => array(
+            'demand' => array(
+                'title' => 'ความต้องการกำลังคน',
+                'url' => 'report/req_man_power',
+                'cond' => true,
+            ),
+            'supply' => array(
+                'title' => 'กำลังคนอาชีวศึกษา',
+                'url' => 'report/man_power',
+                'cond' => true,
+            ),
+            'create' => array(
+                'title' => 'สร้างรายงาน',
+                'url' => 'report/index',
+                'cond' => true,
+            ),
+        ),
+    ),
     'user' => array(
         'title' => 'ผู้ใช้งาน',
         'url' => '#',
