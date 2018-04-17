@@ -13,6 +13,7 @@ if (isset($_POST['user_id'])) {
                 . "`fname` = :fname,"
                 . "`lname` = :lname,"
                 . " `email` = :email,"
+                . " `user_type_id` = :user_type_id,"
                 . " `password` = :password,"
                 . " `telephone` = :telephone,"
                 . " `org_id` = :org_id"
@@ -21,6 +22,7 @@ if (isset($_POST['user_id'])) {
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':fname', $_POST['fname'], PDO::PARAM_STR);
         $stmt->bindParam(':lname', $_POST['lname'], PDO::PARAM_STR);
+        $stmt->bindParam(':user_type_id', $_POST['user_type_id'], PDO::PARAM_INT);
         $stmt->bindParam(':email', $_POST['email'], PDO::PARAM_STR);
         $stmt->bindParam(':password', $password, PDO::PARAM_STR);
         $stmt->bindParam(':telephone', $_POST['telephone'], PDO::PARAM_STR);
@@ -33,6 +35,7 @@ if (isset($_POST['user_id'])) {
                 . "`fname` = :fname,"
                 . "`lname` = :lname,"
                 . " `email` = :email,"
+                . " `user_type_id` = :user_type_id,"
                 . " `telephone` = :telephone,"
                 . " `org_id` = :org_id"
                 . " WHERE"
@@ -41,6 +44,7 @@ if (isset($_POST['user_id'])) {
         $stmt->bindParam(':fname', $_POST['fname'], PDO::PARAM_STR);
         $stmt->bindParam(':lname', $_POST['lname'], PDO::PARAM_STR);
         $stmt->bindParam(':email', $_POST['email'], PDO::PARAM_STR);
+        $stmt->bindParam(':user_type_id', $_POST['user_type_id'], PDO::PARAM_INT);
         $stmt->bindParam(':telephone', $_POST['telephone'], PDO::PARAM_STR);
         $stmt->bindParam(':org_id', $_POST['org_id'], PDO::PARAM_STR);
         $stmt->bindParam(':user_id', $_POST['user_id'], PDO::PARAM_INT);        

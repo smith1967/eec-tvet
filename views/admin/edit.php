@@ -39,6 +39,12 @@
                         <div class="col-md-offset-3 col-md-9">
                             <div class="radio">
                                 <label>
+                                    <input type="radio" name="user_type_id" id="admin_eec" value="1" checked>
+                                    ผู้ดูแลระบบศูนย์ EEC
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
                                     <input type="radio" name="user_type_id" id="staff_eec" value="2" checked>
                                     เจ้าหน้าที่ศูนย์ EEC
                                 </label>

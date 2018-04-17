@@ -37,15 +37,15 @@
                     <!-- radio -->
                     <div class="form-group">
                         <div class="col-md-offset-3 col-md-9">
-                            <?php if($_SESSION['user']['user_type_id']==1): ?>
-                            <div class="radio">
+                            <?php // if($_SESSION['user']['user_type_id']==1): ?>
+<!--                            <div class="radio">
                                 <label>
                                     <input type="radio" name="user_type_id" id="admin_eec" value="1">
                                     ผู้ดูแลระบบ
                                 </label>
-                            </div>
-                            <?php endif; ?>
-                            <div class="radio">
+                            </div>-->
+                            <?php // endif; ?>
+<!--                            <div class="radio">
                                 <label>
                                     <input type="radio" name="user_type_id" id="staff_eec" value="2" checked>
                                     เจ้าหน้าที่ศูนย์ EEC
@@ -63,17 +63,17 @@
                                     <input type="radio" name="user_type_id" id="staff_business" value="4">
                                     เจ้าหน้าที่ในสถานประกอบการ
                                 </label>
-                            </div>
+                            </div>-->
                         </div>
                     </div>                      
-                    <div class="form-group">
+<!--                    <div class="form-group">
                         <label class="control-label col-md-3" for="org_id">องค์กร</label>
                         <div class="col-md-5">
                             <select class="form-control select2" id="org_id" data-width="100%" name="org_id">
                                 <option id="org_id_list"> -- กรุณาเลือกองค์กร -- </option>
                             </select>
                         </div>
-                    </div>
+                    </div>-->
 
                     <div class="form-group">
                         <label class="control-label col-md-3" for="email">อีเมล์</label>

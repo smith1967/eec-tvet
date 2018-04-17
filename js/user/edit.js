@@ -115,7 +115,7 @@ $(function () {
     function update_user() {
         $.ajax({
             type: "POST",
-            url: "ajax/admin/put_user.php",
+            url: "ajax/user/put_user.php",
             data: $("#editForm").serialize(),
             //                        {student_name:student_name,student_roll_no:student_roll_no,student_class:student_class},
             dataType: "JSON",
