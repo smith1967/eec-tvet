@@ -2,6 +2,10 @@ $(function () {
     var token = '<?php echo $token ?>';
     var url;
     var org_id;
+    if ($("#admin_eec").is(":checked")) {
+        url = "ajax/select2/get_eec.php";
+        init_select2();
+    }
     if ($("#staff_eec").is(":checked")) {
         url = "ajax/select2/get_eec.php";
         init_select2();
@@ -35,8 +39,8 @@ $(function () {
 
 
     $.validator.addMethod("PASSWORD", function (value, element) {
-        return this.optional(element) || /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/i.test(value);
-    }, "รหัสผ่านต้องเป็นตัวอักษรภาษาอังกฤษ 6-20 ตัวอักษร ต้องประกอบด้วยตัวพิมพ์เล็ก ตัวพิมพ์ใหญ่ และตัวเลข อย่างน้อยอย่างละ 1 ตัว.");
+        return this.optional(element) || /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z_$@%!]).{6,}$/i.test(value);
+    }, "รหัสผ่านต้องเป็นตัวอักษรภาษาอังกฤษไม่น้อยกว่า 6 ตัวอักษร ต้องประกอบด้วยตัวพิมพ์เล็ก ตัวพิมพ์ใหญ่ และตัวเลข อย่างน้อยอย่างละ 1 ตัว.");
     $("#editForm").validate({
         rules: {
             //                        business_name: "required",
@@ -172,29 +176,15 @@ $(function () {
 //            console.log(val);
             $.each(val, function (k, v) {
                 if (k === "user_type_id") {
-//                        console.log(k + ":" + v);
-                    if (v == 1) {
-                        $('#staff_eec').attr('checked', true);
-                    } else if (v == 2) {
-                        $('#staff_eec').attr('checked', true);
-                        $('#staff_eec').click();
-                    } else if (v == 3) {
-                        $('#staff_school').attr('checked', true);
-                        $('#staff_school').click();
-                    } else if (v == 4) {
-                        $('#staff_business').attr('checked', true);
-                        $('#staff_business').click();
-                    }
-//                        $("#" + k).val(v).click();
-//                        $("#" + k).change();
+                    $("input[name=" + k + "][value=" + v + "]").prop('checked', true).click();
                 } else if (k == 'org_id') {
-                    org_id = v
+                    org_id = v;
                 } else {
                     $("#" + k).val(v);
                 }
             });
-
         });
+        $('#password').val('');
 
     });
 

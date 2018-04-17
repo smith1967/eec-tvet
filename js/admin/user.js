@@ -283,13 +283,13 @@ $(function () {
 //                        console.log(k + ":" + v);
                         $("input[name="+ k + "][value=" + v + "]").prop('checked', true).click();
                     } else if(k=='org_id'){
-                        org_id = v                     
+                        org_id = v;                     
                     }else {
                         $("#" + k).val(v);
                     }
-                });
-                
+                });                
             });
+            $('#password').val('');
 
         });
         table.ajax.reload();

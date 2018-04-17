@@ -72,7 +72,7 @@
                                             </button>
                                         </div>-->
                 <div class="modal-body">
-                    <?php require_once 'views/user/edit.php'; ?>
+                    <?php require_once 'views/admin/edit.php'; ?>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-warning" data-dismiss="modal">ปิดฟอร์ม</button>
