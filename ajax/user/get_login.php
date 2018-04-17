@@ -8,7 +8,7 @@ if (isset($_REQUEST['username']) && $_REQUEST['username'] !== '' && $_REQUEST['p
     $password = $_REQUEST['password'];
     $username = $_GET['username'];
     $strHash = create_password_hash($password, PASSWORD_DEFAULT);
-    $sql = "SELECT * FROM user WHERE username = :username ";
+    $sql = "SELECT * FROM user WHERE username = :username AND status = 'active'";
     //AND status = 'disactive'
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':username', $username, PDO::PARAM_STR);
