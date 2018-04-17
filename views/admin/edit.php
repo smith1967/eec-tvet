@@ -22,13 +22,13 @@
                             <input type="text" class="form-control" id="username" name="username" readonly="readonly" placeholder="ชื่อผู้ใช้ภาษาอังกฤษ" value='<?php echo isset($username) ? $username : ''; ?>'>
                         </div>
                     </div>
-<!--                    <div class="form-group">
+                    <div class="form-group">
                         <label class="control-label col-md-3" for="password">รหัสผ่าน</label>
                         <div class="col-md-5">
                             <input type="password" class="form-control" id="password" name="password" value='<?php echo isset($password) ? $password : ''; ?>'>
                         </div>
                     </div>
-                    <div class="form-group">
+<!--                    <div class="form-group">
                         <label class="control-label col-md-3" for="confirm_password">ยืนยันรหัสผ่าน</label>
                         <div class="col-md-5">
                             <input type="password" class="form-control" id="confirm_password" name="confirm_password" value='<?php echo isset($confirm_password) ? $confirm_password : ''; ?>'>

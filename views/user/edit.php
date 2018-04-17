@@ -37,6 +37,14 @@
                     <!-- radio -->
                     <div class="form-group">
                         <div class="col-md-offset-3 col-md-9">
+                            <?php if($_SESSION['user']['user_type_id']==1): ?>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="user_type_id" id="admin_eec" value="1">
+                                    ผู้ดูแลระบบ
+                                </label>
+                            </div>
+                            <?php endif; ?>
                             <div class="radio">
                                 <label>
                                     <input type="radio" name="user_type_id" id="staff_eec" value="2" checked>
