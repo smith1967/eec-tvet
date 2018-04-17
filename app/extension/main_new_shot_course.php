@@ -30,7 +30,7 @@ if($act=="del"){
       <h1>
         สถานประกอบการต้องการเปิดการอบรมหลักสูตรใหม่
         <small>
-          <a href="index.php?extention/frm_new_shot_course">
+          <a href="index.php?extension/frm_new_shot_course">
             <button class="btn btn-info">
               <i class="fa fa-plus-circle"></i>
             </button>    
@@ -136,14 +136,14 @@ if($act=="del"){
                           <td><?php echo $spacial_condition;?></td>  
                           <td>
                             <small>
-                              <a href="index.php?extention/main_new_shot_course&act=del&req_id=<?php echo $req_id;?>" onclick="return confirm('ลบ?');">
+                              <a href="index.php?extension/main_new_shot_course&act=del&req_id=<?php echo $req_id;?>" onclick="return confirm('ลบ?');">
                                 <button class="btn btn-sm btn-danger">
                                   <i class="fa  fa-times"></i>
                                 </button>    
                               </a>
                             </small>
                             <small>
-                              <a href="index.php?extention/edit_new_shot_course&req_id=<?php echo $req_id;?>" >
+                              <a href="index.php?extension/edit_new_shot_course&req_id=<?php echo $req_id;?>" >
                                 <button class="btn btn-sm btn-warning">
                                   <i class="fa  fa-pencil"></i>
                                 </button>    

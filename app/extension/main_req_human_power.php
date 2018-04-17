@@ -30,7 +30,7 @@ if($act=="del"){
       <h1>
         ต้องการกำลังคน
         <small>
-          <a href="index.php?extention/frm_req_human_power">
+          <a href="index.php?extension/frm_req_human_power">
             <button class="btn btn-info">
               <i class="fa fa-plus-circle"></i>
             </button>    
@@ -69,10 +69,9 @@ if($act=="del"){
                     <tr >
                       <th class="text-center">ลำดับ</th>
                       <th class="text-center">ชื่อสาขาที่ต้องการ</th>
-                      <th class="text-center">ระดับการศึกษา</th>                     
+                      <th class="text-center">ระดับการศึกษา</th>
                       <th class="text-center">เพศ</th>
                       <th class="text-center">จำนวน</th>
-                      <th class="text-center">เปลี่ยน</th> 
                       <th class="text-center">ช่วงเวลาที่ต้องการ</th>  
                       <th class="text-center">ช่วงอายุที่ต้องการ</th>  
                       <th class="text-center">รายละเอียดเพิ่มเติม</th>   
@@ -128,8 +127,7 @@ if($act=="del"){
                           <td><?php echo $major_name;?></td>
                           <td><?php echo $level;?></td>
                           <td><?php echo $gender_text;?></td> 
-                          <td><?php echo $amount;?></td> 
-                          <td><?php echo $change_req;?></td>          
+                          <td><?php echo $amount;?></td>   
                           <td><?php echo $req_start;?> ถึง 
                             <?php echo $req_end;?></td>
                           <td><?php echo $age_start;?> ถึง 
@@ -137,14 +135,14 @@ if($act=="del"){
                           <td><?php echo $spacial_condition;?></td>  
                           <td>
                             <small>
-                              <a href="index.php?extention/main_req_human_power&act=del&req_id=<?php echo $req_id;?>" onclick="return confirm('ลบ?');">
+                              <a href="index.php?extension/main_req_human_power&act=del&req_id=<?php echo $req_id;?>" onclick="return confirm('ลบ?');">
                                 <button class="btn btn-sm btn-danger">
                                   <i class="fa  fa-times"></i>
                                 </button>    
                               </a>
                             </small>
                             <small>
-                              <a href="index.php?extention/edit_req_human_power&req_id=<?php echo $req_id;?>" >
+                              <a href="index.php?extension/edit_req_human_power&req_id=<?php echo $req_id;?>" >
                                 <button class="btn btn-sm btn-warning">
                                   <i class="fa  fa-pencil"></i>
                                 </button>    
