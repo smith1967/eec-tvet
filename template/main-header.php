@@ -31,7 +31,7 @@
               <li><!-- start message -->
                 <a href="#">
                   <div class="pull-left">
-                    <img src="asset/AdminLTE/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                    <img src="upload/user/thumbnail/20180406_193437.jpg" class="img-circle" alt="User Image">
                   </div>
                   <h4>
                     Support Team
@@ -217,7 +217,7 @@
       <!-- User Account: style can be found in dropdown.less -->
       <li class="dropdown user user-menu">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-          <img src="asset/AdminLTE/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+          <img src="<?php echo $image_url ?>" class="user-image" alt="User Image">
           <span class="hidden-xs">Alexander Pierce</span>
         </a>
         <ul class="dropdown-menu">

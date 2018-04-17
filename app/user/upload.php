@@ -1,14 +1,15 @@
 <?php
 if (!defined('BASE_PATH'))
 exit('No direct script access allowed');
-$active = 'business';
-$subactive = 'list';
-$title = 'หน้าหลัก';
+$token = gen_token();
+$active = 'user';
+$subactive = 'edit';
+$title = 'อัพโหลดภาพผู้ใช้';
 // จัดการข้อมูลกับด้าน logic
 $content_header = array(
-    'header' => 'สถานประกอบการ',
-    'subheader' => 'เพิ่ม',
-    'breadcrumb' => 'สถานประกอบการ'
+    'header' => 'ภาพผู้ใช้',
+    'subheader' => 'อัพโหลด',
+    'breadcrumb' => 'ภาพผู้ใช้'
     );
 
 ?>
@@ -22,10 +23,10 @@ require_once('template/header.php')
 
     <section class="content-header">
     <!-- แก้ไขหัวข้อเรื่อง -->
-      <h1>
+      <h4>
         <?php echo $content_header['header'] ?>
         <small><?php echo $content_header['subheader'] ?></small>
-      </h1>
+      </h4>
     <!-- แก้ไข breadcrumb -->
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> หน้าหลัก</a></li>
@@ -40,8 +41,10 @@ require_once('template/header.php')
                 <p id="message"></p>
             </div>
         </div>
-     <!-- ใส่ข้อมูลต่างๆที่นี่ เริ่มต้นด้วย class="row" -->
-    <?php    require_once 'views/business/index.php'; ?>
+     <!-- เรียกใช้ views ตั้งชื่อ ตาม folder/finename หลัก -->
+    <?php
+        require_once 'views/'.$ctrl_act.'.php'; 
+    ?>
     </section>
     <!-- /.content -->
   </div>
@@ -51,6 +54,7 @@ require_once('template/header.php')
 <?php require_once 'template/footer.php'; ?>
 
 <!-- js function -->
+<!-- เรียกใช้ js ตั้งชื่อ ตาม folder/finename หลัก -->
 <script>
-<?php require_once 'js/business.js'; ?>
+<?php require_once 'js/'.$ctrl_act.'.js'; ?>
 </script>

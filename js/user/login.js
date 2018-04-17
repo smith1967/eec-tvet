@@ -51,7 +51,7 @@ $(function () {
         checkLogin();
     });
     function checkLogin() {
-        url = 'ajax/user/get_user.php';
+        url = 'ajax/user/get_login.php';
         password = salt+$('#password').val();
         password = md5(password);
         $.ajax({            

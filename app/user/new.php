@@ -3,13 +3,13 @@ if (!defined('BASE_PATH'))
 exit('No direct script access allowed');
 $token = gen_token();
 $active = 'user';
-$subactive = 'edit';
-$title = 'แก้ไขข้อมูลผู้ใช้';
+$subactive = 'list';
+$title = 'หน้าหลัก';
 // จัดการข้อมูลกับด้าน logic
 $content_header = array(
-    'header' => 'ข้อมูลผู้ใช้',
-    'subheader' => 'แก้ไข',
-    'breadcrumb' => 'ผู้ใช้'
+    'header' => 'ผู้ใช้งาน',
+    'subheader' => 'ข้อมูล',
+    'breadcrumb' => 'ผู้ใช้งาน'
     );
 
 ?>

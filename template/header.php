@@ -1,3 +1,10 @@
+<?php
+if(isset($_SESSION['user']['image_url']) && $_SESSION['user']['image_url'] != ''){
+    $image_url = 'upload/user/thumbnail/'.$_SESSION['user']['image_url'];
+}else{
+    $image_url = 'upload/user/thumbnail/no-images.jpg';
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>

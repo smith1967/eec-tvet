@@ -3,36 +3,37 @@
     <!--/.col (left) -->
     <!-- right column -->
     <div class="col-md-12">
-        <?php show_message() ?>    
         <!-- Horizontal Form -->
         <div class="box box-info">
             <div class="box-header with-border">
-                <h3 class="box-title">ลงทะเบียนผู้ใช้งาน</h3>
+                <h3 class="box-title">แก้ไขผู้ใช้งาน</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-
-            <form class="form-horizontal" id="signupForm" method="" action="">
+            <form class="form-horizontal" id="editForm" method="" enctype="multipart/form-data">
                 <input type="hidden" id="token" name="token" value="<?php echo $token ?>"/>
+                <input type="hidden" id="user_id" name="user_id" value="<?php echo $_SESSION['user']['user_id']; ?>"/>
+
                 <div class="box-body">
+
                     <div class="form-group">
                         <label class="control-label col-md-3" for="username">ชื่อผู้ใช้</label>
                         <div class="col-md-5">
-                            <input type="text" class="form-control" id="username" name="username" placeholder="ชื่อผู้ใช้ภาษาอังกฤษ" value='<?php echo isset($username) ? $username : ''; ?>'>
+                            <input type="text" class="form-control" id="username" name="username" readonly="readonly" placeholder="ชื่อผู้ใช้ภาษาอังกฤษ" value='<?php echo isset($username) ? $username : ''; ?>'>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-3" for="password">รหัสผ่าน</label>
-                        <div class="col-md-5">
-                            <input type="password" class="form-control" id="password" name="password" value='<?php echo isset($password) ? $password : ''; ?>'>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-3" for="confirm_password">ยืนยันรหัสผ่าน</label>
-                        <div class="col-md-5">
-                            <input type="password" class="form-control" id="confirm_password" name="confirm_password" value='<?php echo isset($confirm_password) ? $confirm_password : ''; ?>'>
-                        </div>
-                    </div>
+                    <!--                    <div class="form-group">
+                                            <label class="control-label col-md-3" for="password">รหัสผ่าน</label>
+                                            <div class="col-md-5">
+                                                <input type="password" class="form-control" id="password" name="password" value='<?php echo isset($password) ? $password : ''; ?>'>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3" for="confirm_password">ยืนยันรหัสผ่าน</label>
+                                            <div class="col-md-5">
+                                                <input type="password" class="form-control" id="confirm_password" name="confirm_password" value='<?php echo isset($confirm_password) ? $confirm_password : ''; ?>'>
+                                            </div>
+                                        </div>-->
                     <!-- radio -->
                     <div class="form-group">
                         <div class="col-md-offset-3 col-md-9">
@@ -55,11 +56,8 @@
                                     เจ้าหน้าที่ในสถานประกอบการ
                                 </label>
                             </div>
-
                         </div>
                     </div>                      
-
-
                     <div class="form-group">
                         <label class="control-label col-md-3" for="org_id">องค์กร</label>
                         <div class="col-md-5">
@@ -88,19 +86,6 @@
                         </div>
                     </div>
 
-                    <!-- <input type="hidden" id="user_type_id" name="user_type_id" value="4" />  -->
-                    <!--                    <div class="form-group"> 
-                                            <label class="control-label col-md-3" for="user_type_id">ประเภทผู้ใช้</label>
-                                            <div class="col-md-4">
-                                                <select class='form-control input-xlarge'id="user_type_id" name="user_type_id">
-                    <?php
-                    $def = isset($user_type_id) ? $user_type_id : '3';
-                    $sql = "SELECT user_type_id,user_type_desc FROM user_type";
-                    echo gen_option($sql, $def)
-                    ?>
-                                                </select>              
-                                            </div>
-                                        </div>-->
                     <div class="form-group">
                         <label class="control-label col-md-3" for="telephone">โทรศัพท์</label>
                         <div class="col-md-5">
@@ -108,13 +93,6 @@
                         </div>
                     </div>
 
-                    <!--                    <div class="form-group">
-                    
-                                            <div class="checkbox" >
-                                                <label class="control-label col-md-offset-3"><input type="checkbox" id='agree' name='agree' value='1'>ยืนยันข้อมูลถูกต้อง</label>
-                                            </div>
-                    
-                                        </div>     -->
                     <div class="form-group">
                         <div class="col-md-offset-3 col-md-9">
                             <div class="checkbox">
