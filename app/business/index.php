@@ -8,7 +8,7 @@ $title = 'หน้าหลัก';
 // จัดการข้อมูลกับด้าน logic
 $content_header = array(
     'header' => 'สถานประกอบการ',
-    'subheader' => 'เพิ่ม',
+    'subheader' => 'ข้อมูล',
     'breadcrumb' => 'สถานประกอบการ'
     );
 

@@ -1,12 +1,6 @@
 <?php
 
 include_once './../../include/config.php';
-//if(!is_auth()) redirect ();
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 header("Cache-Control: no-transform,public,max-age=300,s-maxage=900");
 header('Content-Type: application/json; charset=utf-8');
 check_token($_REQUEST['token']);

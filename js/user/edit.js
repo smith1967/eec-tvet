@@ -1,12 +1,7 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 $(function () {
     var token = '<?php echo $token ?>';
     var url;
+    var org_id;
     if ($("#staff_eec").is(":checked")) {
         url = "ajax/select2/get_eec.php";
         init_select2();
@@ -42,14 +37,14 @@ $(function () {
     $.validator.addMethod("PASSWORD", function (value, element) {
         return this.optional(element) || /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/i.test(value);
     }, "รหัสผ่านต้องเป็นตัวอักษรภาษาอังกฤษ 6-20 ตัวอักษร ต้องประกอบด้วยตัวพิมพ์เล็ก ตัวพิมพ์ใหญ่ และตัวเลข อย่างน้อยอย่างละ 1 ตัว.");
-    $("#signupForm").validate({
+    $("#editForm").validate({
         rules: {
             //                        business_name: "required",
-            username: {
-                required: true,
-                minlength: 4,
-                remote: "ajax/check_username.php?token=" + token
-            },
+//            username: {
+//                required: true,
+//                minlength: 4,
+//                remote: "ajax/check_username.php?token=" + token
+//            },
             fname: {
                 required: true,
                 minlength: 4
@@ -58,12 +53,12 @@ $(function () {
                 required: true,
                 minlength: 4
             },
-            password: {
-                PASSWORD: true
-            },
-            confirm_password: {
-                equalTo: "#password"
-            },
+//            password: {
+//                PASSWORD: true
+//            },
+//            confirm_password: {
+//                equalTo: "#password"
+//            },
             telephone: {
                 required: true,
                 minlength: 9
@@ -77,17 +72,17 @@ $(function () {
             agree: "required"
         },
         messages: {
-            username: {
-                minlength: "ชื่อผู้ใช้ต้องมีความยาวไม่น้อยกว่า 4 ตัวอักษร",
-                remote: "มีชื่อผู้ใช้นี้อยู่ในระบบแล้ว"
-            },
-            business_name: "กรุณาใส่ชื่อบริษัท",
+//            username: {
+//                minlength: "ชื่อผู้ใช้ต้องมีความยาวไม่น้อยกว่า 4 ตัวอักษร",
+//                remote: "มีชื่อผู้ใช้นี้อยู่ในระบบแล้ว"
+//            },
+//            business_name: "กรุณาใส่ชื่อบริษัท",
             fname: "กรุณาใส่ชื่อ",
             lname: "กรุณาใส่นามสกุล",
             org_id: "กรุณาเลือกองค์กร",
             org_name: "กรุณาเลือกองค์กร",
             email: "กรุณาใส่อีเมล์",
-            confirm_password: "รหัสผ่านไม่ตรงกัน",
+//            confirm_password: "รหัสผ่านไม่ตรงกัน",
             agree: "กรุณายืนยันข้อมูล",
             telephone: "กรุณาใส่หมายเลขโทรศัพท์"
         },
@@ -110,19 +105,19 @@ $(function () {
             $(element).parents(".col-sm-5").addClass("has-success").removeClass("has-error");
         },
         submitHandler: function (form) {
-            insert_user();
+            update_user();
         },
     });
-    function insert_user() {
+    function update_user() {
         $.ajax({
             type: "POST",
-            url: "ajax/user/post_user.php",
-            data: $("#signupForm").serialize(),
+            url: "ajax/admin/put_user.php",
+            data: $("#editForm").serialize(),
             //                        {student_name:student_name,student_roll_no:student_roll_no,student_class:student_class},
             dataType: "JSON",
             success: function (data) {
                 if (data.status === 'success') {
-                    window.location.href = "<?php echo site_url('user/login'); ?>";
+                    // window.location.href = "<?php echo site_url('user/login'); ?>";
                     $("#show-message").removeClass();
                     $("#show-message").html(data.message).addClass("alert alert-success").show().delay(5000).fadeOut();
                 } else {
@@ -131,11 +126,12 @@ $(function () {
                 }
             },
             error: function (err) {
-                $("#show-message").html(data).addClass("alert alert-danger").show().delay(5000).fadeOut();
+                console.log(err);
+                $("#show-message").html(err).addClass("alert alert-danger").show().delay(5000).fadeOut();
             }
         });
-        
-    }    
+
+    }
     //เรียกใช้งาน Select2
     $(".select2").select2();
     function init_select2() {
@@ -154,9 +150,60 @@ $(function () {
                     //แทรก Elements ใน id province  ด้วยคำสั่ง append
                     $("#org_id").append("<option value='" + value.id + "'> " + value.name + "</option>");
                 });
+                $('#org_id').val(org_id).change();
             }
         });
 
     }
 
+
+    // Data on load
+    var url = './ajax/user/get_user.php';
+    var id = "<?php echo $_SESSION['user']['user_id']; ?>";
+    var data = {
+        user_id: id,
+        token: "<?php echo $token ?>"
+    };
+    $.getJSON(url, data, function (data, status) {
+//            console.log(data);
+        //Do stuff with the JSON data
+        $.each(data, function (key, val) {
+//            console.log(key)
+//            console.log(val);
+            $.each(val, function (k, v) {
+                if (k === "user_type_id") {
+//                        console.log(k + ":" + v);
+                    if (v == 1) {
+                        $('#staff_eec').attr('checked', true);
+                    } else if (v == 2) {
+                        $('#staff_eec').attr('checked', true);
+                        $('#staff_eec').click();
+                    } else if (v == 3) {
+                        $('#staff_school').attr('checked', true);
+                        $('#staff_school').click();
+                    } else if (v == 4) {
+                        $('#staff_business').attr('checked', true);
+                        $('#staff_business').click();
+                    }
+//                        $("#" + k).val(v).click();
+//                        $("#" + k).change();
+                } else if (k == 'org_id') {
+                    org_id = v
+                } else {
+                    $("#" + k).val(v);
+                }
+            });
+
+        });
+
+    });
+
 });
+
+
+
+
+
+
+
+

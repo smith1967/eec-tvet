@@ -313,11 +313,7 @@ $menu = Array(
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-                <?php if(is_auth()) : ?>
-              <img src="upload/user-images/noImage.png" class="user-image" alt="User Image">
-                <?php else: ?>
-              <img src="upload/user-images/noImage1.png" class="user-image" alt="User Image">              
-              <?php endif; ?>
+              <img src="<?php echo $image_url?>" class="user-image" alt="User Image">             
             </div>
             <div class="pull-left info">
                 <p><?php echo $_SESSION['user']['fname']; ?></p>

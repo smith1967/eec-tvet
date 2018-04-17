@@ -45,5 +45,5 @@ if (mysqli_affected_rows($db) > 0) {
         'status' => 'fail'
     );    
 //    $error = "ไม่สามารถเพิ่มข้อมูลได้ : " . mysqli_error($db) . " : " . $sql;
-    echo json_encode($res);
+    echo json_encode($error);
 }

@@ -1,10 +1,9 @@
-
 $(function () {
     //  business form
     var province_code;
     var district_code;
     var subdistrict_code;
-    var action;
+    var token = '<?php echo $token ?>';
     $('#btnInsert').click(function () {
         //do stuff
         action = "insert";
@@ -433,7 +432,7 @@ $(function () {
         // get data from api
         if (!confirm('ยืนยันการลบข้อมูล'))
             return;
-        var url = './ajax/business/del_business';
+        var url = './ajax/business/del_business.php';
         var id = $(this).parent().siblings(":first").text();
         var data = {
             business_id: id,
