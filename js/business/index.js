@@ -47,7 +47,7 @@ $(function () {
             },
             coordinator: {
                 required: true,
-                minlength: 9
+                minlength: 3
             },
             coordinator_position: {
                 required: true,
@@ -124,7 +124,7 @@ $(function () {
 //                alert(data.message);
                 $("#show-message").html(data.message).addClass("alert alert-success").show().delay(5000).fadeOut();
                 $("#business_id").val(data.business_id);
-                table.ajax.reload();
+                table.ajax.reload(null, false);
                 $("#business-total").html(table.data().count());
             },
             error: function (err) {
@@ -142,7 +142,7 @@ $(function () {
             success: function (data) {
 //                alert(data.message);
                 $("#show-message").html(data.message).addClass("alert alert-success").show().delay(5000).fadeOut();
-                table.ajax.reload();
+                table.ajax.reload(null, false);
             },
             error: function (err) {
                 $("#show-message").html(data).addClass("alert alert-danger").show().delay(5000).fadeOut();
@@ -324,7 +324,7 @@ $(function () {
 
     var info = table.page.info();
 //    setInterval( function  () {
-//        table.ajax.reload();
+//        table.ajax.reload(null, false);
 //        $("#business-total").html(table.data().count());
 //    }, 10000);
     //    $("#business-total").html(info.recordsTotal);
@@ -367,7 +367,7 @@ $(function () {
         });
 
         });
-        table.ajax.reload();
+        table.ajax.reload(null, false);
         $("#business-total").html(table.data().count());
         // fix search box in modal can't focus
         $.fn.modal.Constructor.prototype.enforceFocus = function () { };
@@ -406,7 +406,7 @@ $(function () {
         });
 
         });
-        table.ajax.reload();
+        table.ajax.reload(null, false);
 //        $("#business-total").html(table.data().count());
         // fix search box in modal can't focus
         $.fn.modal.Constructor.prototype.enforceFocus = function () { };
@@ -445,7 +445,7 @@ $(function () {
                 //                console.log(data);
 
                 table.row('.active').remove().draw(false);
-                table.ajax.reload();
+                table.ajax.reload(null, false);
                 $("#message").text(data).addClass("alert alert-success").show().delay(5000).fadeOut();
                 // Display total Record
                 $("#business-total").html(table.data().count());
