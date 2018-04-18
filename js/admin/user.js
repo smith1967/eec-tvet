@@ -123,7 +123,7 @@ $(function () {
                     // window.location.href = "<?php echo site_url('user/login'); ?>";
                     $("#show-message").removeClass();
                     $("#show-message").html(data.message).addClass("alert alert-success").show().delay(5000).fadeOut();
-                    table.ajax.reload();
+                    table.ajax.reload(null, false);
                 } else {
                     $("#show-message").removeClass();
                     $("#show-message").html(data.message).addClass("alert alert-danger").show().delay(5000).fadeOut();
@@ -227,7 +227,7 @@ $(function () {
             //Do stuff with the JSON data
             if (status === 'success') {
                 table.row('.active').remove().draw(false);
-                table.ajax.reload();
+                table.ajax.reload(null, false);
                 $("#show-message").text(data).addClass("alert alert-success").show().delay(5000).fadeOut();
                 // Display total Record
             }
@@ -252,7 +252,7 @@ $(function () {
             //Do stuff with the JSON data
             if (status === 'success') {
                 table.row('.active').remove().draw(false);
-                table.ajax.reload();
+                table.ajax.reload(null, false);
                 $("#show-message").text(data).addClass("alert alert-success").show().delay(5000).fadeOut();
                 // Display total Record
             }
@@ -292,7 +292,7 @@ $(function () {
             $('#password').val('');
 
         });
-        table.ajax.reload();
+        table.ajax.reload(null, false);
 //        $("#business-total").html(table.data().count());
         // fix search box in modal can't focus
         $.fn.modal.Constructor.prototype.enforceFocus = function () { };

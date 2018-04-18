@@ -225,7 +225,7 @@ function gen_sidebar_menu($items, $active = 'home', $subactive = 'index') {
         }
         $level = 3;
         $indent = str_repeat(" ", $level * 2);
-        $ret .= sprintf("%s<a href='%s'>\n", $indent, $subitems['url']);
+        $ret .= sprintf("%s<a href='%s'>\n", $indent, site_url($subitems['url']));
         $level = 4;
         $indent = str_repeat(" ", $level * 2);
         $ret .= sprintf("%s<i class='%s'></i>\n", $indent, $subitems['class']);

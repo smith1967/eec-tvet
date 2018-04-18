@@ -73,9 +73,10 @@ $(function () {
         };
         //
         $.getJSON(url, data, function (data, status) {
-            //Do stuff with the JSON data
             if (status === 'success') {
                 table.row('.active').remove().draw(false);
+//                table.ajax.reload(null, false);
+//                $("#user-new").html(info.recordsTotal);
                 table.ajax.reload(function (json) {
                     if (json.recordsTotal == 0) {
                         window.location.href = "<?php echo site_url('user/index') ?>";
@@ -86,8 +87,13 @@ $(function () {
                 $("#message").text(data.message).addClass("alert alert-success").show().delay(5000).fadeOut();
                 // Display total Record
             }
+//            $.getJSON("ajax/user/get_info.php?status=disactive", function (data) {
+////        console.log(data.message);
+//                $("#user-new").html(data.message);
+//            });
             //    
         });
+
 
     });
     // disactive user
