@@ -272,6 +272,11 @@ $menu = Array(
                 'url' => 'user/signup',
                 'cond' => !is_auth(),
             ),
+            'upload' => array(
+                'title' => 'อัพโหลดรูปภาพ',
+                'url' => 'user/upload',
+                'cond' => is_auth(),
+            ),
             'edit' => array(
                 'title' => 'แก้ไขข้อมูล',
                 'url' => 'user/edit',
