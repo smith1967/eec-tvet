@@ -272,7 +272,7 @@ $(function () {
         //                alert("คุณได้เลือก :  จังหวัด : " + province + " อำเภอ : "+ amphur + "  ตำบล : " + district );
     });
 
-//    var url = "http://localhost:8080/business/";
+//    var url = "http://localhost:8080/business";
     var url = "ajax/business/get_business.php";
     var table = $('#business_list').DataTable({
         "destroy": true,
