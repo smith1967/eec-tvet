@@ -29,7 +29,7 @@ if($act=="add"){
   $sql1="INSERT INTO `req_shortcourses` (`business_id`, `school_id`, `shortcourse_code`, `trainee_amount`, `training_hour`, `training_start_date`, `training_end_date`, `status`) VALUES ('$business_id', '$school_id', '$shortcourse_code', '$trainee_amount', '$trainee_hour', '$training_start_date', '$training_end_date', '$status');"; 
   $results1 = $db->query($sql1);
 
-redirect('extention/main_req_shot_course');
+redirect('extension/main_req_shot_course');
   
 }
 //req_id   business_id  school_id  course_id   trainee_amount  training_hour  training_start_date  training_end_date  status 

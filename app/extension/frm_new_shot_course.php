@@ -31,7 +31,7 @@ if($act=="add"){
 $sql1="INSERT INTO `new_shortcourses` (`business_id`, `course_name`, `course_description`, `course_start`, `course_hour`, `school_1_id`, `school_2_id`, `school_3_id`, `spacial_condition`) VALUES ('$business_id', '$course_name', '$cd', '$date_rang', '$course_hour', '$school_id_1', '$school_id_2', '$school_id_3', '$spacial_condition');";
 
   $results1 = $db->query($sql1);
-  redirect('extention/main_new_shot_course');
+  redirect('extension/main_new_shot_course');
 }
 
 ?>

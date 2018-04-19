@@ -55,7 +55,7 @@ define('APP_URL', SITE_URL.'app/');
 // database parameter
 $dbhost = 'localhost';
 $dbuser = 'root';
-$dbpassword = 'admin$cstc';
+$dbpassword = '12345678';
 $dbname = 'eec_data';
 $charset = 'utf8';
 $salt='eec_data!';	//  salt password
