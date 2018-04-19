@@ -31,7 +31,7 @@
               <li><!-- start message -->
                 <a href="#">
                   <div class="pull-left">
-                    <img src="upload/user/thumbnail/20180406_193437.jpg" class="img-circle" alt="User Image">
+                    <img src="<?php echo $image_url ?>" class="img-circle" alt="User Image">
                   </div>
                   <h4>
                     Support Team

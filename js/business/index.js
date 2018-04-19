@@ -272,6 +272,7 @@ $(function () {
         //                alert("คุณได้เลือก :  จังหวัด : " + province + " อำเภอ : "+ amphur + "  ตำบล : " + district );
     });
 
+//    var url = "http://localhost:8080/business/";
     var url = "ajax/business/get_business.php";
     var table = $('#business_list').DataTable({
         "destroy": true,
@@ -285,7 +286,7 @@ $(function () {
         "pageLength": 10,
         "ajax": {
             "url": url,
-            "type": "POST",
+            "type": "get",
             "data": function (d) {
                 d.token = "<?php echo $token ?>"
 //                d.zone_id = $('#zone_id').val();
@@ -295,11 +296,12 @@ $(function () {
             {"data": "business_id"},
             {"data": "business_name"},
             {"data": "province_name"},
-            //                        {"data": "trainers"},               
-            //        { "data": "gender" },
-            //        { "data": "country" },
-            //        { "data": "phone" },
-            {"data": "button"},
+            {
+                "data": null,
+                "defaultContent": '<button type="button" class="btn btn-warning btn-sm btn-edit" \
+                data-toggle="modal" data-target="#formModal"><i class="fa fa-pencil"></i></button> \
+                <button type="button" class="btn btn-danger btn-sm btn-delete"><i class="fa fa-trash-o"></i></button>'
+            }
         ],
         "language": {
             "lengthMenu": "แสดง _MENU_ แถวต่อหน้า",

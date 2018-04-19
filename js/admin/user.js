@@ -32,14 +32,12 @@ $(function () {
         init_select2();
 //        console.log(url);
     });
-
-
     $.validator.addMethod("PASSWORD", function (value, element) {
         return this.optional(element) || /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/i.test(value);
     }, "รหัสผ่านต้องเป็นตัวอักษรภาษาอังกฤษ 6-20 ตัวอักษร ต้องประกอบด้วยตัวพิมพ์เล็ก ตัวพิมพ์ใหญ่ และตัวเลข อย่างน้อยอย่างละ 1 ตัว.");
     $("#editForm").validate({
         rules: {
-            //                        business_name: "required",
+//                        business_name: "required",
 //            username: {
 //                required: true,
 //                minlength: 4,
@@ -86,12 +84,10 @@ $(function () {
             agree: "กรุณายืนยันข้อมูล",
             telephone: "กรุณาใส่หมายเลขโทรศัพท์"
         },
-
         errorElement: "em",
         errorPlacement: function (error, element) {
             // Add the `help-block` class to the error element
             error.addClass("help-block");
-
             if (element.prop("type") === "checkbox") {
                 error.insertAfter(element.parent("label"));
             } else {
@@ -134,9 +130,8 @@ $(function () {
                 $("#show-message").html(err).addClass("alert alert-danger").show().delay(5000).fadeOut();
             }
         });
-        
-    }    
-    //เรียกใช้งาน Select2
+    }
+//เรียกใช้งาน Select2
     $(".select2").select2();
     function init_select2() {
         //ดึงข้อมูล province จากไฟล์ get_data.php
@@ -154,10 +149,9 @@ $(function () {
                     //แทรก Elements ใน id province  ด้วยคำสั่ง append
                     $("#org_id").append("<option value='" + value.id + "'> " + value.name + "</option>");
                 });
-                $('#org_id').val(org_id).change();               
+                $('#org_id').val(org_id).change();
             }
         });
-
     }
 
     var table = $('#user_list').DataTable({
@@ -185,6 +179,21 @@ $(function () {
             {"data": "org_name"},
             {"data": "button"},
         ],
+        "columnDefs": [{
+                "targets": -1,
+                "data": null,
+                "render": function (data, type, row, meta) {
+                    var btn = '<button type="button" class="btn btn-warning btn-sm btn-edit" \
+                    data-toggle="modal" data-target="#userModal">\
+                    <i class="fa fa-edit"></i></button>';
+                    if(row.status=='active'){
+                        btn += ' <button type="button" class="btn btn-success btn-sm btn-disactive"><i class="fa fa-toggle-on"></i></button>';
+                    }else{
+                        btn += ' <button type="button" class="btn btn-danger btn-sm btn-active"><i class="fa fa-toggle-off"></i></button>';                        
+                    }
+                    return btn;
+                }
+            }],
         "language": {
             "emptyTable": "ไม่มีรายการข้อมูล",
             "lengthMenu": "แสดง _MENU_ แถวต่อหน้า",
@@ -206,9 +215,7 @@ $(function () {
             $("#user-total").html(info.recordsTotal);
         }
     });
-
     var info = table.page.info();
-
     $.getJSON("ajax/user/get_info.php?status=disactive", function (data) {
         $("#user-new").html(data.message);
     });
@@ -281,23 +288,21 @@ $(function () {
                 $.each(val, function (k, v) {
                     if (k === "user_type_id") {
 //                        console.log(k + ":" + v);
-                        $("input[name="+ k + "][value=" + v + "]").prop('checked', true).click();
-                    } else if(k=='org_id'){
-                        org_id = v;                     
-                    }else {
+                        $("input[name=" + k + "][value=" + v + "]").prop('checked', true).click();
+                    } else if (k == 'org_id') {
+                        org_id = v;
+                    } else {
                         $("#" + k).val(v);
                     }
-                });                
+                });
             });
             $('#password').val('');
-
         });
         table.ajax.reload(null, false);
 //        $("#business-total").html(table.data().count());
         // fix search box in modal can't focus
         $.fn.modal.Constructor.prototype.enforceFocus = function () { };
     });
-
 });
 
 

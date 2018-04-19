@@ -5,7 +5,7 @@
 $menu = Array(
     'home' => array(
         'title' => 'หน้าหลัก',
-        'url' => SITE_URL,
+        'url' => 'home/index',
         'class' => 'fa fa-home',
         'cond' => true,
         'subitems'=>array()
@@ -207,24 +207,24 @@ $menu = Array(
 //            ),
 //        ),
 //    ),
-    'pages' => array(
-        'title' => 'ข่าวสาร',
-        'url' => '#',
-        'class' => 'fa fa-book',
-        'cond' => is_admin(),
-        'subitems' => array(
-            'list' => array(
-                'title' => 'จัดการข่าวสาร',
-                'cond' => true,
-                'url' => 'pages/list',
-            ),
-            'insert' => array(
-                'title' => 'เพิ่มข่าวสาร',
-                'cond' => true,
-                'url' => 'pages/insert',
-            ),
-        ),
-    ),
+//    'pages' => array(
+//        'title' => 'ข่าวสาร',
+//        'url' => '#',
+//        'class' => 'fa fa-book',
+//        'cond' => is_admin(),
+//        'subitems' => array(
+//            'list' => array(
+//                'title' => 'จัดการข่าวสาร',
+//                'cond' => true,
+//                'url' => 'pages/list',
+//            ),
+//            'insert' => array(
+//                'title' => 'เพิ่มข่าวสาร',
+//                'cond' => true,
+//                'url' => 'pages/insert',
+//            ),
+//        ),
+//    ),
     'admin' => array(
         'title' => 'ผู้ดูแลระบบ',
         'url' => '#',
