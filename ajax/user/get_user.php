@@ -23,11 +23,11 @@ if ($_REQUEST['status'] == 'disactive') {
         foreach ($result as $row) {
             $data[] = $row;
         }
-        $i = 0;
-        foreach ($data as $key) {
-            $data[$i]['button'] = '<button type="button" class="btn btn-danger btn-sm btn-active"><i class="fa fa-toggle-off"></i></button>';
-            $i++;
-        }
+//        $i = 0;
+//        foreach ($data as $key) {
+//            $data[$i]['button'] = '<button type="button" class="btn btn-danger btn-sm btn-active"><i class="fa fa-toggle-off"></i></button>';
+//            $i++;
+//        }
     }
     $output['data'] = $data;
     echo json_encode($output, JSON_UNESCAPED_UNICODE);
@@ -57,17 +57,17 @@ if ($_REQUEST['status'] == 'disactive') {
     foreach ($result as $row) {
         $data[] = $row;
     }
-    $i = 0;
-    foreach ($data as $key) {
-        if ($key['status'] == 'active') {
-            $data[$i]['button'] = '<button type="button" class="btn btn-warning btn-sm btn-edit" data-toggle="modal" data-target="#userModal"><i class="fa fa-edit"></i></button>'
-                    . ' <button type="button" class="btn btn-success btn-sm btn-disactive"><i class="fa fa-toggle-on"></i></button>';
-        } else {
-            $data[$i]['button'] = '<button type="button" class="btn btn-warning btn-sm btn-edit" data-toggle="modal" data-target="#userModal"><i class="fa fa-edit"></i></button>'
-                    . ' <button type="button" class="btn btn-danger btn-sm btn-active"><i class="fa fa-toggle-off"></i></button>';
-        }
-        $i++;
-    }
+//    $i = 0;
+//    foreach ($data as $key) {
+//        if ($key['status'] == 'active') {
+//            $data[$i]['button'] = '<button type="button" class="btn btn-warning btn-sm btn-edit" data-toggle="modal" data-target="#userModal"><i class="fa fa-edit"></i></button>'
+//                    . ' <button type="button" class="btn btn-success btn-sm btn-disactive"><i class="fa fa-toggle-on"></i></button>';
+//        } else {
+//            $data[$i]['button'] = '<button type="button" class="btn btn-warning btn-sm btn-edit" data-toggle="modal" data-target="#userModal"><i class="fa fa-edit"></i></button>'
+//                    . ' <button type="button" class="btn btn-danger btn-sm btn-active"><i class="fa fa-toggle-off"></i></button>';
+//        }
+//        $i++;
+//    }
 
     $datax = array('data' => $data);
     echo json_encode($datax, JSON_UNESCAPED_UNICODE);

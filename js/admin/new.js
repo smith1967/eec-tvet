@@ -1,7 +1,6 @@
 $(function () {
-    //เรียกใช้งาน Select2
+//เรียกใช้งาน Select2
     $(".select2").select2();
-
     var url = "ajax/user/get_user.php";
     var table = $('#user_list').DataTable({
         "destroy": true,
@@ -29,6 +28,21 @@ $(function () {
             {"data": "org_name"},
             {"data": "button"},
         ],
+        "columnDefs": [{
+                "targets": -1,
+                "data": null,
+                "render": function (data, type, row, meta) {
+                    var btn = '<button type="button" class="btn btn-warning btn-sm btn-edit" \
+                    data-toggle="modal" data-target="#userModal">\
+                    <i class="fa fa-edit"></i></button>';
+                    if (row.status == 'active') {
+                        btn += ' <button type="button" class="btn btn-success btn-sm btn-disactive"><i class="fa fa-toggle-on"></i></button>';
+                    } else {
+                        btn += ' <button type="button" class="btn btn-danger btn-sm btn-active"><i class="fa fa-toggle-off"></i></button>';
+                    }
+                    return btn;
+                }
+            }],
         "language": {
             "emptyTable": "ไม่มีรายการข้อมูล",
             "lengthMenu": "แสดง _MENU_ แถวต่อหน้า",
@@ -51,7 +65,6 @@ $(function () {
 //            console.log(json);
         }
     });
-
     var info = table.page.info();
     $.getJSON("ajax/user/get_info.php", function (data) {
 //        console.log(data.message);
@@ -75,26 +88,19 @@ $(function () {
         $.getJSON(url, data, function (data, status) {
             if (status === 'success') {
                 table.row('.active').remove().draw(false);
-//                table.ajax.reload(null, false);
-//                $("#user-new").html(info.recordsTotal);
                 table.ajax.reload(function (json) {
-                    if (json.recordsTotal == 0) {
-                        window.location.href = "<?php echo site_url('user/index') ?>";
-                    } else {
-                        $("#user-new").html(json.recordsTotal);
+                    if (json.data == null) {
+                        $('#user_list').html('ไม่พบข้อมูล');
                     }
-                });
+//                    if (json.recordsTotal == 0) {
+//                        window.location.href = "<?php echo site_url('admin/user') ?>";
+//                    }
+                    $("#user-new").html(json.recordsTotal);
+                }, false);
                 $("#message").text(data.message).addClass("alert alert-success").show().delay(5000).fadeOut();
                 // Display total Record
             }
-//            $.getJSON("ajax/user/get_info.php?status=disactive", function (data) {
-////        console.log(data.message);
-//                $("#user-new").html(data.message);
-//            });
-            //    
         });
-
-
     });
     // disactive user
     $('#user_list').on('click', '.btn-disactive', function () {
@@ -117,7 +123,6 @@ $(function () {
             }
             //    
         });
-
     });
 });
 
