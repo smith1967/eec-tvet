@@ -5,7 +5,9 @@
 				$attr='';
 				$checked='';
 				$value='';
+				$tab_pane=0;
         		foreach($data as $k=>$row){
+					if($row['type']=='tab-pane')$tab_pane++;
         			if(isset($row['attr']))if(count($row['attr'])){
         			$attr='';
         			foreach($row['attr'] as $a=>$c){
@@ -28,8 +30,8 @@
         		static $sourceHL=false;
         			if($row['type']=='wysiwyg'){
         				if(!$wysiInit){
-        					$systemFoot.='<script src="'.site_url('system/library/ext/ckeditor/ckeditor.js',true).'"></script>';
-        					//$systemFoot.="<script src='".site_url('asset/AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js',true)."'></script>";
+        					$systemFoot.='<script src="'.site_url('app/report/ckeditor/ckeditor.js',true).'"></script>';
+        					$systemFoot.="<script src='".site_url('asset/AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js',true)."'></script>";
       						$wysiInit=true;
         			}
         				$ret.="<textarea id='".$k."' name='".$k."' ".$attr.">".$row['value']."</textarea>";
@@ -163,7 +165,12 @@ $inputNo=0;
 });
 </script>
 ';
-        		} 
+				} 
+				
+				if($tab_pane>0){
+					$ret=$tab_paneHead.$ret;
+				}
+
         		return $ret;
         	}
         	

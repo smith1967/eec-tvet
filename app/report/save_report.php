@@ -17,19 +17,21 @@ print sHeader($title,$active);
 	$url=site_url("report/detail_report&id=");
 	$rawSql=$_POST['query'];
 	$sql=mysqli_real_escape_string($db,$rawSql);
+	$report_head=base64_encode($_POST['report_head']);
 	if(isset($_GET['id'])){
 		//Update
-		$query='update report set title="'.$_POST['report_name'].'",query="'.$sql.
+		$query='update report set title="'.$_POST['report_name'].'",report_head="'.$report_head.'",query="'.$sql.
 		'"  where report_id = '.$_GET['id'];
 	}else{
 		//cereate
-		$query='insert into report (title,query,create_date,creator_id) values ("'.$_POST['report_name'].'",
+		$query='insert into report (title,report_head,query,create_date,creator_id) values ("'.$_POST['report_name'].'",
+		"'.$report_head.'",
 		"'.$sql.'",NOW(),"'.$_SESSION['user']['user_id'].'")';
 		$content.= "<p>".$query."</p>";
 	}
 
 	if($db->query($query)===TRUE){
-		$content.='สำเร็จ';
+		$content.='สำเร็จ : ';
 
 
 		$_GET['id']?$id=$_GET['id']:$id=$db->insert_id;

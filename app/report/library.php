@@ -44,6 +44,7 @@ function sFooter(){
 </div>
 <script src="asset/AdminLTE/bower_components/jquery/dist/jquery.min.js"></script>
 <script src="asset/AdminLTE/dist/js/adminlte.min.js"></script>
+<script src="asset/AdminLTE/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 '.$systemFoot;
  require_once 'template/footer.php';
  

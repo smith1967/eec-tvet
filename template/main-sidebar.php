@@ -259,14 +259,9 @@ $menu = Array(
         'class' => 'fa fa-book',
         'cond' => true,
         'subitems' => array(
-            'demand' => array(
-                'title' => 'ความต้องการกำลังคน',
-                'url' => 'report/req_man_power',
-                'cond' => true,
-            ),
-            'supply' => array(
-                'title' => 'กำลังคนอาชีวศึกษา',
-                'url' => 'report/man_power',
+            'listReport' => array(
+                'title' => 'แสดงรายงาน',
+                'url' => 'report/list_report',
                 'cond' => true,
             ),
             'create' => array(
