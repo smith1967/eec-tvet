@@ -110,10 +110,10 @@ $(function () {
             $(element).parents(".col-sm-5").addClass("has-success").removeClass("has-error");
         },
         submitHandler: function (form) {
-            insertBusiness();
+            insert_user();
         },
     });
-    function insertBusiness() {
+    function insert_user() {
         $.ajax({
             type: "POST",
             url: "ajax/user/post_user.php",

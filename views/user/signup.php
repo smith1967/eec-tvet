@@ -72,19 +72,19 @@
                     <div class="form-group">
                         <label class="control-label col-md-3" for="email">อีเมล์</label>
                         <div class="col-md-5">
-                            <input type="email" class="form-control" id="email" name="email" placeholder="Email" value='<?php echo isset($email) ? $email : ''; ?>'>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Email" >
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-3" for="fname">ชื่อ</label>
                         <div class="col-md-5">
-                            <input type="text" class="form-control" id="fname" name="fname" placeholder="ชื่อภาษาไทย" value='<?php echo isset($fname) ? $fname : ''; ?>'>
+                            <input type="text" class="form-control" id="fname" name="fname" placeholder="ชื่อภาษาไทย" >
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-3" for="lname">นามสกุล</label>
                         <div class="col-md-5">
-                            <input type="text" class="form-control" id="lname" name="lname" placeholder="นามสกุลภาษาไทย" value='<?php echo isset($lname) ? $lname : ''; ?>'>
+                            <input type="text" class="form-control" id="lname" name="lname" placeholder="นามสกุลภาษาไทย" >
                         </div>
                     </div>
 

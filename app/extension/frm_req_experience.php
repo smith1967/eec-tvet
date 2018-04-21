@@ -40,7 +40,7 @@ $sql1="INSERT INTO `req_experience` (`business_id`, `major_id`, `level`, `amount
 
   $results1 = $db->query($sql1);
   //echo "$sql1";
- // redirect('extention/main_req_experience');
+ // redirect('extension/main_req_experience');
 }
 ?>
   <!-- Content Wrapper. Contains page content -->
@@ -48,7 +48,7 @@ $sql1="INSERT INTO `req_experience` (`business_id`, `major_id`, `level`, `amount
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        ต้องการนักศึกษาฝึกประสบการณ์/เพิ่ม
+        ความต้องการรับนักศึกษาฝึกอาชีพ(ระบบทวิภาคี)/เพิ่ม
         
       </h1>
       <ol class="breadcrumb">
@@ -190,7 +190,7 @@ echo $sql1."<br>";
 
                <div class="box-footer">
                 <button type="submit" class="btn btn-primary">บันทึก</button>
-                <a href="index.php?extention/main_req_experience">
+                <a href="index.php?extension/main_req_experience">
                 <button  class="btn btn-default pull-right">กลับหน้าหลัก</button>
               </a>
                 <input type="hidden" name="act" value="add">

@@ -68,5 +68,5 @@ $(function () {
         showInputs: false
     })
 })
-</script>
+
 

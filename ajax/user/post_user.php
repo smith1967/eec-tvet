@@ -5,14 +5,14 @@ header("Cache-Control: no-transform,public,max-age=300,s-maxage=900");
 header('Content-Type: application/json; charset=utf-8');
 check_token($_REQUEST['token']);
 $data = $_POST;
-$password = md5($salt.$data['password']);
+$password = md5($salt.trim($data['password']));
 $sql = "INSERT INTO `user`("
         . "`user_id`,"
         . " `username`,"
         . " `password`,"
         . " `fname`,"
         . " `lname`,"
-        . " `e-mail`,"
+        . " `email`,"
         . " `telephone`,"
         . " `user_type_id`,"
         . " `status`,"
@@ -45,5 +45,5 @@ if (mysqli_affected_rows($db) > 0) {
         'status' => 'fail'
     );    
 //    $error = "ไม่สามารถเพิ่มข้อมูลได้ : " . mysqli_error($db) . " : " . $sql;
-    echo json_encode($error);
+    echo json_encode($res);
 }

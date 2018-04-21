@@ -1,10 +1,9 @@
-
 $(function () {
     //  business form
     var province_code;
     var district_code;
     var subdistrict_code;
-    var action;
+    var token = '<?php echo $token ?>';
     $('#btnInsert').click(function () {
         //do stuff
         action = "insert";
@@ -48,7 +47,7 @@ $(function () {
             },
             coordinator: {
                 required: true,
-                minlength: 9
+                minlength: 3
             },
             coordinator_position: {
                 required: true,
@@ -125,7 +124,7 @@ $(function () {
 //                alert(data.message);
                 $("#show-message").html(data.message).addClass("alert alert-success").show().delay(5000).fadeOut();
                 $("#business_id").val(data.business_id);
-                table.ajax.reload();
+                table.ajax.reload(null, false);
                 $("#business-total").html(table.data().count());
             },
             error: function (err) {
@@ -143,7 +142,7 @@ $(function () {
             success: function (data) {
 //                alert(data.message);
                 $("#show-message").html(data.message).addClass("alert alert-success").show().delay(5000).fadeOut();
-                table.ajax.reload();
+                table.ajax.reload(null, false);
             },
             error: function (err) {
                 $("#show-message").html(data).addClass("alert alert-danger").show().delay(5000).fadeOut();
@@ -273,6 +272,7 @@ $(function () {
         //                alert("คุณได้เลือก :  จังหวัด : " + province + " อำเภอ : "+ amphur + "  ตำบล : " + district );
     });
 
+//    var url = "http://localhost:8080/business/";
     var url = "ajax/business/get_business.php";
     var table = $('#business_list').DataTable({
         "destroy": true,
@@ -286,7 +286,7 @@ $(function () {
         "pageLength": 10,
         "ajax": {
             "url": url,
-            "type": "POST",
+            "type": "get",
             "data": function (d) {
                 d.token = "<?php echo $token ?>"
 //                d.zone_id = $('#zone_id').val();
@@ -296,11 +296,12 @@ $(function () {
             {"data": "business_id"},
             {"data": "business_name"},
             {"data": "province_name"},
-            //                        {"data": "trainers"},               
-            //        { "data": "gender" },
-            //        { "data": "country" },
-            //        { "data": "phone" },
-            {"data": "button"},
+            {
+                "data": null,
+                "defaultContent": '<button type="button" class="btn btn-warning btn-sm btn-edit" \
+                data-toggle="modal" data-target="#formModal"><i class="fa fa-pencil"></i></button> \
+                <button type="button" class="btn btn-danger btn-sm btn-delete"><i class="fa fa-trash-o"></i></button>'
+            }
         ],
         "language": {
             "lengthMenu": "แสดง _MENU_ แถวต่อหน้า",
@@ -325,7 +326,7 @@ $(function () {
 
     var info = table.page.info();
 //    setInterval( function  () {
-//        table.ajax.reload();
+//        table.ajax.reload(null, false);
 //        $("#business-total").html(table.data().count());
 //    }, 10000);
     //    $("#business-total").html(info.recordsTotal);
@@ -368,7 +369,7 @@ $(function () {
         });
 
         });
-        table.ajax.reload();
+        table.ajax.reload(null, false);
         $("#business-total").html(table.data().count());
         // fix search box in modal can't focus
         $.fn.modal.Constructor.prototype.enforceFocus = function () { };
@@ -407,7 +408,7 @@ $(function () {
         });
 
         });
-        table.ajax.reload();
+        table.ajax.reload(null, false);
 //        $("#business-total").html(table.data().count());
         // fix search box in modal can't focus
         $.fn.modal.Constructor.prototype.enforceFocus = function () { };
@@ -433,7 +434,7 @@ $(function () {
         // get data from api
         if (!confirm('ยืนยันการลบข้อมูล'))
             return;
-        var url = './ajax/business/del_business';
+        var url = './ajax/business/del_business.php';
         var id = $(this).parent().siblings(":first").text();
         var data = {
             business_id: id,
@@ -446,7 +447,7 @@ $(function () {
                 //                console.log(data);
 
                 table.row('.active').remove().draw(false);
-                table.ajax.reload();
+                table.ajax.reload(null, false);
                 $("#message").text(data).addClass("alert alert-success").show().delay(5000).fadeOut();
                 // Display total Record
                 $("#business-total").html(table.data().count());

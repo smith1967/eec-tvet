@@ -28,7 +28,7 @@ if($act=="esave"){
   $sql1="UPDATE `new_shortcourses` SET  `course_name` = '$course_name', `course_description` = '$cd', `course_start` = '$course_start', `course_hour` = '$course_hour', `school_1_id` = '$school_1_id', `school_2_id` = '$school_2_id', `school_3_id` = '$school_3_id', `spacial_condition` = '$spacial_condition' WHERE `req_id` = '$req_id' ;";
   $results1 = $db->query($sql1);
 
-redirect('extention/main_new_shot_course');
+redirect('extension/main_new_shot_course');
   
 }
 ?>

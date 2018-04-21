@@ -43,7 +43,7 @@ $sql1="INSERT INTO `req_human_power` ( `business_id`, `major_id`, `level`, `amou
 
   $results1 = $db->query($sql1);
   //echo "$sql1";
- redirect('extention/main_req_human_power');
+ redirect('extension/main_req_human_power');
 }
 ?>
   <!-- Content Wrapper. Contains page content -->
@@ -156,7 +156,7 @@ $sql1="INSERT INTO `req_human_power` ( `business_id`, `major_id`, `level`, `amou
                 </div>
 
                  <div class="form-group">
-                  <label>ไม่ระบุเพศ จำนวน</label>                  
+                  <label>ไม่จำกัดเพศ จำนวน</label>                  
                   <select class="form-control select2"  name="amount_3">
                     <option value="">--เลือก--</option>
                     <?php 
@@ -219,7 +219,7 @@ $sql1="INSERT INTO `req_human_power` ( `business_id`, `major_id`, `level`, `amou
 
                <div class="box-footer">
                 <button type="submit" class="btn btn-primary">บันทึก</button>
-                <a href="index.php?extention/main_req_experience">
+                <a href="index.php?extension/main_req_experience">
                 <button  class="btn btn-default pull-right">กลับหน้าหลัก</button>
               </a>
                 <input type="hidden" name="act" value="add">

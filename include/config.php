@@ -55,10 +55,10 @@ define('APP_URL', SITE_URL.'app/');
 // database parameter
 $dbhost = 'localhost';
 $dbuser = 'root';
-$dbpassword = '';
-$dbname = '';
+$dbpassword = '12345678';
+$dbname = 'eec_data';
 $charset = 'utf8';
-$salt='';	//  salt password
+$salt='eec_data!';	//  salt password
 //GRANT ALL PRIVILEGES ON dve2017.* TO dvt@localhost IDENTIFIED BY 'dvt2017!';
 /*--- Database connect ---*/
 

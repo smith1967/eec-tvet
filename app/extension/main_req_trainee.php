@@ -30,7 +30,7 @@ if($act=="del"){
       <h1>
         ต้องการนักศึกษาฝึกงาน
         <small>
-          <a href="index.php?extention/frm_req_trainee">
+          <a href="index.php?extension/frm_req_trainee">
             <button class="btn btn-info">
               <i class="fa fa-plus-circle"></i>
             </button>    
@@ -134,14 +134,14 @@ if($act=="del"){
                           <td><?php echo $spacial_condition;?></td>  
                           <td>
                             <small>
-                              <a href="index.php?extention/main_req_trainee&act=del&req_id=<?php echo $req_id;?>" onclick="return confirm('ลบ?');">
+                              <a href="index.php?extension/main_req_trainee&act=del&req_id=<?php echo $req_id;?>" onclick="return confirm('ลบ?');">
                                 <button class="btn btn-sm btn-danger">
                                   <i class="fa  fa-times"></i>
                                 </button>    
                               </a>
                             </small>
                             <small>
-                              <a href="index.php?extention/edit_req_trainee&req_id=<?php echo $req_id;?>" >
+                              <a href="index.php?extension/edit_req_trainee&req_id=<?php echo $req_id;?>" >
                                 <button class="btn btn-sm btn-warning">
                                   <i class="fa  fa-pencil"></i>
                                 </button>    

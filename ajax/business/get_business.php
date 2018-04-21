@@ -68,20 +68,19 @@ if ($result) {
 //        $json_data['data'] = $data;
 //        var_dump($json_data);
 //        exit();
-    $i = 0;
-    if ($_SESSION['user']['user_type_id'] == '1') {
-        foreach ($data as $key) {
-            $data[$i]['button'] = '<a href="' . site_url('business/list') . '&action=delete&business_id=' . $data[$i]['business_id'] . '" class="btn btn-danger btn-sm delete" onclick="return confirm(\'ยืนยันการลบข้อมูล?\');">  <i class="fa fa-remove"></i></a> |
-                                            <a href="' . site_url('business/edit') . '&action=edit&business_id=' . $data[$i]['business_id'] . '" class="btn btn-warning btn-sm" ><i class="fa fa-edit">1</i></a>';
-            $i++;
-        }
-    } else {
-        foreach ($data as $key) {
-            $data[$i]['button'] = '<button type="button" class="btn btn-warning btn-sm btn-edit" data-toggle="modal" data-target="#formModal"><i class="fa fa-edit"></i></button>'
-                    . ' <button type="button" class="btn btn-danger btn-sm btn-delete"><i class="fa fa-remove"></i></button>';
-            $i++;
-        }
-    }
+//    $i = 0;
+//    if ($_SESSION['user']['user_type_id'] == '1') {
+//        foreach ($data as $key) {
+//            $data[$i]['button'] = '<button type="button" class="btn btn-warning btn-sm btn-edit" data-toggle="modal" data-target="#formModal"><i class="fa fa-pencil"></i></button>'
+//                    . ' <button type="button" class="btn btn-danger btn-sm btn-delete"><i class="fa fa-trash-o"></i></button>';
+//            $i++;
+//        }
+//    } else {
+//        foreach ($data as $key) {
+//            $data[$i]['button'] = '<button type="button" class="btn btn-warning btn-sm btn-edit" data-toggle="modal" data-target="#formModal"><i class="fa fa-edit"></i></button>';
+//            $i++;
+//        }
+//    }
     $datax = array('data' => $data);
     echo json_encode($datax, JSON_UNESCAPED_UNICODE);
 //        echo json_encode($json_data, JSON_UNESCAPED_UNICODE);

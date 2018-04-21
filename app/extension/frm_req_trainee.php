@@ -40,7 +40,7 @@ $sql1="INSERT INTO `req_trainee` (`business_id`, `major_id`, `level`, `amount`, 
 
   $results1 = $db->query($sql1);
   echo "$results1";
- // redirect('extention/main_req_trainee');
+ // redirect('extension/main_req_trainee');
 }
 ?>
   <!-- Content Wrapper. Contains page content -->
@@ -190,7 +190,7 @@ $sql1="INSERT INTO `req_trainee` (`business_id`, `major_id`, `level`, `amount`, 
 
                <div class="box-footer">
                 <button type="submit" class="btn btn-primary">บันทึก</button>
-                <a href="index.php?extention/main_req_trainee">
+                <a href="index.php?extension/main_req_trainee">
                 <button  class="btn btn-default pull-right">กลับหน้าหลัก</button>
               </a>
                 <input type="hidden" name="act" value="add">

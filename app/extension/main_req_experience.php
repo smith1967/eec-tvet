@@ -28,9 +28,9 @@ if($act=="del"){
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        ต้องการนักศึกษาฝึกประสบการณ์
+        ความต้องการรับนักศึกษาฝึกอาชีพ(ระบบทวิภาคี)
         <small>
-          <a href="index.php?extention/frm_req_experience">
+          <a href="index.php?extension/frm_req_experience">
             <button class="btn btn-info">
               <i class="fa fa-plus-circle"></i>
             </button>    
@@ -136,14 +136,14 @@ if($act=="del"){
                           <td><?php echo $spacial_condition;?></td>  
                           <td>
                             <small>
-                              <a href="index.php?extention/main_req_experience&act=del&req_id=<?php echo $req_id;?>" onclick="return confirm('ลบ?');">
+                              <a href="index.php?extension/main_req_experience&act=del&req_id=<?php echo $req_id;?>" onclick="return confirm('ลบ?');">
                                 <button class="btn btn-sm btn-danger">
                                   <i class="fa  fa-times"></i>
                                 </button>    
                               </a>
                             </small>
                             <small>
-                              <a href="index.php?extention/edit_req_experience&req_id=<?php echo $req_id;?>" >
+                              <a href="index.php?extension/edit_req_experience&req_id=<?php echo $req_id;?>" >
                                 <button class="btn btn-sm btn-warning">
                                   <i class="fa  fa-pencil"></i>
                                 </button>    

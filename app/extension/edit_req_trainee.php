@@ -41,7 +41,7 @@ if($act=="esave"){
   $sql1="UPDATE `req_trainee` SET  `major_id` = '$major_id', `level` = '$level', `amount` = '$amount', `gender` = '$gender', `spacial_condition` = '$spacial_condition', `training_semes` = '$training_semes' WHERE `req_id` = '$req_id' ;";
   $results1 = $db->query($sql1);
 
-redirect('extention/main_req_trainee');
+redirect('extension/main_req_trainee');
   
 }
 
@@ -280,7 +280,7 @@ if($results1->num_rows > 0){
 
                <div class="box-footer">
                 <button type="submit" class="btn btn-primary">บันทึก</button>
-                <a href="index.php?extention/main_req_trainee">
+                <a href="index.php?extension/main_req_trainee">
                 <button  class="btn btn-default pull-right">กลับหน้าหลัก</button>
               </a>
                 <input type="hidden" name="act" value="esave">

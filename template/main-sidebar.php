@@ -5,7 +5,7 @@
 $menu = Array(
     'home' => array(
         'title' => 'หน้าหลัก',
-        'url' => SITE_URL,
+        'url' => 'home/index',
         'class' => 'fa fa-home',
         'cond' => true,
         'subitems'=>array()
@@ -18,12 +18,12 @@ $menu = Array(
 //        'subitems' => array(
 //            'index' => array(
 ////                'title' => 'หน้าหลัก',
-////                'url' => 'app/home/index',
+////                'url' => 'home/index',
 ////                'cond' => FALSE,
 //            ),
 ////            'test' => array(
 ////                'title' => 'ทดสอบ',
-////                'url' => 'app/home/test',
+////                'url' => 'home/test',
 ////                'cond' => true,
 ////            ),
 //        ),
@@ -68,27 +68,27 @@ $menu = Array(
         'subitems' => array(
             'file-manager' => array(
                 'title' => 'จัดการไฟล์',
-                'url' => 'app/student/file-manager',
+                'url' => 'student/file-manager',
                 'cond' => is_school_staff() || is_admin(),
             ),
             'check-data' => array(
                 'title' => 'ตรวจสอบข้อมูล',
-                'url' => 'app/student/check-data',
+                'url' => 'student/check-data',
                 'cond' => is_school_staff() || is_admin(),
             ),
             'list' => array(
                 'title' => 'รายชื่อ',
-                'url' => 'app/student/list',
+                'url' => 'student/list',
                 'cond' => is_school_staff() ,
             ),
             'list-admin' => array(
                 'title' => 'รายชื่อ',
-                'url' => 'app/student/admin_list',
+                'url' => 'student/admin_list',
                 'cond' => is_admin(),
             ),            
             'list-nosent' => array(
                 'title' => 'สถานศึกษาที่ไม่ส่งข้อมูล',
-                'url' => 'app/student/list-nosent',
+                'url' => 'student/list-nosent',
                 'cond' => is_dvt_staff() || is_admin() || is_dvt_admin(),
             ),
         ),
@@ -114,86 +114,86 @@ $menu = Array(
     ),
     'business' => array(
         'title' => 'สถานประกอบการ',
-        'url' => site_url('business/index'),
+        'url' => 'business/index',
         'class' => 'fa fa-building-o',
         'cond' => true,
         'subitems' => array(),
     ),
-    'trainer' => array(
-        'title' => 'ครูฝึก',
-        'url' => '#',
-        'class' => 'fa fa-building-o',
-        'cond' => is_auth(),
-        'subitems' => array(
-            'list' => array(
-                'title' => 'รายชื่อ',
-                'cond' => is_auth(),
-                'url' => 'app/trainer/list',
-            ),
-            'insert' => array(
-                'title' => 'เพิ่มข้อมูล',
-                'url' => 'app/trainer/insert',
-                'cond' => is_auth(),
-            ),
-            'edit' => array(
-                'title' => 'แก้ไขข้อมูล',
-                'url' => 'app/trainer/edit',
-                'cond' => is_auth(),
-            ),
-        ),
-    ),
-    'training' => array(
-        'title' => 'การฝึกอาชีพ',
-        'url' => '#',
-        'class' => 'fa fa-building-o',
-        'cond' => is_auth(),
-        'subitems' => array(
-            'list' => array(
-                'title' => 'รายการ',
-                'cond' => is_auth(),
-                'url' => 'app/training/list',
-            ),
-            'insert' => array(
-                'title' => 'เพิ่มข้อมูล',
-                'url' => 'app/training/insert',
-                'cond' => is_school_staff(),
-            ),
-            'insert-group' => array(
-                'title' => 'เพิ่มข้อมูลแบบกลุ่ม',
-                'url' => 'app/training/insert_group',
-                'cond' => is_school_staff(),
-            ),
-            
-            'edit' => array(
-                'title' => 'แก้ไขข้อมูล',
-                'url' => 'app/training/edit',
-                'cond' => is_auth(),
-            ),
-        ),
-    ),
-    'mou' => array(
-        'title' => 'MOU',
-        'url' => '#',
-        'class' => 'fa fa-building-o',
-        'cond' => is_auth(),
-        'subitems' => array(
-            'list' => array(
-                'title' => 'รายชื่อ',
-                'cond' => is_auth(),
-                'url' => 'app/mou/list',
-            ),
-            'insert' => array(
-                'title' => 'เพิ่มข้อมูล',
-                'url' => 'app/mou/insert',
-                'cond' => is_auth(),
-            ),
-            'edit' => array(
-                'title' => 'แก้ไขข้อมูล',
-                'url' => 'app/mou/edit',
-                'cond' => is_auth(),
-            ),
-        ),
-    ),
+//    'trainer' => array(
+//        'title' => 'ครูฝึก',
+//        'url' => '#',
+//        'class' => 'fa fa-building-o',
+//        'cond' => is_auth(),
+//        'subitems' => array(
+//            'list' => array(
+//                'title' => 'รายชื่อ',
+//                'cond' => is_auth(),
+//                'url' => 'trainer/list',
+//            ),
+//            'insert' => array(
+//                'title' => 'เพิ่มข้อมูล',
+//                'url' => 'trainer/insert',
+//                'cond' => is_auth(),
+//            ),
+//            'edit' => array(
+//                'title' => 'แก้ไขข้อมูล',
+//                'url' => 'trainer/edit',
+//                'cond' => is_auth(),
+//            ),
+//        ),
+//    ),
+//    'training' => array(
+//        'title' => 'การฝึกอาชีพ',
+//        'url' => '#',
+//        'class' => 'fa fa-building-o',
+//        'cond' => is_auth(),
+//        'subitems' => array(
+//            'list' => array(
+//                'title' => 'รายการ',
+//                'cond' => is_auth(),
+//                'url' => 'training/list',
+//            ),
+//            'insert' => array(
+//                'title' => 'เพิ่มข้อมูล',
+//                'url' => 'training/insert',
+//                'cond' => is_school_staff(),
+//            ),
+//            'insert-group' => array(
+//                'title' => 'เพิ่มข้อมูลแบบกลุ่ม',
+//                'url' => 'training/insert_group',
+//                'cond' => is_school_staff(),
+//            ),
+//            
+//            'edit' => array(
+//                'title' => 'แก้ไขข้อมูล',
+//                'url' => 'training/edit',
+//                'cond' => is_auth(),
+//            ),
+//        ),
+//    ),
+//    'mou' => array(
+//        'title' => 'MOU',
+//        'url' => '#',
+//        'class' => 'fa fa-building-o',
+//        'cond' => is_auth(),
+//        'subitems' => array(
+//            'list' => array(
+//                'title' => 'รายชื่อ',
+//                'cond' => is_auth(),
+//                'url' => 'mou/list',
+//            ),
+//            'insert' => array(
+//                'title' => 'เพิ่มข้อมูล',
+//                'url' => 'mou/insert',
+//                'cond' => is_auth(),
+//            ),
+//            'edit' => array(
+//                'title' => 'แก้ไขข้อมูล',
+//                'url' => 'mou/edit',
+//                'cond' => is_auth(),
+//            ),
+//        ),
+//    ),
 //    'school_type' => array(
 //        'title' => 'ประเภทสถานศึกษา',
 //        'url' => '#',
@@ -203,28 +203,28 @@ $menu = Array(
 //            'index' => array(
 //                'title' => 'จัดการข้อมูล',
 //                'cond' => true,
-//                'url' => 'app/school_type/index',
+//                'url' => 'school_type/index',
 //            ),
 //        ),
 //    ),
-    'pages' => array(
-        'title' => 'ข่าวสาร',
-        'url' => '#',
-        'class' => 'fa fa-book',
-        'cond' => is_admin(),
-        'subitems' => array(
-            'list' => array(
-                'title' => 'จัดการข่าวสาร',
-                'cond' => true,
-                'url' => 'app/pages/list',
-            ),
-            'insert' => array(
-                'title' => 'เพิ่มข่าวสาร',
-                'cond' => true,
-                'url' => 'app/pages/insert',
-            ),
-        ),
-    ),
+//    'pages' => array(
+//        'title' => 'ข่าวสาร',
+//        'url' => '#',
+//        'class' => 'fa fa-book',
+//        'cond' => is_admin(),
+//        'subitems' => array(
+//            'list' => array(
+//                'title' => 'จัดการข่าวสาร',
+//                'cond' => true,
+//                'url' => 'pages/list',
+//            ),
+//            'insert' => array(
+//                'title' => 'เพิ่มข่าวสาร',
+//                'cond' => true,
+//                'url' => 'pages/insert',
+//            ),
+//        ),
+//    ),
     'admin' => array(
         'title' => 'ผู้ดูแลระบบ',
         'url' => '#',
@@ -232,30 +232,30 @@ $menu = Array(
         'cond' => is_admin(),
         'subitems' => array(
             'list-user' => array(
-                'title' => 'รายชื่อ',
+                'title' => 'ข้อมูลผู้ใช้งาน',
                 'cond' => is_admin(),
-                'url' => 'app/admin/list-user',
+                'url' => 'admin/user',
             ),
 //            'insert' => array(
 //                'title' => 'เพิ่มข้อมูล',
-//                'url' => 'app/admin/insert-user',
+//                'url' => 'admin/insert-user',
 //                'cond' => is_auth(),
 //            ),
-            'edit-user' => array(
-                'title' => 'แก้ไขข้อมูลผู้ใช้',
-                'url' => 'app/admin/edit-user',
-                'cond' => is_admin(),
-            ),
-            'edit-school-type' => array(
-                'title' => 'แก้ไขข้อมูลประเภทสถานศึกษา',
-                'cond' => true,
-                'url' => 'app/school_type/edit',
-            ),
+//            'edit-user' => array(
+//                'title' => 'แก้ไขข้อมูลผู้ใช้',
+//                'url' => 'admin/edit-user',
+//                'cond' => is_admin(),
+//            ),
+//            'edit-school-type' => array(
+//                'title' => 'แก้ไขข้อมูลประเภทสถานศึกษา',
+//                'cond' => true,
+//                'url' => 'school_type/edit',
+//            ),
         ),
     ),
     'report' => array(
         'title' => 'รายงาน',
-        'url' => '#',
+        'url' => 'report/index',
         'class' => 'fa fa-book',
         'cond' => true,
         'subitems' => array(
@@ -287,6 +287,11 @@ $menu = Array(
                 'url' => 'user/signup',
                 'cond' => !is_auth(),
             ),
+            'upload' => array(
+                'title' => 'อัพโหลดรูปภาพ',
+                'url' => 'user/upload',
+                'cond' => is_auth(),
+            ),
             'edit' => array(
                 'title' => 'แก้ไขข้อมูล',
                 'url' => 'user/edit',
@@ -313,11 +318,7 @@ $menu = Array(
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-                <?php if(is_auth()) : ?>
-              <img src="upload/user-images/noImage.png" class="user-image" alt="User Image">
-                <?php else: ?>
-              <img src="upload/user-images/noImage1.png" class="user-image" alt="User Image">              
-              <?php endif; ?>
+              <img src="<?php echo $image_url?>" class="user-image" alt="User Image">             
             </div>
             <div class="pull-left info">
                 <p><?php echo $_SESSION['user']['fname']; ?></p>
@@ -329,7 +330,7 @@ $menu = Array(
             </div>
         </div>
         <!-- search form -->
-        <form action="#" method="get" class="sidebar-form">
+<!--        <form action="#" method="get" class="sidebar-form">
             <div class="input-group">
                 <input type="text" name="q" class="form-control" placeholder="Search...">
                 <span class="input-group-btn">
@@ -337,7 +338,7 @@ $menu = Array(
                     </button>
                 </span>
             </div>
-        </form>
+        </form>-->
         <!-- /.search form -->
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <?php

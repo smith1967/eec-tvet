@@ -52,7 +52,7 @@ if($act=="esave"){
 $sql1="INSERT INTO `req_human_power` ( `business_id`, `major_id`, `level`, `amount`, `gender`, `org_date`, `req_date`, `change_req`, `req_start`, `req_end`, `age_start`, `age_end`, `spacial_condition`) VALUES ('$business_id', '$major_id', '$level', '$amount', '$gender', '$req_date_old', NOW(), '$amount_now', '$req_start', '$req_end', '$age_start', '$age_end', '$spacial_condition');";
   $results1 = $db->query($sql1);
 
-redirect('extention/main_req_human_power');
+redirect('extension/main_req_human_power');
   
 }
 
@@ -337,7 +337,7 @@ if($results1->num_rows > 0){
 
                <div class="box-footer">
                 <button type="submit" class="btn btn-primary">บันทึก</button>
-                <a href="index.php?extention/main_req_trainee">
+                <a href="index.php?extension/main_req_trainee">
                 <button  class="btn btn-default pull-right">กลับหน้าหลัก</button>
               </a>
                 <input type="hidden" name="act" value="esave">

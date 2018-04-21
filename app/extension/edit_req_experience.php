@@ -43,7 +43,7 @@ if($act=="esave"){
   $sql1="UPDATE `req_experience` SET  `major_id` = '$major_id', `level` = '$level', `amount` = '$amount', `gender` = '$gender', `spacial_condition` = '$spacial_condition', `training_start` = '$training_start_date' , `training_end` = '$training_end_date' WHERE `req_id` = '$req_id' ;";
   $results1 = $db->query($sql1);
 
-redirect('extention/main_req_experience');
+redirect('extension/main_req_experience');
   
 }
 
@@ -53,7 +53,7 @@ redirect('extention/main_req_experience');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        ต้องการนักศึกษาฝึกประสบการณ์/แก้ไข      
+        ความต้องการรับนักศึกษาฝึกอาชีพ(ระบบทวิภาคี)/แก้ไข      
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -280,7 +280,7 @@ if($results1->num_rows > 0){
 
                <div class="box-footer">
                 <button type="submit" class="btn btn-primary">บันทึก</button>
-                <a href="index.php?extention/main_req_trainee">
+                <a href="index.php?extension/main_req_trainee">
                 <button  class="btn btn-default pull-right">กลับหน้าหลัก</button>
               </a>
                 <input type="hidden" name="act" value="esave">
