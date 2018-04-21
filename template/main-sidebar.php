@@ -271,7 +271,12 @@ $menu = Array(
             ),
             'create' => array(
                 'title' => 'สร้างรายงาน',
-                'url' => 'report/index',
+                'url' => 'report/detail_report',
+                'cond' => true,
+            ),
+            'widget' => array(
+                'title' => 'วิจิท',
+                'url' => 'report/list_widget',
                 'cond' => true,
             ),
         ),

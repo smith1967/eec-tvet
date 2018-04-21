@@ -2,9 +2,11 @@
         	function genInput($data,$labelW=2,$inputW=10){
         		$ret='';
         		global $systemFoot;
-        		
+				$attr='';
+				$checked='';
+				$value='';
         		foreach($data as $k=>$row){
-        			if(count($row['attr'])){
+        			if(isset($row['attr']))if(count($row['attr'])){
         			$attr='';
         			foreach($row['attr'] as $a=>$c){
         				$attr.=$a."='".$c."'";
@@ -103,7 +105,7 @@ editor".$k.".setOption(\"theme\", \"midnight\");
         	
 function genForm($data){
         		global $systemFoot;
-        		if(count($data['attr'])){
+        		if(isset($data['attr']))if(count($data['attr'])){
         			$attr='';
         			foreach($data['attr'] as $k=>$v){
         				$attr.=$k."='".$v."'";
