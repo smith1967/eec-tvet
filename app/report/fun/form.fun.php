@@ -2,9 +2,13 @@
         	function genInput($data,$labelW=2,$inputW=10){
         		$ret='';
         		global $systemFoot;
-        		
+				$attr='';
+				$checked='';
+				$value='';
+				$tab_pane=0;
         		foreach($data as $k=>$row){
-        			if(count($row['attr'])){
+					if($row['type']=='tab-pane')$tab_pane++;
+        			if(isset($row['attr']))if(count($row['attr'])){
         			$attr='';
         			foreach($row['attr'] as $a=>$c){
         				$attr.=$a."='".$c."'";
@@ -26,8 +30,8 @@
         		static $sourceHL=false;
         			if($row['type']=='wysiwyg'){
         				if(!$wysiInit){
-        					$systemFoot.='<script src="'.site_url('system/library/ext/ckeditor/ckeditor.js',true).'"></script>';
-        					//$systemFoot.="<script src='".site_url('asset/AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js',true)."'></script>";
+        					$systemFoot.='<script src="'.site_url('app/report/ckeditor/ckeditor.js',true).'"></script>';
+        					$systemFoot.="<script src='".site_url('asset/AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js',true)."'></script>";
       						$wysiInit=true;
         			}
         				$ret.="<textarea id='".$k."' name='".$k."' ".$attr.">".$row['value']."</textarea>";
@@ -103,7 +107,7 @@ editor".$k.".setOption(\"theme\", \"midnight\");
         	
 function genForm($data){
         		global $systemFoot;
-        		if(count($data['attr'])){
+        		if(isset($data['attr']))if(count($data['attr'])){
         			$attr='';
         			foreach($data['attr'] as $k=>$v){
         				$attr.=$k."='".$v."'";
@@ -161,7 +165,12 @@ $inputNo=0;
 });
 </script>
 ';
-        		} 
+				} 
+				
+				if($tab_pane>0){
+					$ret=$tab_paneHead.$ret;
+				}
+
         		return $ret;
         	}
         	

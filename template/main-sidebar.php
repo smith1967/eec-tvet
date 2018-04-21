@@ -259,6 +259,21 @@ $menu = Array(
         'class' => 'fa fa-book',
         'cond' => true,
         'subitems' => array(
+            'listReport' => array(
+                'title' => 'แสดงรายงาน',
+                'url' => 'report/list_report',
+                'cond' => true,
+            ),
+            'create' => array(
+                'title' => 'สร้างรายงาน',
+                'url' => 'report/detail_report',
+                'cond' => true,
+            ),
+            'widget' => array(
+                'title' => 'วิจิท',
+                'url' => 'report/list_widget',
+                'cond' => true,
+            ),
         ),
     ),
     'user' => array(
