@@ -18,7 +18,7 @@ if(isset($_GET['id'])){
     //$report_data=$report_data[0];
     $actionPage.="&id=".$_GET['id'];
 }
-$content.='<div class="col-md-9">
+$xcontent.='<div class="col-md-9">
 <div class="nav-tabs-custom">
 <ul class="nav nav-tabs">
 <li class="active"><a href="#report_name" data-toggle="tab">ชื่อรายงาน</a></li>
@@ -42,6 +42,20 @@ a
 </div>';
 //$systemFoot.='<script src="'.site_url("asset/AdminLTE/bower_components/fastclick/lib/fastclick.js",true).'"></script>';
 $formItem=array(
+"report_query"=>array(
+        "id"=>"report_query",
+        "label"=>"คำร้องขอรายงาน",
+        "type"=>"tab-pane",
+        "class"=>"active"
+        ),
+"query"=>array(
+    "id"=>"query",
+    "label"=>"คำร้อง",
+    "type"=>"sourceHL",
+    "value"=>$report['query'],
+"width"=>"50",
+
+),
     "report_nametab"=>array(
         "id"=>"report_nametab",
         "label"=>"ชื่อรายงาน",
@@ -67,19 +81,20 @@ $formItem=array(
       "width"=>"50",
       
                 ),
-    "report_query"=>array(
-                    "id"=>"report_query",
-                    "label"=>"คำร้องขอรายงาน",
-                    "type"=>"tab-pane"
+    "table_header"=>array(
+                    "id"=>"table_header",
+                    "label"=>"คำร้องส่วนหัวของตาราง",
+                    "type"=>"tab-pane",
                     ),
-      "query"=>array(
-                "id"=>"query",
-                "label"=>"คำร้อง",
+      "table_head"=>array(
+                "id"=>"table_head",
+                "label"=>"หัวตาราง",
                 "type"=>"sourceHL",
-                "value"=>$report['query'],
+                "value"=>$report['table_head'],
           "width"=>"50",
           
       ),
+      
       "submitBT"=>array(
 		"type"=>"submit",
 		"value"=>"บันทึกรายงาน",
@@ -102,4 +117,3 @@ print sFooter();
 
 
 ?>
-
