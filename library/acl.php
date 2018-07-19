@@ -46,6 +46,9 @@ class acl {
     function is_staff_school($url){
         $url_list = array(
             'user/edit',
+            'student/check-data',
+            'student/file-manager',
+            'student/list-student',
             );
         $this->allowed = in_array($url, $url_list);
     }
